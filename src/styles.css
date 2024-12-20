@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "syne";
+  src: url("assets/fonts/Syne-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "finlandica";
+  src: url("assets/fonts/Finlandica-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "vazir";
+  src: url("assets/fonts/Vazirmatn-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /*Colores*/
+  --logo: #9662d9;
+  --fondo: #e1cbff;
+  --bordesClaros: #cda9ff;
+  --masclaro: #f0e5ff;
+  --fondoCajones: #f6f0ff;
+
+}
