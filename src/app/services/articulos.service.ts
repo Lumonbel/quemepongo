@@ -10,6 +10,8 @@ import { Transaccion } from '../models/transaccion-dto';
 export class ArticulosService {
   private apiUrl = 'http://localhost:8888/api/articulos';
   private apiUrlT = 'http://localhost:8888/api/transacciones';
+  private apiUrlU = 'http://localhost:8888/api/usuarios';
+
 
   constructor(private http: HttpClient) {}
 
@@ -32,4 +34,8 @@ export class ArticulosService {
   findAllT(): Observable<Transaccion[]> {
     return this.http.get<Transaccion[]>(this.apiUrlT);
   }
+
+  // findAllU(): Observable<UsuarioDTO[]> {
+  //   return this.http.get<UsuarioDTO[]>(this.apiUrl);
+  // }
 }
