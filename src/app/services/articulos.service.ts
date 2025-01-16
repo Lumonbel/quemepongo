@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticuloDTO } from '../models/articulo-dto';
+import { Transaccion } from '../models/transaccion-dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticulosService {
   private apiUrl = 'http://localhost:8888/api/articulos';
+  private apiUrlT = 'http://localhost:8888/api/transacciones';
 
   constructor(private http: HttpClient) {}
 
@@ -25,5 +27,9 @@ export class ArticulosService {
 
   deleteArticulo(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  findAllT(): Observable<Transaccion[]> {
+    return this.http.get<Transaccion[]>(this.apiUrlT);
   }
 }
