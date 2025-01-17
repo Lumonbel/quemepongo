@@ -1,1 +1,32 @@
-<p>componenteprueba works!</p>
+<div>
+  <h1>Lista de Artículos</h1>
+ <ul>
+    <li *ngFor="let articulo of articulos">
+      <h3>{{ articulo.tipo }} - {{ articulo.color }}</h3>
+      <p>{{ articulo.descripcion }}</p>
+      <p>Marca: {{ articulo.marca }}</p>
+      <p>Estado: {{ articulo.estado }}</p>
+    </li>
+  </ul>
+  <ul>
+    <hr>
+    <h1>Transacciones</h1>
+    <li *ngFor="let t of ts">
+         <p>Id: {{ t.id }}</p>
+      <p>Estado: {{ t.estado }}</p>
+      <p>Envio:{{t.envio.ciudad}}</p>
+    </li>
+  </ul>
+
+  <ul>
+    <hr>
+    <h1>USUARIOS</h1>
+    <li *ngFor="let u of usuarios">
+         <p>Id: {{ u.id }}</p>
+      <p>Nombre: {{ u.nombre }}</p>
+      <p>Apellidos: {{ u.apellidos }}</p> 
+     
+    </li>
+  </ul>
+  
+</div>

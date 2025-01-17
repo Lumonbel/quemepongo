@@ -1,0 +1,16 @@
+.custom-footer {
+            background-color: #e8dcfc; /* Color lila claro */
+            color: #5f2db6; /* Texto color púrpura */
+            padding: 10px 0;
+            text-align: center;
+            font-size: 16px;
+            font-family:"syne";
+            font-weight: 500;
+        }
+        .custom-footer a {
+            color: #5f2db6;
+            text-decoration: none;
+        }
+        .custom-footer a:hover {
+            text-decoration: underline;
+        }
