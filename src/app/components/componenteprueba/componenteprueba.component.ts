@@ -5,6 +5,7 @@ import { ArticulosService } from '../../services/articulos.service';
 import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Transaccion } from '../../models/transaccion-dto';
+import { UsuarioDTO } from '../../models/usuario-dto';
 
 @Component({
   selector: 'app-componenteprueba',
@@ -37,6 +38,7 @@ export class ComponentepruebaComponent {
   };
 
   ts: Transaccion[] = [];
+  usuarios: UsuarioDTO[] = [];
  
 
   constructor(private articuloService: ArticulosService) {}
@@ -44,6 +46,7 @@ export class ComponentepruebaComponent {
   ngOnInit(): void {
     this.cargarArticulos();
         this.cargarT();
+        this.cargarUsuarios();
 
 
   }
@@ -59,6 +62,13 @@ export class ComponentepruebaComponent {
     this.articuloService.findAllT().subscribe((data) => {
       this.ts = data;
       console.log(this.ts);
+    });
+  }
+
+  cargarUsuarios(): void {
+    this.articuloService.findAllU().subscribe((data) => {
+    this.usuarios = data;
+      console.log(this.usuarios);
     });
   }
 }

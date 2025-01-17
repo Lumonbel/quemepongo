@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.left-section {
+    background: url('../assets/images/image 1.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-form {
+    max-width: 400px;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h1 {
+    font-size: 24px;
+    color: #6f42c1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form a {
+    color: #6f42c1;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}
