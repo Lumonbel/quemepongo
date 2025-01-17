@@ -5,10 +5,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { VerprendaComponent } from "./components/verprenda/verprenda.component";
 import { ComponentepruebaComponent } from "./components/componenteprueba/componenteprueba.component";
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { IndexComponent } from './components/index/index.component';
 
 @Component({
   selector: 'app-root',
-  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent],
+  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent, IndexComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
