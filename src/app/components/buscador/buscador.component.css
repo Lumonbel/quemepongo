@@ -1,0 +1,16 @@
+.search-bar::placeholder {
+    padding: 0.5rem;
+    color: #9662D9;
+    font-size: 1.2rem;
+}
+
+.search-bar {
+    width: 15%;
+    padding: 0.5rem;
+    border-color: #9662D9;
+    font-size: 1.2rem;
+}
+
+.input-group-text.search-bar {
+    width: 40px;
+}
