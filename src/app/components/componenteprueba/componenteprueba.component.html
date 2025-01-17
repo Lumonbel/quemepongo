@@ -17,4 +17,16 @@
       <p>Envio:{{t.envio.ciudad}}</p>
     </li>
   </ul>
+
+  <ul>
+    <hr>
+    <h1>USUARIOS</h1>
+    <li *ngFor="let u of usuarios">
+         <p>Id: {{ u.id }}</p>
+      <p>Nombre: {{ u.nombre }}</p>
+      <p>Apellidos: {{ u.apellidos }}</p> 
+     
+    </li>
+  </ul>
+  
 </div>

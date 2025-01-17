@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticuloDTO } from '../models/articulo-dto';
 import { Transaccion } from '../models/transaccion-dto';
+import { UsuarioDTO } from '../models/usuario-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,7 @@ export class ArticulosService {
     return this.http.get<Transaccion[]>(this.apiUrlT);
   }
 
-  // findAllU(): Observable<UsuarioDTO[]> {
-  //   return this.http.get<UsuarioDTO[]>(this.apiUrl);
-  // }
+   findAllU(): Observable<UsuarioDTO[]> {
+    return this.http.get<UsuarioDTO[]>(this.apiUrlU);
+  }
 }
