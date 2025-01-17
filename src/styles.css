@@ -28,11 +28,11 @@
 :root {
   /*Colores*/
   --logo: #9662d9;
-  --fondo: #e1cbff;
+  --fondo: rgb(225, 203, 255);
   --bordesClaros: #cda9ff;
   --masclaro: #f0e5ff;
   --fondoCajones: #f6f0ff;
-
+  --fondoBorde: #e1cbff40; 
 }
 
 
