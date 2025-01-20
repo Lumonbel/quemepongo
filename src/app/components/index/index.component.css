@@ -1,0 +1,54 @@
+.contenedorVertical {
+    background: url('../../../assets/images/priscilla-du-preez-dlxLGIy-2VU-unsplash\ 1.png') no-repeat left center;
+    background-size: 100% 100%;
+    object-fit: cover;
+}
+
+.contenedorArriba {
+    background: url('../../../assets/images/alexandra-gorn-WF0LSThlRmw-unsplash.png') no-repeat center center;
+    background-size: 100% 100%;
+    object-fit: cover;
+    width: 720px;
+    height: 458px;
+}
+
+.contenedorAbajo {
+    background: url('../../../assets/images/image.png')no-repeat center center;
+    background-size: 100% 100%;
+    object-fit: cover;
+    width: 720px;
+    height: 458px;
+
+}
+
+.textoIndex {
+    font-family: 'syne';
+    font-size: 4em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+    
+   
+  
+}
+
+.telilla {
+    background-color: var(--fondo);
+    opacity: 0.25;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+    z-index: -1;
+}

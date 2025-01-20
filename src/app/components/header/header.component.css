@@ -13,13 +13,19 @@
   font-size: 1.2rem;
 }
 
-.navbar-brand {
-  background: url('../assets/images/logoQMP.png') no-repeat center center;
+/* .navbar-brand {
+  background: url('assets/images/logo.svg') no-repeat center center;
   background-size: 100% 100%;
   width: 20%;
   height: 4vh;
-}
+} */
 
 .navbar-toggler {
   color: white;
+}
+
+#logo{
+  display: block;
+  width: 100%; /* or a specific width */
+  height: 100%;
 }
