@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -35,22 +35,37 @@
   --fondoBorde: #e1cbff40;
 }
 
-
-body{
+body {
   display: grid;
-  grid-template-rows: auto auto  auto;
+  grid-template-rows: auto auto auto;
 }
-    .inputForm{
-        align-self: flex-start;
-        margin-left: 2em;
-        input{
-            width: 366px;
-            height: 48px;
-            border: 2px solid var(--logo);
-        }
-        input:focus{
-            outline: none;
-            box-shadow: none;
-            border: 2px solid var(--fondo) ;
-        }
-      }
+.inputForm {
+  align-self: flex-start;
+  margin-left: 2em;
+  input {
+    width: 366px;
+    height: 48px;
+    border: 2px solid var(--logo);
+  }
+  input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+  }
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
+
+form{
+  input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
+}

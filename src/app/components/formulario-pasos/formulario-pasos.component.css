@@ -68,6 +68,14 @@ form {
   font-size: 18px;
   color: black;
   padding: 1em;
+  display: flex;
+
+  input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
 }
 
 .p-button{
@@ -75,14 +83,9 @@ form {
   font-size: 18px;
   font-weight: 600;
   color:white !important;
-  width: 307px;
+  width: 250px;
   height: 45px;
   background-color: var(--logo) !important;
-  position: relative;
-  left: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 main
@@ -92,4 +95,14 @@ main
   flex-direction: column;
   justify-content: center;
   gap: 2em;
+}
+
+.p-step:has(~ .p-step-active) .p-stepper-separator
+{
+  background: var(--logo);
+}
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
 }
