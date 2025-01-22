@@ -1,28 +1,36 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Chip } from 'primeng/chip';
+import { Select } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
+
+interface Prenda {
+  ropa: string;
+}
 
 @Component({
   selector: 'app-verprenda',
+  imports: [Chip, Select, FormsModule],
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './verprenda.component.html',
-  styleUrl: './verprenda.component.css',
+  styleUrl: './verprenda.component.css'
 })
 export class VerprendaComponent {
-  filtros: string[] = [
-    'Vestidos',
-    'Blusas',
-    'Pantalones',
-    'Faldas',
-    'Zapatos',
-    'Accesorios',
-  ];
-  productos = [
-    { nombre: 'Vestido Azul', imagen: 'assets/vestido-azul.jpg' },
-    { nombre: 'Blusa Blanca', imagen: 'assets/blusa-blanca.jpg' },
-    { nombre: 'Camiseta Roja', imagen: 'assets/camiseta-roja.jpg' },
-    { nombre: 'Camisa Casual', imagen: 'assets/camisa-casual.jpg' },
-    { nombre: 'Zapatos Beige', imagen: 'assets/zapatos-beige.jpg' },
-    { nombre: 'Sudadera Amarilla', imagen: 'assets/sudadera-amarilla.jpg' },
-  ];
+  prendasSel: Prenda[] | undefined;
+
+  prendaSeleccionada: Prenda | undefined;
+  
+  ngOnInit() {
+    this.prendasSel = [
+      { ropa: 'Ropa' },
+      { ropa: 'Zapatos' },
+      { ropa: 'Complementos' },
+    ];
+  }
+
+
+
+  onPrendaChange(event: any) {
+    this.prendaSeleccionada = event.value;
+    console.log(this.prendaSeleccionada);
+  }    
 }

@@ -69,3 +69,31 @@ form{
 }
 
 }
+
+
+.p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+  background: var(--logo) !important;
+  color: white !important;
+}
+.p-select-option {
+  transition: background 0.7s ease, color 0.3s ease !important;
+}
+
+.p-select:not(.p-disabled).p-focus {
+  border-color: var(--logo) !important;
+}
+
+.p-select-option.p-select-option-selected {
+  background: rgba(150, 98, 217, 0.5) !important; /* Ajusta el valor de transparencia (0.5) según sea necesario */  
+  color: white !important;
+}
+.p-select:not(.p-disabled):hover {
+  border-color: rgba(150, 98, 217, 0.5) !important;
+}
+
+.p-select-dropdown {
+  color: black !important;
+}
+.p-select::placeholder{
+  color:black !important;
+}

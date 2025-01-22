@@ -1,103 +1,55 @@
-h2 {
-  font-family: "vazir";
-  font-weight: 400;
-  margin: 2em;
-  font-weight: bold;
+div {
+    margin: 2em;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.filter{
-  display: flex;
-gap: 1em;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1em;
-  margin: 1em;
-
-
-}
-.filter-bar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  align-items: center;
+.container{
+    display: flex;
+    align-items: center;
 }
 
-.filter-bar button {
-  border: 3px solid var(--logo);
-  border-radius: 20px;
-  cursor: pointer;
-  font-family: "syne";
-  font-weight: 400;
-  text-align: center;
-  min-width: 100px;
-  padding: 0.5em;
-  background: white;
-  font-size: 1em;
-  color: var(--logo);
+p-select {
+    width: 216px;
+    height: 40px;
+    border: var(--logo) 3px solid;
+    border-radius: 5px;
 }
 
-.filter-bar button:hover {
-  background-color: var(--fondo);
-  border: none;
-  font-weight: 400;
+p-label{
+    text-align: center;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 4em;
+p-chip {
+    background-color: white;
+    border: 3px solid var(--logo);
+    display: flex;
+    justify-content: center;
+    color: var(--logo);
+    font-size: 1em;
+    font-weight: bold;
+    width: 95px;
+    height: 40px;
+    min-width: 100px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 20px;
 }
 
-.card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  text-align: center;
+p-chip.selected {
+    background-color: var(--logo);
+    color: white;
 }
 
-.card img {
-  width: 100%;
-  height: auto;
-  display: block;
+.contenedor-ropa{
+    display: flex;
+    gap: 1em;
 }
 
-.card button {
-  background-color: #9b7ede;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-  font-size: 16px;
+.contenedor-zapatos{
+    display: flex;
+    gap: 1em;
 }
 
-.card button:hover {
-  background-color: #7a60c9;
-}
-
-.vertical{
-  height: 566px;
-  width: 213px;
-}
-
-.cuadrada{
-  height: 213px;
-  width: 213px;
-  margin: 1em;
-
-}
-
-.cuadros{
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 1em;
-  align-self: start;
+.contenedor-complementos{
+    display: flex;
+    gap: 1em;
 }

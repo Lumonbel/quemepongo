@@ -1,56 +1,31 @@
-<h2>Prendas en venta</h2>
-
 <div class="container">
-  <div class="filter">
-    <select name="" id="">
-      <option value="">Seleccionar articulo</option>
-      <option value="">Ropa</option>
-      <option value="">Zapatos</option>
-      <option value="">Complementos</option>
-    </select>
-    <div class="filter-bar">
-      <button>Vestidos</button>
-      <button>Camisas</button>
-      <button>Accesorios</button>
-      <button>Faldas</button>
-      <button>Pantalones</button>
-      <button>Conjuntos</button>
-      <button>Zapatos</button>
+    <div class=" flex justify-center">
+        <p-select [options]="prendasSel" [(ngModel)]="prendaSeleccionada" optionLabel="ropa"
+          placeholder="Seleccionar artículo" class="w-full md:w-56" 
+          (onClick)="onPrendaChange($event)" />
     </div>
-  </div>
+    <div class=" flex items-center gap-2 flex-wrap">
+        <div id="ropa" class="contenedor-ropa">
+            <p-chip label="Pantalón" />
+            <p-chip label="Camisa" />
+            <p-chip label="Chaqueta" />
+            <p-chip label="Sudadera" /> <!-- [removable]="true"-->
+            <p-chip label="Falda" />
+            <p-chip label="Jersey" />
+            <p-chip label="Vestido" />
+            <p-chip label="Baño" />
+        </div>
 
-  <div class="grid">
-    <div class="card vertical">
-      <img src="" alt="Vestido 1" />
-      <button>Más información</button>
-    </div>
+        <div id="zapatos" class="contenedor-zapatos">
+            
+        </div>
 
-    <div class="contenedorcuadros">
-   <div class="cuadros">
-        <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
-        </div>
-     <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
+        <div id="complementos" class="contenedor-complementos">
+            <p-chip label="Cinturones" />
+            <p-chip label="Corbatas" />
+            <p-chip label="Gorra" />
+            <p-chip label="Bufanda" />
+            <p-chip label="Guantes" />
         </div>
     </div>
- <div class="cuadros">
-        <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
-        </div>
-     <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
-        </div>
-    </div>
-    </div>
-
-    <div class="card vertical">
-      <img src="" alt="Zapatos 2" />
-      <button>Más información</button>
-    </div>
-  </div>
 </div>
