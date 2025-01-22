@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -32,11 +32,40 @@
   --bordesClaros: #cda9ff;
   --masclaro: #f0e5ff;
   --fondoCajones: #f6f0ff;
-  --fondoBorde: #e1cbff40; 
+  --fondoBorde: #e1cbff40;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+.inputForm {
+  align-self: flex-start;
+  margin-left: 2em;
+  input {
+    width: 366px;
+    height: 48px;
+    border: 2px solid var(--logo);
+  }
+  input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+  }
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
 }
 
 
-body{
-  display: grid;
-  grid-template-rows: auto auto  auto; 
+form{
+  input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
 }

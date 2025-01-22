@@ -1,0 +1,108 @@
+h1 {
+  font-family: "syne";
+  font-size: 40px;
+  text-align: center;
+}
+
+p-step-number {
+  font-family: "syne";
+  font-size: 20px;
+  background-color: var(--logo) !important;
+  font-size: 24px;
+  color: white;
+  font-family: "syne";
+}
+
+.p-step-title {
+  font-family: "syne";
+  font-size: 20px;
+  font-weight: 600;
+}
+
+form {
+  font-family: "syne";
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 1em;
+}
+
+.p-step-header {
+  font-family: "syne";
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  .p-step-number {
+    font-family: "syne";
+    font-size: 24px;
+    background-color: var(--logo) !important;
+    color: white !important;
+    border: 2px solid var(--logo);
+    border-radius: 50%;
+
+
+  }
+
+  .p-step-title {
+    font-family: "syne";
+    font-size: 18px;
+    font-weight: 600;
+    color: black !important ;
+    text-align: center;
+  }
+
+
+}
+ .p-step-active .p-stepper-separator{
+  background: var(--logo) !important;
+
+}
+
+ .p-step-active .p-step-number{
+      border: 2px solid transparent !important;
+
+}
+
+.pasosForm{
+  font-family: "finlandica";
+  font-size: 18px;
+  color: black;
+  padding: 1em;
+  display: flex;
+
+  input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
+}
+
+.p-button{
+  font-family: "syne";
+  font-size: 18px;
+  font-weight: 600;
+  color:white !important;
+  width: 250px;
+  height: 45px;
+  background-color: var(--logo) !important;
+}
+
+main
+{
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+}
+
+.p-step:has(~ .p-step-active) .p-stepper-separator
+{
+  background: var(--logo);
+}
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
