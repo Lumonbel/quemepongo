@@ -32,11 +32,14 @@ p-chip {
     text-align: center;
     padding: 15px;
     border-radius: 20px;
+    transition: background-color 2.5s ease;
+
 }
 
 p-chip.selected {
     background-color: var(--logo);
     color: white;
+    transition: background-color 2.5s ease;
 }
 
 .contenedor-ropa{
@@ -52,4 +55,15 @@ p-chip.selected {
 .contenedor-complementos{
     display: flex;
     gap: 1em;
+}
+
+#escondido1{
+    visibility: hidden;
+}
+
+.seleccionadoCss{
+    background-color: var(--fondo);
+    columns: var(--logo);
+    border: none;
+    transition: background-color 2.5s ease;
 }

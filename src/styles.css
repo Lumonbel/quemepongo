@@ -94,6 +94,3 @@ form{
 .p-select-dropdown {
   color: black !important;
 }
-.p-select::placeholder{
-  color:black !important;
-}
