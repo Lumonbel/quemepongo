@@ -66,6 +66,15 @@ form{
   outline: none;
   box-shadow: none;
   border: 2px solid var(--fondo);
+  }
+
+}
+.horizontal{
+  display: flex;
+  flex-direction: row;
 }
 
+.vertical{
+  display: flex;
+  flex-direction: column;
 }

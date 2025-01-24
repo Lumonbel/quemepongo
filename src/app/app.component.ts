@@ -8,10 +8,11 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { IndexComponent } from './components/index/index.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormularioPasosComponent } from './components/formulario-pasos/formulario-pasos.component';
+import { BtAtrasComponent } from './components/bt-atras/bt-atras.component';
 
 @Component({
   selector: 'app-root',
-  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent, IndexComponent, LoginComponent, FormularioPasosComponent, RouterOutlet],
+  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent, IndexComponent, LoginComponent, FormularioPasosComponent, RouterOutlet, BtAtrasComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
  })
