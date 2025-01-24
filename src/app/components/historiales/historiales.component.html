@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componente historial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn  text-decoration-none">
+                <i class="bi bi-arrow-left"></i> Volver
+            </button>
+            <input type="text" class="form-control search-bar" placeholder="Buscador...">
+        </div>
+
+        <h3 class="mb-4">Historial empleados</h3>
+
+        <div class="table-responsive">
+            <table class="table align-middle" style="border-radius: 10px; overflow: hidden;">
+                <thead>
+                    <tr>
+                        <th class="border-0">Nombre empleados <i class="bi bi-arrow-down-up me-4"></i></th>
+                        <th class="border-0">Email <i class="bi bi-arrow-down-up me-4"></i></th>
+                        <th class="border-0">Rol <i class="bi bi-arrow-down-up me-4"></i></th>
+                        <th class="border-0"></th>
+                    </tr>
+                    <br>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border-0" style="border-radius: 10px 0 0 10px;">Nombre empleado y sus apellidos</td>
+                        <td class="border-0">empleadoacorreo.es</td>
+                        <td class="border-0">Administrador</td>
+                        <td class="border-0" style="border-radius: 0 10px 10px 0;">
+                            <button class="btn-icon" title="Ver">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn-icon" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn-icon" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+
+

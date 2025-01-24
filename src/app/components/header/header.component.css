@@ -1,0 +1,31 @@
+.custom-header {
+  background-color: #9662D9;
+  color: white;
+}
+
+.custom-header .navbar-brand {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.custom-header .nav-icon {
+  font-size: 1.2rem;
+}
+
+/* .navbar-brand {
+  background: url('assets/images/logo.svg') no-repeat center center;
+  background-size: 100% 100%;
+  width: 20%;
+  height: 4vh;
+} */
+
+.navbar-toggler {
+  color: white;
+}
+
+#logo{
+  display: block;
+  width: 100%; /* or a specific width */
+  height: 100%;
+}

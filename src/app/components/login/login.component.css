@@ -1,0 +1,88 @@
+body {
+    background-color: #f8f9fa;
+}
+
+
+.inspirate {
+    font-family: 'syne';
+    font-weight: bold;
+    font-size: 3em;
+    color: var(--logo);
+    padding: 10%;
+    text-align: center;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'syne';
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 1em;
+    .inputForm{
+        align-self: flex-start;
+        margin-left: 2em;
+        input{
+            width: 366px;
+            height: 48px;
+            border: 2px solid var(--logo);
+        }
+        input:focus{
+            outline: none; 
+            box-shadow: none;
+            border: 2px solid var(--fondo) ;
+        }
+    }
+}
+
+
+::placeholder {
+    font-family: 'finlandica';
+}
+
+.fuenteVazir {
+    font-family: 'vazir';
+    font-size: 0.7em;
+}
+
+.olvidar{
+    font-family: 'vazir';
+    font-size: 0.5em;
+    text-align: right;
+}
+
+.login-form {
+    width: 582px;
+    height: 637px;
+    background: #fff;
+    border: 2px solid var(--fondo);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 3PX 3px 4px 0px var(--fondoBorde);
+}
+
+.login-form h1 {
+    font-size: 24px;
+    color: #6f42c1;
+    text-align: center;
+}
+
+.login-form a {
+    color: #6f42c1;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}
+
+
+

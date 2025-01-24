@@ -1,0 +1,43 @@
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    position: relative;
+    cursor: pointer;
+}
+
+.btn-icon {
+    border: none;
+    background: none;
+    padding: 0.5rem;
+    color: #9662D9;
+    font-size: 1.2rem;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    border-color: #9662D9;
+    font-size: 1.2rem;
+}
+
+.search-bar::placeholder {
+    padding: 0.5rem;
+    color: #9662D9;
+    font-size: 1.2rem;
+}
+
+
+.btn-icon:hover {
+    color: #000;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 300px;
+}
+
+table tbody td {
+    background-color: rgb(214, 188, 188);
+}
