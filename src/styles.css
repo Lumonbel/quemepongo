@@ -78,3 +78,10 @@ form{
   display: flex;
   flex-direction: column;
 }
+
+.cerrarSesion{
+  background-color: var(--logo);
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
