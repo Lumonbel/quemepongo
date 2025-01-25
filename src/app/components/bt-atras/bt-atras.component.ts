@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
   styleUrl: './bt-atras.component.css'
 })
 export class BtAtrasComponent {
-  constructor(private location: Location){}
+  constructor(private location: Location){} //autowired
   volver():void{
     this.location.back();
   }

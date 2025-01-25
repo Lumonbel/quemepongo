@@ -33,6 +33,7 @@
   --masclaro: #f0e5ff;
   --fondoCajones: #f6f0ff;
   --fondoBorde: #e1cbff40;
+  --fondoHoverBoton: #E4D0FF;
 }
 
 body {
@@ -79,9 +80,32 @@ form{
   flex-direction: column;
 }
 
-.cerrarSesion{
+.btTextoUnaImagen{
   background-color: var(--logo);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-family: 'syne';
+  font-size: 14px;
+  font-weight: 600;
+  width: 240px;
+}
+.btTextoUnaImagen:hover{
+  background-color: var(--fondoHoverBoton);
+  border: 2px solid var(--logo);
+  color: var(--logo);
+  svg{
+    path{
+      color: var(--logo);
+      fill: var(--logo);
+    }
+    
+  }
 }

@@ -7,88 +7,88 @@ import { Ripple } from 'primeng/ripple';
 
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css',
-  standalone: true,
-  imports: [TieredMenu, BadgeModule, Ripple, CommonModule],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styleUrl: './menu.component.css',
+    standalone: true,
+    imports: [TieredMenu, BadgeModule, Ripple, CommonModule],
+    encapsulation: ViewEncapsulation.None,
 })
 export class MenuComponent implements OnInit{
-  items: MenuItem[] | undefined;
+    items: MenuItem[] | undefined;
 
 
     ngOnInit() {
         this.items = [
             {
                 label: 'Complementos',
-                icon: 'pi pi-file',
+                icon: '../../../assets/iconos/AlmacenamientoP.svg',
                 items: [
-                  {
+                    {
                     label: 'Accesorios de almacenamiento',
-                    icon: 'pi pi-plus',
+                    icon: '../../../assets/iconos/AlmacenamientoP.svg',
                     },
                     {
                         label: 'Bufandas',
-                        icon: 'pi pi-plus',
+                        icon: '../../../assets/iconos/BufandaP.svg',
                     },
                     {
                         label: 'Cinturones',
-                        icon: 'pi pi-folder-open',
+                        icon: '../../../assets/iconos/CinturonP.svg',
                     },
                     {
                         label: 'Corbatas',
-                        icon: 'pi pi-print',
+                        icon: '../../../assets/iconos/CorbataP.svg',
                     },{
-                      label: 'Gorras',
-                      icon: 'pi pi-plus',
-                  },
-                  {
-                      label: 'Guantes',
-                      icon: 'pi pi-folder-open',
-                  }
+                        label: 'Gorras',
+                        icon: '../../../assets/iconos/GorraP.svg',
+                    },
+                    {
+                        label: 'Guantes',
+                        icon: '../../../assets/iconos/GuantesP.svg',
+                    }
                 ]
             },
             {
                 label: 'Ropa',
-                icon: 'pi pi-file-edit',
+                icon: '../../../assets/iconos/CamisaP.svg',
                 items: [
                     {
                         label: 'Camisas',
-                        icon: 'pi pi-copy'
+                        icon: '../../../assets/iconos/CamisaP.svg'
                     },
                     {
                         label: 'Chaquetas',
-                        icon: 'pi pi-times'
+                        icon: '../../../assets/iconos/ChaquetaP.svg'
                     },
                     {
-                      label: 'Faldas',
-                      icon: 'pi pi-copy'
-                  },
-                  {
+                        label: 'Faldas',
+                        icon: '../../../assets/iconos/FaldaP.svg'
+                    },
+                    {
                         label: 'Jerseis',
-                        icon: 'pi pi-times'
+                        icon: '../../../assets/iconos/JerseyP.svg'
                     },{
-                      label: 'Pantalones',
-                      icon: 'pi pi-copy'
-                  },
-                  {
-                      label: 'Ropa de baño',
-                      icon: 'pi pi-times'
-                  },
-                  {
+                        label: 'Pantalones',
+                        icon: '../../../assets/iconos/PantalónP.svg'
+                    },
+                    {
+                        label: 'Ropa de baño',
+                        icon: '../../../assets/iconos/RopaBañoP.svg'
+                    },
+                    {
                     label: 'Sudaderas',
-                    icon: 'pi pi-copy'
+                    icon: '../../../assets/iconos/SudaderaP.svg'
                 },
                 {
                     label: 'Vestidos',
-                    icon: 'pi pi-times'
+                    icon: '../../../assets/iconos/VestidoP.svg'
                 }
                 ]
             },
             {
-                label: 'Zapatillas',
-                icon: 'pi pi-search'
+                label: 'Zapatos',
+                icon: '../../../assets/iconos/ZapatosP.svg'
             }
         ]
     }
