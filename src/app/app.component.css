@@ -43,12 +43,10 @@ table tbody td {
 }
  */
 
-html
+
+body
 {
-  max-height: 100vh;
-}
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex:1 1 auto;
 }

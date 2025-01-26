@@ -1,308 +1,297 @@
-<header>
-  <app-header></app-header>
-</header>
-<main>
-  <h1>Registro</h1>
-
+    <app-bt-atras></app-bt-atras>
+<h1>Registro</h1>
   <div class="card flex justify-center p-5 w-80">
-    <p-stepper [value]="1" class="basis-[50rem]">
-      <p-step-list>
-        <p-step [value]="1">Datos App</p-step>
-        <p-step [value]="2">Datos Personales</p-step>
-        <p-step [value]="3">Elegir Plan</p-step>
-      </p-step-list>
-      <p-step-panels>
-        <p-step-panel [value]="1">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col h-48">
-              <div
-                class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-              >
-                <div class="container d-flex g-5">
-                  <form
-                    class="container-fluid d-flex flex-column g-5 pasosForm"
-                  >
-                    <div class="row p-3">
-                      <!-- Nombre usuario -->
-                      <div class="col-md-6">
-                        <label for="username" class="form-label"
-                          >Nombre usuario</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="username"
-                          placeholder="Nombre usuario"
-                        />
-                      </div>
-
-                      <!-- Email -->
-                      <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                          placeholder="Email"
-                        />
-                      </div>
+  <p-stepper [value]="1" class="basis-[50rem]">
+    <p-step-list>
+      <p-step [value]="1">Datos App</p-step>
+      <p-step [value]="2">Datos Personales</p-step>
+      <p-step [value]="3">Elegir Plan</p-step>
+    </p-step-list>
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
+              <div class="container d-flex g-5">
+                <form class="container-fluid d-flex flex-column g-5 pasosForm">
+                  <div class="row p-3">
+                    <!-- Nombre usuario -->
+                    <div class="col-md-6">
+                      <label for="username" class="form-label"
+                        >Nombre usuario</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        placeholder="Nombre usuario"
+                      />
                     </div>
-                    <div class="row p-3">
-                      <div class="col-md-6">
-                        <label for="password" class="form-label"
-                          >Contraseña</label
-                        >
-                        <input
-                          type="password"
-                          class="form-control"
-                          id="password"
-                          placeholder="Contraseña"
-                        />
-                      </div>
 
-                      <!-- Repetir contraseña -->
-                      <div class="col-md-6">
-                        <label for="repeat-password" class="form-label"
-                          >Repetir contraseña</label
-                        >
-                        <input
-                          type="password"
-                          class="form-control"
-                          id="repeat-password"
-                          placeholder="Repetir contraseña"
-                        />
-                      </div>
+                    <!-- Email -->
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Email"
+                      />
                     </div>
-                  </form>
-                </div>
-              </div>
-              <div class="flex pt-6 justify-end">
-                <p-button
-                  label="Siguiente"
-                  icon="pi pi-arrow-right"
-                  iconPos="right"
-                  (onClick)="activateCallback(2)"
-                />
+                  </div>
+                  <div class="row p-3">
+                    <div class="col-md-6">
+                      <label for="password" class="form-label"
+                        >Contraseña</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Contraseña"
+                      />
+                    </div>
+
+                    <!-- Repetir contraseña -->
+                    <div class="col-md-6">
+                      <label for="repeat-password" class="form-label"
+                        >Repetir contraseña</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="repeat-password"
+                        placeholder="Repetir contraseña"
+                      />
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          </ng-template>
-        </p-step-panel>
-
-        <p-step-panel [value]="2">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col h-48">
-              <div
-                class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-              >
-                <div class="container d-flex g-5">
-                  <form
-                    class="container-fluid d-flex flex-column g-5 pasosForm"
-                  >
-                    <div class="row p-3">
-                      <!-- Nombre usuario -->
-                      <div class="col-md-6">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nombre"
-                          placeholder="Nombre usuario"
-                        />
-                      </div>
-
-                      <!-- Email -->
-                      <div class="col-md-6">
-                        <label for="apellidos" class="form-label"
-                          >Apellidos</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="apellidos"
-                          placeholder="Apellidos"
-                        />
-                      </div>
-                    </div>
-                    <div class="row p-3">
-                      <div class="col-md-6">
-                        <label for="fechaNacimiento" class="form-label"
-                          >Fecha Nacimiento</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="fechaNacimiento"
-                          placeholder="Fecha Nacimiento"
-                        />
-                      </div>
-
-                      <!-- Repetir contraseña -->
-                      <div class="col-md-6">
-                        <label for="telefono" class="form-label"
-                          >Teléfono</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="telefono"
-                          placeholder="telefono"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="flex pt-6 justify-between">
+            <div class="flex pt-6 justify-end">
               <p-button
                 label="Siguiente"
                 icon="pi pi-arrow-right"
                 iconPos="right"
-                (onClick)="activateCallback(3)"
+                (onClick)="activateCallback(2)"
               />
             </div>
-          </ng-template>
-        </p-step-panel>
+          </div>
+        </ng-template>
+      </p-step-panel>
 
-        <p-step-panel [value]="3">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col h-48">
-              <div
-                class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-              >
-                <section id="pricing" class="pricing section">
-                  <div
-                    class="container  "
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                  >
-                    <div class="row   justify-content-center">
-                      <!-- Basic Plan -->
-                      <div
-                        class="col-lg-4 d-flex justify-content-center"
-                        data-aos="fade-up"
-                        data-aos-delay="100"
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
+              <div class="container d-flex g-5">
+                <form class="container-fluid d-flex flex-column g-5 pasosForm">
+                  <div class="row p-3">
+                    <!-- Nombre usuario -->
+                    <div class="col-md-6">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        placeholder="Nombre usuario"
+                      />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                      <label for="apellidos" class="form-label"
+                        >Apellidos</label
                       >
-                        <div class="pricing-card  d-flex flex-column align-items-center justify-content-between">
-                          <h3>Plan Free</h3>
-                          <div class="price">
-                            <span class="currency">€</span>
-                            <span class="amount">0</span>
-                            <span class="period">/ mes</span>
-                          </div>
-                          <p class="description">
-                            Conoce nuestra aplicación con este plan.
-                          </p>
-
-                          <h4>Incluye:</h4>
-                          <ul class="features-list">
-                            <li>
-                              <i class="bi bi-check-circle-fill"></i>
-                              Gestión hasta 30 prendas
-                            </li>
-                            <li>
-                              <i class="bi bi-check-circle-fill"></i>
-                              Compraventa de prendas
-                            </li>
-                          </ul>
-
-                          <a href="#" class=" btnplan btn btn-light">
-                            Quiero este plan
-                          </a>
-                        </div>
-                      </div>
-
-                      <!-- Standard Plan -->
-                      <div
-                        class="col-lg-4  d-flex justify-content-center"
-                        data-aos="fade-up"
-                        data-aos-delay="200"
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apellidos"
+                        placeholder="Apellidos"
+                      />
+                    </div>
+                  </div>
+                  <div class="row p-3">
+                    <div class="col-md-6">
+                      <label for="fechaNacimiento" class="form-label"
+                        >Fecha Nacimiento</label
                       >
-                        <div class="pricing-card popular d-flex flex-column align-items-center justify-content-between">
-                          <h3>Plan Premiun Mensual</h3>
-                          <div class="price">
-                            <span class="currency">€</span>
-                            <span class="amount">5</span>
-                            <span class="period">/ mes</span>
-                          </div>
-                          <p class="description">
-                            Saca ventaja a nuestra aplicación cada mes con este
-                            plan.
-                          </p>
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="fechaNacimiento"
+                        placeholder="Fecha Nacimiento"
+                      />
+                    </div>
 
-                          <h4>Incluye:</h4>
-                          <ul class="features-list">
-                            <li>
-                              <i class="bi bi-check-circle-fill"></i>
-                              Gestión ilimitada
-                            </li>
-                            <li>
-                              <i class="bi bi-check-circle-fill"></i>
-                              Compraventa de prendras
-                            </li>
-                            <li>
-                              <i class="bi bi-check-circle-fill"></i>
-                              Prioridad de compra
-                            </li>
-                          </ul>
+                    <!-- Repetir contraseña -->
+                    <div class="col-md-6">
+                      <label for="telefono" class="form-label">Teléfono</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="telefono"
+                        placeholder="telefono"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="flex pt-6 justify-between">
+            <p-button
+              label="Siguiente"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              (onClick)="activateCallback(3)"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
 
-                          <a href="#" class=" btnplanP btn btn-light ">
-                            Quiero este plan
-
-                          </a>
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
+              <section id="pricing" class="pricing section">
+                <div class="container" data-aos="fade-up" data-aos-delay="100">
+                  <div class="row justify-content-center">
+                    <!-- Basic Plan -->
+                    <div
+                      class="col-lg-4 d-flex justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay="100"
+                    >
+                      <div
+                        class="pricing-card d-flex flex-column align-items-center justify-content-between"
+                      >
+                        <h3>Plan Free</h3>
+                        <div class="price">
+                          <span class="currency">€</span>
+                          <span class="amount">0</span>
+                          <span class="period">/ mes</span>
                         </div>
+                        <p class="description">
+                          Conoce nuestra aplicación con este plan.
+                        </p>
+
+                        <h4>Incluye:</h4>
+                        <ul class="features-list">
+                          <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Gestión hasta 30 prendas
+                          </li>
+                          <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Compraventa de prendas
+                          </li>
+                        </ul>
+
+                        <a href="#" class="btnplan btn btn-light">
+                          Quiero este plan
+                        </a>
                       </div>
+                    </div>
 
-                      <div class="form-check">
-                        <div class="group-check">
-                            <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckDefault"
-                        />
-                        <label class="form-check-label text-black fw-medium" for="flexCheckDefault">
-                          He leido y acepto la política de privacidad de la
-                          empresa
-                        </label>
+                    <!-- Standard Plan -->
+                    <div
+                      class="col-lg-4 d-flex justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay="200"
+                    >
+                      <div
+                        class="pricing-card popular d-flex flex-column align-items-center justify-content-between"
+                      >
+                        <h3>Plan Premiun Mensual</h3>
+                        <div class="price">
+                          <span class="currency">€</span>
+                          <span class="amount">5</span>
+                          <span class="period">/ mes</span>
                         </div>
+                        <p class="description">
+                          Saca ventaja a nuestra aplicación cada mes con este
+                          plan.
+                        </p>
 
-                        <div class="groupcheck">
- <div class="form-check">
+                        <h4>Incluye:</h4>
+                        <ul class="features-list">
+                          <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Gestión ilimitada
+                          </li>
+                          <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Compraventa de prendras
+                          </li>
+                          <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Prioridad de compra
+                          </li>
+                        </ul>
+
+                        <a href="#" class="btnplanP btn btn-light">
+                          Quiero este plan
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="form-check ">
+                      <div class="group-check">
                         <input
                           class="form-check-input"
                           type="checkbox"
                           value=""
                           id="flexCheckDefault"
                         />
-                        <label class="form-check-label text-black fw-medium " for="flexCheckDefault">
-                          Quiero recibir comunicaciones a través del email
+                        <label
+                          class="form-check-label text-black fw-medium"
+                          for="flexCheckDefault"
+                        >
+                          He leido y acepto la política de privacidad de la
+                          empresa
                         </label>
                       </div>
-                        </div>
-
+                         <div class="group-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          class="form-check-label text-black fw-medium"
+                          for="flexCheckDefault"
+                        >
+                          He leido y acepto la política de privacidad de la
+                          empresa
+                        </label>
                       </div>
 
+                      </div>
                     </div>
                   </div>
-                </section>
-              </div>
+              </section>
             </div>
-            <div class="flex pt-6 justify-center">
-              <p-button
-                label="Finalizar"
-                icon="pi pi-arrow-left"
-                iconPos="right"
-                (onClick)="activateCallback(2)"
-              />
-            </div>
-          </ng-template>
-        </p-step-panel>
-      </p-step-panels>
-    </p-stepper>
-  </div>
-</main>
+          </div>
+          <div class="flex pt-6 justify-center">
+            <p-button
+              label="Finalizar"
+              icon="pi pi-arrow-left"
+              iconPos="right"
+              (onClick)="activateCallback(2)"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-panels>
+  </p-stepper>
+</div>
 
-<footer>
-  <app-footer></app-footer>
-</footer>
+

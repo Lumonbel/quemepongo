@@ -1,10 +1,15 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
 h1 {
   font-family: "syne";
   font-size: 40px;
   text-align: center;
 }
-
-
 
 .p-step-title {
   font-family: "finlandica";
@@ -29,7 +34,7 @@ form {
     width: 50px;
     height: 50px;
     font-family: "finlandica";
-    font-size:24px ;
+    font-size: 24px;
     background-color: var(--logo) !important;
     color: white !important;
     border: 2px solid var(--logo);
@@ -43,26 +48,22 @@ form {
     color: black !important ;
     text-align: center;
   }
-
-
 }
- .p-step-active .p-stepper-separator{
+.p-step-active .p-stepper-separator {
   background: var(--logo) !important;
-
 }
 
- .p-step-active .p-step-number{
-      border: 2px solid transparent !important;
-
+.p-step-active .p-step-number {
+  border: 2px solid transparent !important;
 }
 
-.p-stepper-separator{
+.p-stepper-separator {
   position: relative;
   bottom: 18px;
   width: 400px !important;
 }
 
-.pasosForm{
+.pasosForm {
   font-family: "finlandica";
   font-size: 18px;
   color: black;
@@ -70,25 +71,23 @@ form {
   display: flex;
 
   input:focus {
-  outline: none;
-  box-shadow: none;
-  border: 2px solid var(--fondo);
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+  }
 }
 
-}
-
-.p-button{
+.p-button {
   font-family: "syne";
   font-size: 18px;
   font-weight: 600;
-  color:white !important;
+  color: white !important;
   width: 250px;
   height: 45px;
   background-color: var(--logo) !important;
 }
 
-main
-{
+main {
   padding: 2em;
   display: flex;
   flex-direction: column;
@@ -96,14 +95,11 @@ main
   gap: 2em;
 }
 
-.p-step:has(~ .p-step-active) .p-stepper-separator
-{
+.p-step:has(~ .p-step-active) .p-stepper-separator {
   background: var(--logo) !important;
   height: 4px;
-
 }
-.p-step:has(~ .p-step-active) .p-step-number
-{
+.p-step:has(~ .p-step-active) .p-step-number {
   background: var(--logo);
   color: white;
   border: 2px solid transparent;
@@ -117,7 +113,7 @@ input:focus {
 .pricing .pricing-card {
   height: 100%;
   padding: 2rem;
-  background: #F6F0FF;
+  background: #f6f0ff;
   border-radius: 1rem;
   transition: all 0.3s ease;
   position: relative;
@@ -132,7 +128,7 @@ input:focus {
 }
 
 .pricing .pricing-card.popular {
-  background:linear-gradient(to bottom, #B88FFF 0%, #6929C4 100%);
+  background: linear-gradient(to bottom, #b88fff 0%, #6929c4 100%);
   color: white;
 }
 
@@ -169,8 +165,8 @@ input:focus {
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: #F6F0FF;
-  color:var(--logo);
+  background: #f6f0ff;
+  color: var(--logo);
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 0.875rem;
@@ -254,46 +250,44 @@ input:focus {
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
 
-.btnplan{
+.btnplan {
   color: white !important;
   background-color: var(--logo) !important;
-  font-family: 'syne' !important;
+  font-family: "syne" !important;
   border-radius: 10px !important;
   width: 231px !important;
   height: 38px !important;
 }
 
-.btnplanP{
+.btnplanP {
   color: black !important;
   background-color: white !important;
-  font-family: 'syne' !important;
+  font-family: "syne" !important;
   border-radius: 10px !important;
   width: 231px !important;
   height: 38px !important;
 }
 
-
-input[type = "checkbox"] {
+input[type="checkbox"] {
   width: 24px;
   height: 24px;
-        appearance: none; /* Elimina el estilo por defecto */
+  appearance: none;
 
-      border: 3px solid var(--logo); /* Estilo del borde */
-    border-radius: 4px; /* Bordes redondeados (opcional) */
-
+  border: 3px solid var(--logo);
 }
 
-.form-check{
+.form-check {
   display: flex !important;
-  gap: 1em !important;
-  flex-direction: column;
-  align-items: center !important;
+  flex-direction: column !important;
+  align-items:center !important;
   justify-content: center !important;
+  padding: 1em;
+  gap: 1em !important;
 }
 
-.group-check{
+.group-check {
   display: flex !important;
-  flex-direction: row;
+  flex-direction: row !important;
   gap: 1em !important;
   align-items: center !important;
   justify-content: center !important;

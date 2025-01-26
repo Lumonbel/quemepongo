@@ -55,7 +55,7 @@
 
 .textoIndex {
   font-family: "syne";
-  font-size: 4em;
+  font-size: 3em;
   text-align: center;
   color: white;
   font-weight: bold;
@@ -64,6 +64,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  margin-top: -3em;
   }
 
 

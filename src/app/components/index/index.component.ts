@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { FooterComponent } from "../footer/footer.component";
+
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-index',
-  imports: [HeaderComponent, FooterComponent],
+  standalone : true,
+  imports: [RouterLink],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })
