@@ -10,10 +10,11 @@ import { LoginComponent } from './components/login/login.component';
 import { FormularioPasosComponent } from './components/formulario-pasos/formulario-pasos.component';
 import { BtAtrasComponent } from './components/bt-atras/bt-atras.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent, IndexComponent, LoginComponent, FormularioPasosComponent, RouterOutlet, BtAtrasComponent, MenuComponent],
+  imports: [FormularioComponent, FooterComponent, VerprendaComponent, ComponentepruebaComponent, UsuarioComponent, IndexComponent, LoginComponent, FormularioPasosComponent, RouterOutlet, BtAtrasComponent, MenuComponent,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
  })

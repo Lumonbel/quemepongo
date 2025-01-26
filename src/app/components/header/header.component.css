@@ -29,3 +29,10 @@
   width: 100%; /* or a specific width */
   height: 100%;
 }
+
+.menu{
+ background-color: transparent;
+ position: absolute;
+ left: 0;
+ top: 85px;
+}
