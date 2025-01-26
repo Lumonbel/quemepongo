@@ -36,3 +36,12 @@
  left: 0;
  top: 85px;
 }
+
+
+
+.contenedorIconos{
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  justify-content: space-between;
+}

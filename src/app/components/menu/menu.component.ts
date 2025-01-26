@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit{
                 icon: '../../../assets/iconos/AlmacenamientoP.svg',
                 items: [
                     {
-                    label: 'Accesorios de almacenamiento',
+                    label: 'Almacenaje',
                     icon: '../../../assets/iconos/AlmacenamientoP.svg',
                     },
                     {

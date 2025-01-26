@@ -2,8 +2,8 @@
   font-family: "syne";
   font-weight: 600;
   font-size: 12px;
-  border-bottom: 1px solid var(--logo);
   gap: 2em;
+
 }
 
 .p-tieredmenu-item-link:hover,
@@ -11,10 +11,14 @@
 .p-tieredmenu-item-link:active {
   background-color: var(--logo);
   color: white;
-  img {
+  border-radius: 5px;
+   img {
     filter: invert();
   }
 }
+
+
+
 .p-tieredmenu-item-active > .p-tieredmenu-item-content {
   color: var(--p-tieredmenu-item-active-color);
   background-color: white !important;
@@ -46,5 +50,18 @@
 }
 
 .btTextoUnaImagen {
-  margin-left: 15px;
+  /* margin-left: 15px; */
+}
+
+.sinBorde{
+  border-bottom: 1px solid transparent
+}
+
+.conBorde{
+    border-bottom: 1px solid var(--logo);
+
+}
+button:focus {
+  outline: none; /* Elimina el borde por defecto del foco */
+  border-bottom: 1px solid transparent;
 }
