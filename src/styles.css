@@ -50,7 +50,6 @@ body {
 
 }
 
-
 .inputForm {
   align-self: flex-start;
   margin-left: 2em;
@@ -71,7 +70,6 @@ input:focus {
   box-shadow: none;
   border: 2px solid var(--fondo);
 }
-
 
 form{
   input:focus {
