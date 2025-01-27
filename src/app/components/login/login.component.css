@@ -28,20 +28,7 @@ form {
     font-size: 1.5em;
     font-weight: 600;
     padding: 1em;
-    .inputForm{
-        align-self: flex-start;
-        margin-left: 2em;
-        input{
-            width: 366px;
-            height: 48px;
-            border: 2px solid var(--logo);
-        }
-        input:focus{
-            outline: none; 
-            box-shadow: none;
-            border: 2px solid var(--fondo) ;
-        }
-    }
+    
 }
 
 
