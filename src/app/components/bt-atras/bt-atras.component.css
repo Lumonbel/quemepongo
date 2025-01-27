@@ -1,0 +1,20 @@
+.txtVolver{
+    font-family: 'syne';
+    font-weight: 500;
+    font-size: 18px;
+    color: black;
+}
+
+#btAtrasId{
+    gap: 8px;
+    margin: 1em;
+}
+#btAtrasId:hover{
+    div{
+        svg{
+            path{
+                fill: var(--logo);
+            }
+        }
+    }
+}

@@ -1,56 +1,40 @@
-<h2>Prendas en venta</h2>
-
 <div class="container">
-  <div class="filter">
-    <select name="" id="">
-      <option value="">Seleccionar articulo</option>
-      <option value="">Ropa</option>
-      <option value="">Zapatos</option>
-      <option value="">Complementos</option>
-    </select>
-    <div class="filter-bar">
-      <button>Vestidos</button>
-      <button>Camisas</button>
-      <button>Accesorios</button>
-      <button>Faldas</button>
-      <button>Pantalones</button>
-      <button>Conjuntos</button>
-      <button>Zapatos</button>
+    <div class="flex justify-center contenedor-complementos">
+        <p-select [options]="prendasSel" [(ngModel)]="prendaSeleccionada" optionLabel="ropa"
+            placeholder="Seleccionar artículo" class="w-full md:w-56" (onChange)="onPrendaChange($event)" />
     </div>
-  </div>
+    <div class="flex items-center gap-2 flex-wrap">
+        <div *ngIf="mostrarDiv === 'Ropa'" class="contenedor-ropa">
+            <p-chip *ngFor="let chip of chipsRopa" label="{{chip}}" (click)="chipSeleccionadoFunc(chip)"
+                [ngClass]="{'seleccionadoCss' : funcSeleccionado(chip)}">
+            </p-chip>
+        </div>
 
-  <div class="grid">
-    <div class="card vertical">
-      <img src="" alt="Vestido 1" />
-      <button>Más información</button>
-    </div>
+        <div id="zapatos" *ngIf="mostrarDiv === 'Zapatos'" class="contenedor-zapatos">
+            <p-chip id="escondido1" label=""></p-chip>
+        </div>
 
-    <div class="contenedorcuadros">
-   <div class="cuadros">
-        <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
-        </div>
-     <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
+        <div id="complementos" *ngIf="mostrarDiv === 'Complementos'" class="contenedor-complementos">
+            <p-chip *ngFor="let chip of chipsComplementos" label="{{chip}}" (click)="chipSeleccionadoFunc(chip)"
+                [ngClass]="{'seleccionadoCss' : funcSeleccionado(chip)}">
+            </p-chip>
         </div>
     </div>
- <div class="cuadros">
-        <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
+</div>
+<div class="container-2">
+    <div class="card flex justify-center">
+        <div *ngIf="images && images.length > 0" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
+            <div *ngFor="let image of images; let index = index" class="col-span-4" key="index">
+                <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer"
+                    (click)="imageClick(index)" />
+            </div>
         </div>
-     <div class="card cuadrada">
-          <img src="" alt="Modelo 1" />
-          <button>Más información</button>
-        </div>
+        <p-galleria [(ngModel)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
+            [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7"
+            [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+        </p-galleria>
     </div>
-    </div>
-
-    <div class="card vertical">
-      <img src="" alt="Zapatos 2" />
-      <button>Más información</button>
-    </div>
-  </div>
 </div>

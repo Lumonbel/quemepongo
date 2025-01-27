@@ -1,4 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 @font-face {
   font-family: "syne";
   src: url("assets/fonts/Syne-VariableFont_wght.ttf") format("truetype");
@@ -24,10 +28,108 @@
 :root {
   /*Colores*/
   --logo: #9662d9;
-  --fondo: #e1cbff;
+  --fondo: rgb(225, 203, 255);
   --bordesClaros: #cda9ff;
   --masclaro: #f0e5ff;
   --fondoCajones: #f6f0ff;
-
+  --fondoBorde: #e1cbff40;
+  --fondoHoverBoton: #E4D0FF;
 }
 
+body {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+.inputForm {
+  align-self: flex-start;
+  margin-left: 2em;
+  input {
+    width: 366px;
+    height: 48px;
+    border: 2px solid var(--logo);
+  }
+  input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+  }
+}
+}
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+}
+
+
+form{
+  input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 2px solid var(--fondo);
+  }
+
+}
+.horizontal{
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+  background: var(--logo) !important;
+  color: white !important;
+}
+.p-select-option {
+  transition: background 0.7s ease, color 0.3s ease !important;
+}
+
+.p-select:not(.p-disabled).p-focus {
+  border-color: var(--logo) !important;
+}
+
+.p-select-option.p-select-option-selected {
+  background: rgba(150, 98, 217, 0.5) !important; /* Ajusta el valor de transparencia (0.5) según sea necesario */  
+  color: white !important;
+}
+.p-select:not(.p-disabled):hover {
+  border-color: rgba(150, 98, 217, 0.5) !important;
+}
+
+.p-select-dropdown {
+  color: black !important;
+}
+
+.btTextoUnaImagen{
+  background-color: var(--logo);
+  color: white;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-family: 'syne';
+  font-size: 14px;
+  font-weight: 600;
+  width: 240px;
+}
+.btTextoUnaImagen:hover{
+  background-color: var(--fondoHoverBoton);
+  border: 2px solid var(--logo);
+  color: var(--logo);
+  svg{
+    path{
+      color: var(--logo);
+      fill: var(--logo);
+    }
+
+  }
+}
