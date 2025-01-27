@@ -1,0 +1,39 @@
+.txtHola{
+    font-family: 'syne';
+    font-size: 60px;
+    font-weight: 700;
+}
+.contenedorPrincipal{
+    margin: 3%;
+}
+.misPrendasDiv{
+    margin-top: 3%;
+}
+.bt{
+    background-color: white;
+    border: 2px solid var(--logo);
+    color: black;
+}
+.bt:hover{
+    background-color: var(--fondo);
+    
+}
+.btHover{
+    svg{
+        path{
+          fill: none;
+        }
+      }
+}
+.secciones{
+    padding-top: 5%;
+}
+.seccionesTxt{
+    font-family: 'vazir';
+    font-weight: 600;
+}
+.botones{
+    button{
+        margin-top: 8px;
+    }
+}
