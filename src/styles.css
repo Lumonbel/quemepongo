@@ -25,6 +25,14 @@
   font-style: normal;
 }
 
+/*Esta es para poner el vazir en negrita*/
+@font-face {
+  font-family: "vazir-b";
+  src: url("assets/fonts/Vazirmatn-VariableFont_wght.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
   /*Colores*/
   --logo: #9662d9;
@@ -39,6 +47,10 @@
 body {
   display: grid;
   grid-template-rows: 1fr auto 1fr;
+
+}
+
+
 .inputForm {
   align-self: flex-start;
   margin-left: 2em;
@@ -79,6 +91,9 @@ form{
   flex-direction: column;
 }
 
+.contenedorInformacion{
+  margin-left: 2%;
+}
 
 .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
   background: var(--logo) !important;
@@ -132,4 +147,8 @@ form{
     }
 
   }
+}
+
+h2{
+  font-family: 'vazir-b';
 }

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 
 import { VerprendaComponent } from './verprenda.component';
 
@@ -8,9 +9,9 @@ describe('VerprendaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerprendaComponent]
+      imports: [VerprendaComponent, BtAtrasComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(VerprendaComponent);
     component = fixture.componentInstance;
