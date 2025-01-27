@@ -111,7 +111,7 @@ export class VerprendaComponent {
     },
   ];
 
-  constructor(private photoService: PhotoService) { }
+  constructor(private photoService: PhotoService) {}
 
   imageClick(index: number) {
     this.activeIndex = index;

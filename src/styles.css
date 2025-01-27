@@ -65,7 +65,7 @@ body {
     border: 2px solid var(--fondo);
   }
 }
-}
+
 input:focus {
   outline: none;
   box-shadow: none;
