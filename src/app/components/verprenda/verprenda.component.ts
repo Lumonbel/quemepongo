@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, model } from '@angular/core';
 import { Chip } from 'primeng/chip';
 import { Select } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PhotoService } from '../../services/photo.service';
+import { GalleriaModule } from 'primeng/galleria';
 
 interface Prenda {
   ropa: string;
 }
 
+interface Image {
+  itemImageSrc: string;
+  thumbnailImageSrc: string;
+  alt: string;
+  title: string;
+}
+
 @Component({
   selector: 'app-verprenda',
-  imports: [Chip, Select, FormsModule, CommonModule],
+  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule],
+  providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',
   styleUrl: './verprenda.component.css'
@@ -45,6 +55,7 @@ export class VerprendaComponent {
       { ropa: 'Zapatos' },
       { ropa: 'Complementos' },
     ];
+    this.photoService.getImages().then((images: Image[]) => this.images = images);
   }
 
   onPrendaChange(event: any) {
@@ -56,5 +67,37 @@ export class VerprendaComponent {
     } else {
       this.mostrarDiv = '';
     }
+  }
+
+  displayCustom: boolean = false;
+
+  activeIndex: number = 0;
+
+  images: Image[] = [];
+
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+
+  constructor(private photoService: PhotoService) { }
+
+  imageClick(index: number) {
+    this.activeIndex = index;
+    this.displayCustom = true;
+  }
+
+  onImagesChange(newImages: Image[]) {
+    this.images = newImages;
   }
 }
