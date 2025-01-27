@@ -1,0 +1,20 @@
+<div class="card flex justify-center">
+    <p-tieredMenu [model]="items">
+        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
+            <a pRipple class="flex items-center p-tieredmenu-item-link">
+                <div class="menuImagen">
+                    <img *ngIf="item.icon" [src]="item.icon" class="p-tieredmenu-item-icon" alt="{{ item.label }}" />
+                </div>
+                <div class="menuTexto">
+                    <span class="ml-2">{{ item.label }}</span>
+                </div>
+            </a>
+        </ng-template>
+    </p-tieredMenu>
+    <button class="btTextoUnaImagen horizontal">
+            Cerrar sesión
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 13.625C1.0875 13.625 0.734375 13.4781 0.440625 13.1844C0.146875 12.8906 0 12.5375 0 12.125V1.625C0 1.2125 0.146875 0.859375 0.440625 0.565625C0.734375 0.271875 1.0875 0.125 1.5 0.125H6.75V1.625H1.5V12.125H6.75V13.625H1.5ZM9.75 10.625L8.71875 9.5375L10.6313 7.625H4.5V6.125H10.6313L8.71875 4.2125L9.75 3.125L13.5 6.875L9.75 10.625Z" fill="white"/>
+        </svg>
+    </button>
+</div>
