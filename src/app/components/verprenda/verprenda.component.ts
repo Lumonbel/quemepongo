@@ -23,16 +23,32 @@ interface Image {
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',
-  styleUrl: './verprenda.component.css'
+  styleUrl: './verprenda.component.css',
 })
 export class VerprendaComponent {
   prendasSel: Prenda[] = [];
   prendaSeleccionada: Prenda | undefined;
   mostrarDiv: string = '';
 
-  chipsRopa: string[] = ["Pantalones", "Camisas", "Chaquetas", "Sudaderas", "Faldas", "Jerseys","Vestidos","Baño"];
+  chipsRopa: string[] = [
+    'Baño',
+    'Camisas',
+    'Chaquetas',
+    'Faldas',
+    'Jerseys',
+    'Pantalones',
+    'Sudaderas',
+    'Vestidios',
+  ];
   chipsZapatos: string[] = [];
-  chipsComplementos: string[] = ["Cinturones", "Corbatas", "Gorras", "Bufandas", "Guantes"];
+  chipsComplementos: string[] = [
+    'Bolsos',
+    'Bufandas',
+    'Cinturones',
+    'Corbatas',
+    'Gorras',
+    'Guantes',
+  ];
 
   chipsSeleccionados: string[] = [];
 
@@ -51,15 +67,19 @@ export class VerprendaComponent {
 
   ngOnInit() {
     this.prendasSel = [
+      { ropa: 'Complementos' },
       { ropa: 'Ropa' },
       { ropa: 'Zapatos' },
-      { ropa: 'Complementos' },
     ];
-    this.photoService.getImages().then((images: Image[]) => this.images = images);
+    this.photoService
+      .getImages()
+      .then((images: Image[]) => (this.images = images));
   }
 
   onPrendaChange(event: any) {
-    const selectedOption = this.prendasSel.find(prenda => prenda.ropa === event.value.ropa);
+    const selectedOption = this.prendasSel.find(
+      (prenda) => prenda.ropa === event.value.ropa
+    );
     console.log('Opción seleccionada:', selectedOption);
 
     if (selectedOption) {
@@ -78,19 +98,19 @@ export class VerprendaComponent {
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
-      numVisible: 5
+      numVisible: 5,
     },
     {
       breakpoint: '768px',
-      numVisible: 3
+      numVisible: 3,
     },
     {
       breakpoint: '560px',
-      numVisible: 1
-    }
+      numVisible: 1,
+    },
   ];
 
-  constructor(private photoService: PhotoService) { }
+  constructor(private photoService: PhotoService) {}
 
   imageClick(index: number) {
     this.activeIndex = index;
