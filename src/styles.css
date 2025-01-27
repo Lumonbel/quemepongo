@@ -47,7 +47,9 @@
 body {
   display: grid;
   grid-template-rows: 1fr auto 1fr;
+
 }
+
 
 .inputForm {
   align-self: flex-start;
@@ -63,7 +65,7 @@ body {
     border: 2px solid var(--fondo);
   }
 }
-
+}
 input:focus {
   outline: none;
   box-shadow: none;
@@ -143,7 +145,7 @@ form{
       color: var(--logo);
       fill: var(--logo);
     }
-    
+
   }
 }
 

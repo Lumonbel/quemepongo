@@ -1,54 +1,100 @@
-.contenedorVertical {
-    background: url('../../../assets/images/priscilla-du-preez-dlxLGIy-2VU-unsplash\ 1.png') no-repeat left center;
-    background-size: 100% 100%;
-    object-fit: cover;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
 }
 
-.contenedorArriba {
-    background: url('../../../assets/images/alexandra-gorn-WF0LSThlRmw-unsplash.png') no-repeat center center;
-    background-size: 100% 100%;
-    object-fit: cover;
-    width: 720px;
-    height: 458px;
+
+.contenedorPrincipal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--fondo);
+  height: 100vh;
+
+
 }
 
-.contenedorAbajo {
-    background: url('../../../assets/images/image.png')no-repeat center center;
-    background-size: 100% 100%;
-    object-fit: cover;
-    width: 720px;
-    height: 458px;
+.imgVertical{
+  background: url("../../../assets/images/pruebarecorte.png") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.imghorizontal {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+
+#imgRopa{
+  background: url("../../../assets/images/ropa.png") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#imgAccesorios{
+  background: url("../../../assets/images/accesorios.png") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
 }
 
 .textoIndex {
-    font-family: 'syne';
-    font-size: 4em;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 5;
-    
-   
-  
+  font-family: "syne";
+  font-size: 3em;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -3em;
+  }
+
+
+
+.textoIndexCentrado {
+  font-family: "syne";
+  font-size: 4em;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
 }
 
-.telilla {
-    background-color: var(--fondo);
-    opacity: 0.25;
-    width: inherit;
-    height: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 1em;
-    z-index: -1;
+
+button {
+  font-family: "syne";
+  font-weight: bold;
+  font-size: 28px;
+  border: none;
+  background-color: var(--logo);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+
+
 }
