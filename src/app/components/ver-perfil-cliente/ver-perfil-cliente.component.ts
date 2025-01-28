@@ -10,5 +10,5 @@ import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
   styleUrl: './ver-perfil-cliente.component.css'
 })
 export class VerPerfilClienteComponent {
-
+  imagenUrl = 'assets/images/image.png';
 }

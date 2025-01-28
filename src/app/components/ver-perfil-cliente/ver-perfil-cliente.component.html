@@ -6,13 +6,60 @@
         <app-bt-atras></app-bt-atras>
         <div class="container-fluid vertical contenedorInformacion">
             <h2 class="txtTituloPag">Ver perfil del cliente</h2>
-            <div class="contenidoActualizarArticulo">
-                
-            </div>
-
         </div>
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Formulario -->
+                <div class="col-lg-8"> <!-- Contenedor de los inputs -->
+                    <form>
+                        <div class="row g-5">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" id="nombre" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellidos" class="form-label">Apellidos:</label>
+                                <input type="text" id="apellidos" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
+                                <input type="date" id="fechaNacimiento" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" id="email" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label">Número de teléfono:</label>
+                                <input type="tel" id="telefono" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="usuario" class="form-label">Usuario:</label>
+                                <input type="text" id="usuario" class="form-control input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="direccion" class="form-label">Dirección:</label>
+                                <input type="text" id="direccion" class="form-control input" disabled>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="premium" class="form-label">Premium:</label>
+                                <input type="text" id="premium" class="form-control input" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Imagen del cliente -->
+                <div class="col-lg-3 g-3 text-center contenedor-img">
+                    <img [src]="imagenUrl" alt="Foto del cliente" class="img-fluid">
+                    
+                </div>
+            </div>
+        </div>
+        <br>
     </div>
 </main>
 <footer>
     <app-footer></app-footer>
 </footer>
+
