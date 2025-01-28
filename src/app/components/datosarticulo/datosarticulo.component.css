@@ -3,21 +3,23 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.nombrePrecio{
+.nombrePrecio {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   font-size: 24px;
-  font-family: 'vazir';
+  font-family: "vazir";
   font-weight: bold;
-  h2{
+  h2 {
     font-size: 50px;
   }
 }
 
-
-
+  #btAtrasId{
+    background: #0000 !important;
+    color: aquamarine !important;
+  }
 
 .datosContainer {
   display: grid;
@@ -66,6 +68,6 @@
 }
 
 .btVolver {
- background: #0000 !important;
- color:aquamarine !important;
+  background: #0000 !important;
+  color: aquamarine !important;
 }

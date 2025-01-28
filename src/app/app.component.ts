@@ -5,11 +5,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { VerprendaComponent } from './components/verprenda/verprenda.component';
 import { DatosarticuloComponent } from "./components/datosarticulo/datosarticulo.component";
 import { IndexComponent } from "./components/index/index.component";
+import { InfoArticuloComponent } from "./components/info-articulo/info-articulo.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent, RouterOutlet, VerprendaComponent, DatosarticuloComponent, IndexComponent],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet, VerprendaComponent, DatosarticuloComponent, IndexComponent, InfoArticuloComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -17,4 +17,7 @@ export interface ArticuloDTO {
   capacidad: string;
   tipoAlmacenamiento: string;
   estampado: string;
+  usuario?: string;
+  precio?: number;
+
 }
