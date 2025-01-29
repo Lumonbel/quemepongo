@@ -1,3 +1,4 @@
+import { IndexComponent } from './../index/index.component';
 import { ArticulosService } from './../../services/articulos.service';
 import { Component, model } from '@angular/core';
 import { Chip } from 'primeng/chip';
@@ -76,7 +77,7 @@ export class VerprendaComponent {
     ];
     this.photoService
       .getImages()
-      .then((images: Image[]) => (this.images = images));
+      .then((images: ArticuloDTO[]) => (this.images = images));
   }
 
   onPrendaChange(event: any) {
@@ -96,7 +97,7 @@ export class VerprendaComponent {
 
   activeIndex: number = 0;
 
-  images: Image[] = [];
+  images: ArticuloDTO[] = [];
 
   responsiveOptions: any[] = [
     {
@@ -120,7 +121,7 @@ export class VerprendaComponent {
     this.displayCustom = true;
   }
 
-  onImagesChange(newImages: Image[]) {
+  onImagesChange(newImages: ArticuloDTO[]) {
     this.images = newImages;
   }
 
@@ -148,8 +149,8 @@ id: 2, // Opcional porque podría no estar presente al crear un nuevo artículo
   precio: 123
   }
 
-  envioArticulo() {
-    this.articuloservice.pasoArticulo(this.nuevoArticulo);
+  envioArticulo(articuloPasar: ArticuloDTO) {
+    this.articuloservice.pasoArticulo(articuloPasar);
         this.router.navigate(['/infoarticulo']);
 
   }
