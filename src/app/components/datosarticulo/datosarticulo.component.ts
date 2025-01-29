@@ -1,9 +1,16 @@
 import { ArticulosService } from './../../services/articulos.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  input,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ArticuloDTO } from '../../models/articulo-dto';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-datosarticulo',
@@ -14,16 +21,24 @@ import { ArticuloDTO } from '../../models/articulo-dto';
 })
 export class DatosarticuloComponent implements OnInit {
   articulo: ArticuloDTO | null = null;
+  artVer!: ArticuloDTO;
+  private subscription: Subscription = new Subscription();
 
   constructor(private articulosService: ArticulosService) {}
   ngOnInit(): void {
-    this.cargarDatos();
+    this.subscription = this.articulosService.art$.subscribe(
+      (art: ArticuloDTO) => {
+        this.artVer = art;
+      }
+    );
+     this.cargarDatos();
   }
 
   cargarDatos() {
-    this.articulosService.findById(1).subscribe((articulos: ArticuloDTO) => {
-      this.articulo = articulos;
-      console.log(articulos);
-    });
+    this.articulosService
+      .findById(this.artVer.id!)
+      .subscribe((articulos: ArticuloDTO) => {
+        this.articulo = articulos;
+      });
   }
 }

@@ -4,6 +4,7 @@ import { IndexComponent } from './components/index/index.component';
 import { InicioClienteComponent } from './components/inicio-cliente/inicio-cliente.component';
 import { DatosarticuloComponent } from './components/datosarticulo/datosarticulo.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
+import { VerprendaComponent } from './components/verprenda/verprenda.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'perfilCliente', component: InicioClienteComponent },
   { path: 'infoarticulo', component: DatosarticuloComponent },
   { path: 'formulario', component: FormularioComponent },
+  {path:'verprenda', component: VerprendaComponent}
 ];

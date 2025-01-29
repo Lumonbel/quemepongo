@@ -1,9 +1,11 @@
+import { ArticuloDTO } from './../models/articulo-dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ArticuloDTO } from '../models/articulo-dto';
 import { Transaccion } from '../models/transaccion-dto';
 import { UsuarioDTO } from '../models/usuario-dto';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,8 @@ export class ArticulosService {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);
   }
 
-  findById(id: number): Observable<ArticuloDTO> {//descartar luego
+  findById(id: number): Observable<ArticuloDTO> {
+    //descartar luego
     return this.http.get<ArticuloDTO>(`${this.apiUrl}/${id}`);
   }
 
@@ -38,5 +41,14 @@ export class ArticulosService {
 
   findAllT(): Observable<Transaccion[]> {
     return this.http.get<Transaccion[]>(this.apiUrlT);
+  }
+
+  //PASO DE VARIABLES
+  private artDeGaleria = new BehaviorSubject<ArticuloDTO>({} as ArticuloDTO); // Inicializa con un valor vacío
+ art$= this.artDeGaleria.asObservable();
+
+  pasoArticulo(articulo: ArticuloDTO) {
+    this.artDeGaleria.next(articulo);
+    console.log(articulo);
   }
 }

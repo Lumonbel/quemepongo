@@ -1,3 +1,4 @@
+import { ArticulosService } from './../../services/articulos.service';
 import { Component, model } from '@angular/core';
 import { Chip } from 'primeng/chip';
 import { Select } from 'primeng/select';
@@ -5,7 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PhotoService } from '../../services/photo.service';
 import { GalleriaModule } from 'primeng/galleria';
-
+import { ArticuloDTO } from '../../models/articulo-dto';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 interface Prenda {
   ropa: string;
 }
@@ -110,7 +113,7 @@ export class VerprendaComponent {
     },
   ];
 
-  constructor(private photoService: PhotoService) {}
+  constructor(private photoService: PhotoService, private articuloservice: ArticulosService, private router:Router) {}
 
   imageClick(index: number) {
     this.activeIndex = index;
@@ -119,5 +122,35 @@ export class VerprendaComponent {
 
   onImagesChange(newImages: Image[]) {
     this.images = newImages;
+  }
+
+
+  private nuevoArticulo: ArticuloDTO ={
+id: 2, // Opcional porque podría no estar presente al crear un nuevo artículo
+  color: 'ghjk',
+  marca: 'dfg',
+  material: 'cfg',
+  temporada:'fiop',
+  imagen: 'ghjk',
+  estado: 'ghjk',
+  publicado: true,
+  descripcion:'hjp',
+  tipo: 'dfghjk',
+  genero: 'ASDRT',
+  activo: true,
+  talla: 'dfghiop',
+  largo: 'hyujio',
+  grosor:'oty',
+  capacidad: 'ghjk',
+  tipoAlmacenamiento: 'xsdcfghj',
+  estampado: 'dfhjk',
+  usuario: 'dfghj',
+  precio: 123
+  }
+
+  envioArticulo() {
+    this.articuloservice.pasoArticulo(this.nuevoArticulo);
+        this.router.navigate(['/infoarticulo']);
+
   }
 }
