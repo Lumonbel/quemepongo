@@ -49,6 +49,5 @@ export class ArticulosService {
 
   pasoArticulo(articulo: ArticuloDTO) {
     this.artDeGaleria.next(articulo);
-    console.log(articulo);
   }
 }

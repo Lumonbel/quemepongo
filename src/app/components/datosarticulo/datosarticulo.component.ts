@@ -32,6 +32,7 @@ export class DatosarticuloComponent implements OnInit {
       }
     );
      this.cargarDatos();
+     console.log(this.artVer);
   }
 
   cargarDatos() {
