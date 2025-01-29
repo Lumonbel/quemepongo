@@ -1,32 +1,84 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Qué me pongo?</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <header class="p-0 m-0">
-        <app-header></app-header>
-    </header>
-    <main>
-        <div class="vertical contenedorPrincipal">
-            <app-bt-atras></app-bt-atras>
-            <div class="container-fluid vertical contenedorInformacion">
-                <h2 class="txtTituloPag">Actualizar artículo</h2>
-                <div class="contenidoActualizarArticulo">
+<main>
+    <div class="vertical contenedorPrincipal">
+        <app-bt-atras></app-bt-atras>
+        <div class="container-fluid vertical contenedorInformacion">
+            <h2 class="txtTituloPag">Actualizar artículo</h2>
+            <div class="contenidoActualizarArticulo vertical">
+                <form>
+
+
+                    <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
+                        <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
+
+                        </div>
+                        <div class="contenedorInformacionDinamico"> <!-- Seccion de datos, mayoritariamente dinamicos-->
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Seleccionar articulo:</h4>
+
+
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Talla:</h4>
+                                <input type="text" name="talla" id="talla" formControlName="talla"
+                                    class="formActualizarArticulo">
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Género:</h4>
+                                <input type="text" name="genero" id="genero" class="formActualizarArticulo">
+                            </div>
+                        
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Seleccionar tipo de ropa:</h4>
+
+
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Color:</h4>
+                                <input type="text" name="color" id="color" class="formActualizarArticulo">
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Temporada:</h4>
+                                <input type="text" name="temporada" id="temporada" class="formActualizarArticulo">
+                            </div>
+                        
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Marca:</h4>
+                                <input type="text" name="marca" id="marca" class="formActualizarArticulo">
+
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Material:</h4>
+                                <input type="text" name="material" id="material" class="formActualizarArticulo">
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Estado:</h4>
+                                <input type="text" name="estado" id="estado" class="formActualizarArticulo">
+                            </div>
+                        </div>  <!-- FIN Seccion de datos, mayoritariamente dinamicos-->
+                    </div> <!-- FIN Parte superior, con los datos e imagen-->
+                    <div class="inferior horizontal"> <!-- Parte del precio y descripcion-->
+                        <div class="col-3 col-md-3">
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Precio:</h4>
+                                <input type="text" name="precio" id="precio" class="formActualizarArticulo">
+                            </div>
+                        </div>
+                        <div class="col-9 col-md-9">
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Descripción:</h4>
+                                <textarea name="textarea" rows="20" cols="120" id="descripcion"
+                                    class="formActualizarArticulo"></textarea>
+                            </div>
+                        </div>
+                    </div><!-- FIN Parte del precio y descripcion-->
+                </form>
+                <div class="btInferior horizontal">
 
                 </div>
-
             </div>
+
         </div>
-        
+    </div>
 
-    </main>
-    <footer>
-        <app-footer></app-footer>
-    </footer>
-</body>
-</html>
 
+</main>

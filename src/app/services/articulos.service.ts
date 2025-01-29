@@ -35,5 +35,9 @@ export class ArticulosService {
     return this.http.get<Transaccion[]>(this.apiUrlT);
   }
 
+  findById(id: number): Observable<ArticuloDTO> {
+    return this.http.get<ArticuloDTO>(`${this.apiUrl}/${id}`);
+  }
+
 
 }
