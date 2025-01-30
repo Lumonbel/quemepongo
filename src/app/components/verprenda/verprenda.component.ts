@@ -33,6 +33,7 @@ export class VerprendaComponent {
   prendasSel: Prenda[] = [];
   prendaSeleccionada: Prenda | undefined;
   mostrarDiv: string = '';
+  todosArticulos: ArticuloDTO[] = [];
 
   chipsRopa: string[] = [
     'Baño',
@@ -70,31 +71,54 @@ export class VerprendaComponent {
   }
 
   ngOnInit() {
+    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+      this.images = articulos;
+      this.todosArticulos = articulos;
+    });
     this.prendasSel = [
       { ropa: 'Complementos' },
       { ropa: 'Ropa' },
       { ropa: 'Zapatos' },
     ];
-
-    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
-      this.images = articulos;
-    });
-
-
   }
 
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
       (prenda) => prenda.ropa === event.value.ropa
     );
-    console.log('Opción seleccionada:', selectedOption);
+    const ropaTipoMap: { [key: string]: string[] } = {
+      Complementos: [
+        'AccesorioAlmacenamiento',
+        'Bufanda',
+        'Cinturones',
+        'Corbatas',
+        'Gorra',
+        'Guantes',
+      ],
+      Ropa: [
+        'Camisa',
+        'Baño',
+        'Jersey',
+        'Pantalon',
+        'Falda',
+        'Vestido',
+        'Chaquetas',
+        'Sudaderas',
+        'Vestidos',
+      ],
+      Zapatos: ['Zapatos'],
+    };
 
-    if (selectedOption) {
+    if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
+      this.images = this.todosArticulos.filter((articulo) =>
+        ropaTipoMap[selectedOption.ropa].includes(articulo.tipo)
+      );
       this.mostrarDiv = selectedOption.ropa;
     } else {
       this.mostrarDiv = '';
     }
   }
+
 
   displayCustom: boolean = false;
 

@@ -49,11 +49,10 @@
     <div
       *ngIf="images && images.length > 0"
       class="grid grid-cols-12 gap-4"
-      style="max-width: 800px"
+      style="max-width:300px; max-height:300px"
     >
       <div
         *ngFor="let image of images; let index = index"
-        class="col-span-4"
         key="index"
       >
         <img
