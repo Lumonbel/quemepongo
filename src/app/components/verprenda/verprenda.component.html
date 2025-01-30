@@ -55,7 +55,7 @@
         *ngFor="let image of images; let index = index"
         class="col-span-4"
         key="index"
-      > 
+      >
         <img
           [src]="image.imagen"
           [alt]="image.descripcion"
@@ -64,7 +64,7 @@
         />
       </div>
     </div>
-    <p-galleria
+  <p-galleria
       [(ngModel)]="images"
       [(visible)]="displayCustom"
       [(activeIndex)]="activeIndex"
@@ -77,8 +77,8 @@
       [showThumbnails]="false"
     >
       <ng-template #item let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+        <img [src]="item.itemImageSrc" style="width: 50%; height:50%; display: block" />
       </ng-template>
-    </p-galleria>
+     </p-galleria>
   </div>
 </div>

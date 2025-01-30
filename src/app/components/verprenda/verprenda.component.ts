@@ -75,9 +75,12 @@ export class VerprendaComponent {
       { ropa: 'Ropa' },
       { ropa: 'Zapatos' },
     ];
-    this.photoService
-      .getImages()
-      .then((images: ArticuloDTO[]) => (this.images = images));
+
+    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+      this.images = articulos;
+    });
+
+
   }
 
   onPrendaChange(event: any) {
@@ -114,7 +117,11 @@ export class VerprendaComponent {
     },
   ];
 
-  constructor(private photoService: PhotoService, private articuloservice: ArticulosService, private router:Router) {}
+  constructor(
+    private photoService: PhotoService,
+    private articuloservice: ArticulosService,
+    private router: Router
+  ) {}
 
   imageClick(index: number) {
     this.activeIndex = index;
@@ -125,33 +132,8 @@ export class VerprendaComponent {
     this.images = newImages;
   }
 
-
-  private nuevoArticulo: ArticuloDTO ={
-id: 2, // Opcional porque podría no estar presente al crear un nuevo artículo
-  color: 'ghjk',
-  marca: 'dfg',
-  material: 'cfg',
-  temporada:'fiop',
-  imagen: 'ghjk',
-  estado: 'ghjk',
-  publicado: true,
-  descripcion:'hjp',
-  tipo: 'dfghjk',
-  genero: 'ASDRT',
-  activo: true,
-  talla: 'dfghiop',
-  largo: 'hyujio',
-  grosor:'oty',
-  capacidad: 'ghjk',
-  tipoAlmacenamiento: 'xsdcfghj',
-  estampado: 'dfhjk',
-  usuario: 'dfghj',
-  precio: 123
-  }
-
   envioArticulo(articuloPasar: ArticuloDTO) {
     this.articuloservice.pasoArticulo(articuloPasar);
-        this.router.navigate(['/infoarticulo']);
-
+    this.router.navigate(['/infoarticulo']);
   }
 }
