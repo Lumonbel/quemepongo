@@ -18,7 +18,11 @@ export class UsuarioService {
     return this.http.get<UsuarioDTO[]>(this.apiUrlU);
   }
   
-  login (usuario : UsuarioDTO) : Observable<UsuarioDTO[]> {
-    return this.http.post<UsuarioDTO[]>(this.apiUrlU, usuario);
+  login (usuario : UsuarioDTO) : Observable<number> {
+    return this.http.post<number>(`${this.apiUrlU}/login`, usuario);
+  }
+
+  usuarioLoggeado(id : number){
+
   }
 }
