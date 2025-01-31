@@ -10,11 +10,15 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {  //Esto es como el Autowired del STS
 
-  } 
+  }
 
   private apiUrlU = 'http://localhost:8888/api/usuarios';
 
-   findAllU(): Observable<UsuarioDTO[]> {
-      return this.http.get<UsuarioDTO[]>(this.apiUrlU);
-    }
+  findAllU(): Observable<UsuarioDTO[]> {
+    return this.http.get<UsuarioDTO[]>(this.apiUrlU);
+  }
+  
+  login (usuario : UsuarioDTO) : Observable<UsuarioDTO[]> {
+    return this.http.post<UsuarioDTO[]>(this.apiUrlU, usuario);
+  }
 }
