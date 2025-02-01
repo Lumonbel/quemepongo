@@ -4,9 +4,7 @@
         <div class="container-fluid vertical contenedorInformacion">
             <h2 class="txtTituloPag">Actualizar artículo</h2>
             <div class="contenidoActualizarArticulo vertical">
-                <form>
-
-
+                <form [formGroup]="formulario">
                     <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
                         <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
 
@@ -15,59 +13,109 @@
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Seleccionar articulo:</h4>
 
-
+                                <p-dropdown [options]="prendasSel"optionLabel="ropa"placeholder="Seleccionar categoría" class="w-full md:w-56"
+                                    (onChange)="onPrendaChange($event)"  formControlName="camisa">
+                                </p-dropdown>
+                                <!-- 
+                                <select id="categoria" formControlName="categoria" (change)="onCategoriaChange()">
+                                    <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
+                                </select>
+-->
                             </div>
                             <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Seleccionar tipo:</h4>
+                                <p-dropdown [options]="getFilteredSubcategorias()" [(ngModel)]="articulo.tipo"
+                                    optionLabel="label" placeholder="Seleccionar subcategoría" class="w-full md:w-56"  formControlName="tipo">
+                                </p-dropdown>
+
+                            </div>
+                            <!--  *ngIf="formulario.value.categoria === 'Ropa' ||  formulario.value.categoria === 'Zapatos'"-->
+                            <!--    EN ESTE CASO DEVERIA COMPROBAR SI ME PASA LA CATEGORIA O IR UNO A UNO DE LOS ELEMENTOS DE LA SUBCATEGORIA-->
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'ropa' || articulo.tipo === 'zapatos'">
                                 <h4 class="txtSubtituloInputs">Talla:</h4>
                                 <input type="text" name="talla" id="talla" formControlName="talla"
-                                    class="formActualizarArticulo">
-                            </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Género:</h4>
-                                <input type="text" name="genero" id="genero" class="formActualizarArticulo">
-                            </div>
-                        
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Seleccionar tipo de ropa:</h4>
-
-
+                                    class="form-control input">
                             </div>
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Color:</h4>
-                                <input type="text" name="color" id="color" class="formActualizarArticulo">
+                                <input type="text" name="color" id="color" class="form-control input"
+                                    formControlName="color">
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Marca:</h4>
+                                <input type="text" name="marca" id="marca" class="form-control input"
+                                    formControlName="marca">
                             </div>
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Temporada:</h4>
-                                <input type="text" name="temporada" id="temporada" class="formActualizarArticulo">
-                            </div>
-                        
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Marca:</h4>
-                                <input type="text" name="marca" id="marca" class="formActualizarArticulo">
-
+                                <input type="text" name="temporada" id="temporada" class="form-control input"
+                                    formControlName="temporada">
                             </div>
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Material:</h4>
-                                <input type="text" name="material" id="material" class="formActualizarArticulo">
+                                <input type="text" name="material" id="material" class="form-control input"
+                                    formControlName="material">
                             </div>
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Estado:</h4>
-                                <input type="text" name="estado" id="estado" class="formActualizarArticulo">
+                                <input type="text" name="estado" id="estado" class="form-control input"
+                                formControlName="estado">
                             </div>
-                        </div>  <!-- FIN Seccion de datos, mayoritariamente dinamicos-->
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Género:</h4>
+                                <input type="text" name="genero" id="genero" class="form-control input"
+                                    formControlName="genero">
+                            </div>
+                            <div class="atributos">
+                                <h4 class="txtSubtituloInputs">Estampado:</h4>
+                                <input type="text" name="estampado" id="estampado" class="form-control input"
+                                formControlName="estampado">
+                            </div>
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'camisa'
+                                    || articulo.tipo.toLowerCase() === 'pantalon'
+                                    || articulo.tipo.toLowerCase() === 'falda'
+                                    || articulo.tipo.toLowerCase() === 'vestido' 
+                                    || articulo.tipo.toLowerCase() === 'cinturon'">
+                                <h4 class="txtSubtituloInputs">Largo:</h4>
+                                <input type="text" name="largo" id="largo" class="form-control input"
+                                    formControlName="largo">
+                            </div>
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'chaqueta'">
+                                <h4 class="txtSubtituloInputs">Grosor:</h4>
+                                <input type="text" name="grosor" id="grosor" class="form-control input"
+                                    formControlName="grosor">
+                            </div>
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'accesorioalmacenamiento'">
+                                <h4 class="txtSubtituloInputs">Tipo de almacenaje:</h4>
+                                <input type="text" name="tipoAlmacenamiento" id="tipoAlmacenamiento"
+                                    class="form-control input" formControlName="tipoAlmacenamiento">
+                            </div>
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'accesorioalmacenamiento'">
+                                <h4 class="txtSubtituloInputs">Capacidad:</h4>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input"
+                                    formControlName="capacidad">
+                            </div>
+                            <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'accesorioalmacenamiento'">
+                                <h4 class="txtSubtituloInputs">Tipo de almacenamiento:</h4>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input"
+                                    formControlName="tipoAlmacenamiento">
+                            </div>
+
+                        </div> <!-- FIN Seccion de datos, mayoritariamente dinamicos-->
                     </div> <!-- FIN Parte superior, con los datos e imagen-->
                     <div class="inferior horizontal"> <!-- Parte del precio y descripcion-->
                         <div class="col-3 col-md-3">
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Precio:</h4>
-                                <input type="text" name="precio" id="precio" class="formActualizarArticulo">
+                                <input type="text" name="precio" id="precio" class="form-control input"
+                                    formControlName="precio">
                             </div>
                         </div>
                         <div class="col-9 col-md-9">
                             <div class="atributos">
                                 <h4 class="txtSubtituloInputs">Descripción:</h4>
-                                <textarea name="textarea" rows="20" cols="120" id="descripcion"
-                                    class="formActualizarArticulo"></textarea>
+                                <textarea name="textarea" rows="5" cols="120" id="descripcion"
+                                    class="form-control input"  formControlName="descripcion"></textarea>
                             </div>
                         </div>
                     </div><!-- FIN Parte del precio y descripcion-->
