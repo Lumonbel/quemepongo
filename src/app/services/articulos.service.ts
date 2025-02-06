@@ -23,8 +23,8 @@ export class ArticulosService {
     return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
   }
 
-  updateArticulo(id: number, articulo: ArticuloDTO): Observable<ArticuloDTO> {
-    return this.http.put<ArticuloDTO>(`${this.apiUrl}/${id}`, articulo);
+  updateArticulo( articulo: ArticuloDTO): Observable<ArticuloDTO> {
+    return this.http.put<ArticuloDTO>(`${this.apiUrl}`, articulo);
   }
 
   deleteArticulo(id: number): Observable<void> {

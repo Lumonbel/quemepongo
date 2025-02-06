@@ -1,0 +1,26 @@
+.contenedorInformacion{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.txtSubtituloInputs{
+    font-family: 'variz';
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.formActualizarArticulo{
+    border-color: var(--logo);
+    border-radius: 4px;
+}
+
+.contenedorInformacionDinamico{
+    display: flex;
+    flex-wrap: wrap;
+}
+input{
+    width: 266px;
+}
+.atributos{
+    margin: 30px;
+}

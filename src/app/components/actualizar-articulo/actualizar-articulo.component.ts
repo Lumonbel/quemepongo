@@ -44,7 +44,25 @@ export class ActualizarArticuloComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cargarArticulo();
+    this.formulario = this.formBuilder.group({
+      tipo: ['', Validators.required],
+      camisa: ['', Validators.required],
+      talla: ['', Validators.required],
+      color: ['', Validators.required],
+      marca: ['', Validators.required],
+      temporada: ['', Validators.required],
+      material: ['', Validators.required],
+      estado: ['', Validators.required],
+      genero: ['', Validators.required],
+      estampado: ['', Validators.required],
+      largo: ['', Validators.required],
+      grosor: ['', Validators.required],
+      tipoAlmacenamiento: ['', Validators.required],
+      capacidad: ['', Validators.required],
+      precio: ['', Validators.required],
+      descripcion: ['', Validators.required]
+    });
+
 
     this.prendasSel = [
       { id:'1', ropa: 'Complementos' },
@@ -72,8 +90,9 @@ export class ActualizarArticuloComponent implements OnInit {
         { id: '2-8', nombre: 'Vestidos' },
       ],
     };
-
+    this.cargarArticulo();
     this.subcategoriasOptions = this.transformSubcategorias(this.subcategorias);
+    
   }
 
   onPrendaChange(event: any) {
@@ -86,12 +105,15 @@ export class ActualizarArticuloComponent implements OnInit {
   cargarArticulo(): void {
     this.articuloService.findById(1).subscribe({
       next: (data) => {
+        
         this.articulo = data;
+        
         //console.log('Artículo:', this.articulo);
         this.inicializarFormulario();
         //console.log('Despues de inicializar el formularip:', this.articulo);
         this.setPrendaSeleccionada();
         //console.log('Despues de set prenda:', this.articulo);
+        
       },
       error: (err) => {
         console.error('Error al cargar el artículo:', err);
