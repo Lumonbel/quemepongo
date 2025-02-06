@@ -1,3 +1,5 @@
+import { IndexComponent } from './../index/index.component';
+import { ArticulosService } from './../../services/articulos.service';
 import { Component, model } from '@angular/core';
 import { Chip } from 'primeng/chip';
 import { Select } from 'primeng/select';
@@ -5,7 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PhotoService } from '../../services/photo.service';
 import { GalleriaModule } from 'primeng/galleria';
+import { ArticuloDTO } from '../../models/articulo-dto';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
+
 
 interface Prenda {
   ropa: string;
@@ -30,6 +36,7 @@ export class VerprendaComponent {
   prendasSel: Prenda[] = [];
   prendaSeleccionada: Prenda | undefined;
   mostrarDiv: string = '';
+  todosArticulos: ArticuloDTO[] = [];
 
   chipsRopa: string[] = [
     'Baño',
@@ -67,34 +74,60 @@ export class VerprendaComponent {
   }
 
   ngOnInit() {
+    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+      this.images = articulos;
+      this.todosArticulos = articulos;
+    });
     this.prendasSel = [
       { ropa: 'Complementos' },
       { ropa: 'Ropa' },
       { ropa: 'Zapatos' },
     ];
-    this.photoService
-      .getImages()
-      .then((images: Image[]) => (this.images = images));
   }
 
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
       (prenda) => prenda.ropa === event.value.ropa
     );
-    console.log('Opción seleccionada:', selectedOption);
+    const ropaTipoMap: { [key: string]: string[] } = {
+      Complementos: [
+        'AccesorioAlmacenamiento',
+        'Bufanda',
+        'Cinturones',
+        'Corbatas',
+        'Gorra',
+        'Guantes',
+      ],
+      Ropa: [
+        'Camisa',
+        'Baño',
+        'Jersey',
+        'Pantalon',
+        'Falda',
+        'Vestido',
+        'Chaquetas',
+        'Sudaderas',
+        'Vestidos',
+      ],
+      Zapatos: ['Zapatos'],
+    };
 
-    if (selectedOption) {
+    if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
+      this.images = this.todosArticulos.filter((articulo) =>
+        ropaTipoMap[selectedOption.ropa].includes(articulo.tipo)
+      );
       this.mostrarDiv = selectedOption.ropa;
     } else {
       this.mostrarDiv = '';
     }
   }
 
+
   displayCustom: boolean = false;
 
   activeIndex: number = 0;
 
-  images: Image[] = [];
+  images: ArticuloDTO[] = [];
 
   responsiveOptions: any[] = [
     {
@@ -111,14 +144,23 @@ export class VerprendaComponent {
     },
   ];
 
-  constructor(private photoService: PhotoService) {}
+  constructor(
+    private photoService: PhotoService,
+    private articuloservice: ArticulosService,
+    private router: Router
+  ) {}
 
   imageClick(index: number) {
     this.activeIndex = index;
     this.displayCustom = true;
   }
 
-  onImagesChange(newImages: Image[]) {
+  onImagesChange(newImages: ArticuloDTO[]) {
     this.images = newImages;
+  }
+
+  envioArticulo(articuloPasar: ArticuloDTO) {
+    this.articuloservice.pasoArticulo(articuloPasar);
+    this.router.navigate(['/infoarticulo']);
   }
 }
