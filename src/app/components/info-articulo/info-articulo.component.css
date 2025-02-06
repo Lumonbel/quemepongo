@@ -12,7 +12,7 @@
 }
 
 #volver {
-    display: block; 
+    display: block;
     position: relative;
 }
 
@@ -21,7 +21,8 @@
 }
 
 .img-fluid {
-    
+    background: url('../../../assets/images/chaqueta.png') no-repeat center center;
+
     width: 50%;
     height: 85vh;
 }
