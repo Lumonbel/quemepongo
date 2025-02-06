@@ -1,6 +1,4 @@
-<header>
-  <app-header></app-header>
-</header>
+
 <main>
   <div class="row">
 
@@ -13,20 +11,17 @@
       </div>
       <form class="container-fluid login-form ">
         <div class="mb-3 inputForm">
-          <label for="username" class="form-label">Nombre usuario</label>
-          <input type="text" class="form-control" id="username" placeholder="Nombre usuario" />
+          <label for="nombreUser" class="form-label">Nombre usuario</label>
+          <input type="text" [(ngModel)]="nombreUsuario" class="form-control" id="nombreUser" name="nombreUser" placeholder="Nombre usuario" />
         </div>
         <div class="mb-3 inputForm">
           <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password" placeholder="Contraseña" />
+          <input type="password" [(ngModel)]="password" class="form-control" id="password" name="password" required
+            placeholder="Contraseña" />
         </div>
 
-        <div class="d-grid">
-          <button type="submit" class="btn btn-primary" style="
-                  background-color: #9662d9;
-                  border-color: #9662d9;
-                  font-size: 1.2rem;
-                ">
+        <div class="d-grid ">
+          <button type="submit" (click)="logIn()" class="btn btn-primary boton">
             Iniciar sesión
           </button>
         </div>
@@ -37,9 +32,6 @@
     </div>
   </div>
 </main>
-<footer>
-  <app-footer></app-footer>
-</footer>
 <!--<div class="container-fluid vh-100">
     <div class="row container-fluid">
       <div class="col-md-6 right-section">

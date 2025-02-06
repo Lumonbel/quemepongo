@@ -3,7 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { HeaderComponent } from './components/header/header.component';
-import { VerprendaComponent } from './components/verprenda/verprenda.component';
+
+
 
 
 @Component({
