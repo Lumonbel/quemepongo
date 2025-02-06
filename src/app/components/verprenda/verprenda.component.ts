@@ -10,6 +10,9 @@ import { GalleriaModule } from 'primeng/galleria';
 import { ArticuloDTO } from '../../models/articulo-dto';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
+
+
 interface Prenda {
   ropa: string;
 }
@@ -23,7 +26,7 @@ interface Image {
 
 @Component({
   selector: 'app-verprenda',
-  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule],
+  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule, BtAtrasComponent],
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',

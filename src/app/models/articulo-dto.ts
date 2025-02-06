@@ -9,15 +9,13 @@ export interface ArticuloDTO {
   publicado: boolean;
   descripcion: string;
   tipo: string;
-  genero: string;
+  genero?: string;
   activo: boolean;
-  talla: string;
-  largo: string;
-  grosor: string;
-  capacidad: string;
-  tipoAlmacenamiento: string;
-  estampado: string;
-  usuario?: string;
+  talla?: string;
+  largo?: string;
+  grosor?: string;
+  capacidad?: string;
+  tipoAlmacenamiento?: string;
+  estampado?: string;
   precio?: number;
-
 }

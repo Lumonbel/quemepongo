@@ -2,19 +2,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsuarioDTO } from '../models/usuario-dto';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient) {  //Esto es como el Autowired del STS
+  constructor(private http: HttpClient,
+      private authService: AuthService,
+  ) {  //Esto es como el Autowired del STS
 
-  } 
+  }
 
   private apiUrlU = 'http://localhost:8888/api/usuarios';
+  private apiUrlA = 'http://localhost:8888/api/auth';
 
-   findAllU(): Observable<UsuarioDTO[]> {
-      return this.http.get<UsuarioDTO[]>(this.apiUrlU);
-    }
+
+  findAllU(): Observable<UsuarioDTO[]> {
+    return this.http.get<UsuarioDTO[]>(this.apiUrlU);
+  }
+  
+  login (usuario : UsuarioDTO) : Observable<number> {
+    return this.http.post<number>(`${this.apiUrlA}/login`, usuario, {headers: this.authService.getAuthHeader()});
+  }
+
+  usuarioLoggeado(id : number){
+
+  }
 }

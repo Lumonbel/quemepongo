@@ -22,17 +22,21 @@ export class ArticulosService {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);
   }
 
-  findById(id: number): Observable<ArticuloDTO> {
-    //descartar luego
+
+  
+   findById(id: number): Observable<ArticuloDTO> {
     return this.http.get<ArticuloDTO>(`${this.apiUrl}/${id}`);
   }
+  
+  
+  
 
   createArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
     return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
   }
 
-  updateArticulo(id: number, articulo: ArticuloDTO): Observable<ArticuloDTO> {
-    return this.http.put<ArticuloDTO>(`${this.apiUrl}/${id}`, articulo);
+  updateArticulo( articulo: ArticuloDTO): Observable<ArticuloDTO> {
+    return this.http.put<ArticuloDTO>(`${this.apiUrl}`, articulo);
   }
 
   deleteArticulo(id: number): Observable<void> {
@@ -46,6 +50,7 @@ export class ArticulosService {
   //PASO DE VARIABLES
   private artDeGaleria = new BehaviorSubject<ArticuloDTO>({} as ArticuloDTO); // Inicializa con un valor vacío
  art$= this.artDeGaleria.asObservable();
+
 
   pasoArticulo(articulo: ArticuloDTO) {
     this.artDeGaleria.next(articulo);

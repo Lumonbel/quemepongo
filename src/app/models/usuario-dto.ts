@@ -6,14 +6,11 @@ export interface UsuarioDTO {
 	apellidos: string;
 	email: string;
 	fechaNacimiento: Date;
-	nombreusuario: string;
+	nombreUsuario: string;
 	password: string;
 	telefono:string;
 	imagen:string;
 	activo:boolean;
 	plan:string;
 	rol:string;
-
-    
-	
 }
