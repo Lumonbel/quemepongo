@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio-cliente',
@@ -7,6 +8,20 @@ import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
   templateUrl: './inicio-cliente.component.html',
   styleUrl: './inicio-cliente.component.css'
 })
-export class InicioClienteComponent {
+export class InicioClienteComponent implements OnInit{
+  nombreUsuario = localStorage.getItem('nombreUsuario');
+  constructor(private router: Router) { }
+  ngOnInit(): void {
+    this.nombreUsuario = localStorage.getItem('nombreUsuario');
+    if(localStorage.getItem('token') === null){
+      this.router.navigate(['/index']); 
+    }
+
+  }
+  cerrarSesion(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('nombreUsuario');
+    this.router.navigate(['/index']);
+  }
 
 }

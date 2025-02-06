@@ -23,25 +23,10 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     font-family: 'syne';
     font-size: 1.5em;
-    font-weight: 600;
-    padding: 1em;
-    .inputForm{
-        align-self: flex-start;
-        margin-left: 2em;
-        input{
-            width: 366px;
-            height: 48px;
-            border: 2px solid var(--logo);
-        }
-        input:focus{
-            outline: none; 
-            box-shadow: none;
-            border: 2px solid var(--fondo) ;
-        }
-    }
+    font-weight: 600;    
 }
 
 
@@ -66,23 +51,44 @@ form {
     background: #fff;
     border: 2px solid var(--fondo);
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 3PX 3px 4px 0px var(--fondoBorde);
+    padding: 5%;
+    box-shadow: 4px 4px 10px 4px var(--fondo);
 }
 
 .login-form h1 {
     font-size: 24px;
-    color: #6f42c1;
+    color: var(--botones);
     text-align: center;
 }
 
 .login-form a {
-    color: #6f42c1;
+    color: var(--botones);
+    text-decoration: none;
+    transition: .7s;
 }
 
 .login-form a:hover {
     text-decoration: underline;
+    font-size: 1.2em;
+    transition: .7s;
 }
 
+.boton {
+    width: 200px;
+    height: 50px;
+    background-color: var(--botones);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: "syne";
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.7s;
+}
 
-
+.boton:hover {
+    background-color: var(--fondo);
+    color: var(--botones);
+    border: 1px solid var(--botones);
+    transition: 0.7s;
+}
