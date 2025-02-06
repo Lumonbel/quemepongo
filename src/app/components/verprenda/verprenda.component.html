@@ -1,49 +1,83 @@
-<main>
-    <div class="vertical contenedorPrincipal">
-        <app-bt-atras></app-bt-atras>
-        <div class="container-fluid vertical contenedorInformacion">
-            <h2 class="txtTituloPag">Ver prenda</h2>
-            <div class="container">
-                <div class="flex justify-center contenedor-complementos">
-                    <p-select [options]="prendasSel" [(ngModel)]="prendaSeleccionada" optionLabel="ropa"
-                        placeholder="Seleccionar artículo" class="w-full md:w-56" (onChange)="onPrendaChange($event)" />
-                </div>
-                <div class="flex items-center gap-2 flex-wrap">
-                    <div *ngIf="mostrarDiv === 'Ropa'" class="contenedor-ropa">
-                        <p-chip *ngFor="let chip of chipsRopa" label="{{chip}}" (click)="chipSeleccionadoFunc(chip)"
-                            [ngClass]="{'seleccionadoCss' : funcSeleccionado(chip)}">
-                        </p-chip>
-                    </div>
-
-                    <div id="zapatos" *ngIf="mostrarDiv === 'Zapatos'" class="contenedor-zapatos">
-                        <p-chip id="escondido1" label=""></p-chip>
-                    </div>
-                    <div id="complementos" *ngIf="mostrarDiv === 'Complementos'" class="contenedor-complementos">
-                        <p-chip *ngFor="let chip of chipsComplementos" label="{{chip}}"
-                            (click)="chipSeleccionadoFunc(chip)"
-                            [ngClass]="{'seleccionadoCss' : funcSeleccionado(chip)}">
-                        </p-chip>
-                    </div>
-                </div>
-            </div>
-            <div class="container-2">
-                <div class="flex justify-center">
-                    <div *ngIf="images && images.length > 0" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
-                        <div *ngFor="let image of images; let index = index" class="col-span-4" key="index">
-                            <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer"
-                                (click)="imageClick(index)" />
-                        </div>
-                    </div>
-                    <p-galleria [(ngModel)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
-                        [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }"
-                        [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true"
-                        [showThumbnails]="false">
-                        <ng-template #item let-item>
-                            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-                        </ng-template>
-                    </p-galleria>
-                </div>
-            </div>
-        </div>
+<div class="container">
+  <div class="flex justify-center contenedor-complementos">
+    <p-select
+      [options]="prendasSel"
+      [(ngModel)]="prendaSeleccionada"
+      optionLabel="ropa"
+      placeholder="Seleccionar artículo"
+      class="w-full md:w-56"
+      (onChange)="onPrendaChange($event)"
+    />
+  </div>
+  <div class="flex items-center gap-2 flex-wrap">
+    <div *ngIf="mostrarDiv === 'Ropa'" class="contenedor-ropa">
+      <p-chip
+        *ngFor="let chip of chipsRopa"
+        label="{{ chip }}"
+        (click)="chipSeleccionadoFunc(chip)"
+        [ngClass]="{ seleccionadoCss: funcSeleccionado(chip) }"
+      >
+      </p-chip>
     </div>
-</main>
+
+    <div
+      id="zapatos"
+      *ngIf="mostrarDiv === 'Zapatos'"
+      class="contenedor-zapatos"
+    >
+      <p-chip id="escondido1" label=""></p-chip>
+    </div>
+
+    <div
+      id="complementos"
+      *ngIf="mostrarDiv === 'Complementos'"
+      class="contenedor-complementos"
+    >
+      <p-chip
+        *ngFor="let chip of chipsComplementos"
+        label="{{ chip }}"
+        (click)="chipSeleccionadoFunc(chip)"
+        [ngClass]="{ seleccionadoCss: funcSeleccionado(chip) }"
+      >
+      </p-chip>
+    </div>
+  </div>
+</div>
+<!-- imagnes-->
+<div class="container-2">
+  <div class="card flex justify-center">
+    <div
+      *ngIf="images && images.length > 0"
+      class="grid grid-cols-12 gap-4"
+      style="max-width:300px; max-height:300px"
+    >
+      <div
+        *ngFor="let image of images; let index = index"
+        key="index"
+      >
+        <img
+          [src]="image.imagen"
+          [alt]="image.descripcion"
+          style="cursor: pointer"
+          (click)="envioArticulo(image)"
+        />
+      </div>
+    </div>
+  <p-galleria
+      [(ngModel)]="images"
+      [(visible)]="displayCustom"
+      [(activeIndex)]="activeIndex"
+      [responsiveOptions]="responsiveOptions"
+      [containerStyle]="{ 'max-width': '850px' }"
+      [numVisible]="7"
+      [circular]="true"
+      [fullScreen]="true"
+      [showItemNavigators]="true"
+      [showThumbnails]="false"
+    >
+      <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 50%; height:50%; display: block" />
+      </ng-template>
+     </p-galleria>
+  </div>
+</div>
