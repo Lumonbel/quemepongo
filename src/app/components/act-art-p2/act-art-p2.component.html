@@ -1,0 +1,128 @@
+<main>
+  <div class="vertical contenedorPrincipal">
+    <app-bt-atras></app-bt-atras>
+    <div class="container-fluid vertical contenedorInformacion">
+      <h2 class="txtTituloPag">Actualizar artículo</h2>
+      <div class="contenidoActualizarArticulo vertical">
+        <form (ngSubmit)="actualizarCategoria()">
+          <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
+            <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
+
+            </div>
+            <div class="contenedorInformacionDinamico"> <!-- Seccion de datos, mayoritariamente dinamicos-->
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Seleccionar articulo:</h4>
+                <select id="categoria" [(ngModel)]="categoriaSeleccionada" (change)="actualizarSubcategorias()"
+                  name="categoria" placeholder="Seleccionar categoría" class="form-control">
+                  <option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+                    {{ categoria.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="atributos" *ngIf="categoriaSeleccionada !== 'Zapatos'">
+                <h4 class="txtSubtituloInputs">Seleccionar tipo:</h4>
+                <select id="subcategoria" [(ngModel)]="subcategoriaSeleccionada" name="subcategoria"
+                  class="form-control input">
+                  <option *ngFor="let subcategoria of subcategoriasFiltradas" [value]="subcategoria">
+                    {{ subcategoria }}
+                  </option>
+                </select>
+
+              </div>
+              <div class="atributos"
+                *ngIf="categoriaSeleccionada.toLowerCase() === 'ropa' || categoriaSeleccionada.toLowerCase() === 'zapatos'">
+                <h4 class="txtSubtituloInputs">Talla:</h4>
+                <input id="talla" [(ngModel)]="articulo.talla" name="talla" class="form-control input">
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Color:</h4>
+                <input id="color" [(ngModel)]="articulo.color" name="color" required class="form-control input">
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Marca:</h4>
+                <input id="marca" [(ngModel)]="articulo.marca" name="marca" required class="form-control input">
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Temporada:</h4>
+                <input type="text" name="temporada" id="temporada" class="form-control input"
+                  [(ngModel)]="articulo.temporada" name="temporada" required>
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Material:</h4>
+                <input type="text" name="material" id="material" class="form-control input"
+                  [(ngModel)]="articulo.material" required>
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Estado:</h4>
+                <input type="text" name="estado" id="estado" class="form-control input" [(ngModel)]="articulo.estado"
+                  required>
+              </div>
+
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Género:</h4>
+                <input id="genero" [(ngModel)]="articulo.genero" name="genero" class="form-control input">
+              </div>
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Estampado:</h4>
+                <input type="text" name="estampado" id="estampado" class="form-control input"
+                  [(ngModel)]="articulo.estampado" required>
+              </div>
+              <!--  ESTO NO SALE MIRAR-->
+              <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'camisa'
+                                    || subcategoriaSeleccionada.toLowerCase() === 'pantalon'
+                                    || subcategoriaSeleccionada.toLowerCase() === 'falda'
+                                    || subcategoriaSeleccionada.toLowerCase() === 'vestido' 
+                                    || subcategoriaSeleccionada.toLowerCase() === 'cinturon'">
+                <h4 class="txtSubtituloInputs">Largo:</h4>
+                <input type="text" name="largo" id="largo" class="form-control input" [(ngModel)]="articulo.largo">
+              </div>
+              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'chaqueta'">
+                <h4 class="txtSubtituloInputs">Grosor:</h4>
+                <input type="text" name="grosor" id="grosor" class="form-control input" [(ngModel)]="articulo.grosor">
+              </div>
+              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'bolso'">
+                <h4 class="txtSubtituloInputs">Tipo de almacenamiento:</h4>
+                <input type="text" name="capacidad" id="capacidad" class="form-control input"
+                  [(ngModel)]="articulo.tipoAlmacenamiento">
+              </div>
+
+              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'bolso'">
+                <h4 class="txtSubtituloInputs">Capacidad:</h4>
+                <input type="text" name="capacidad" id="capacidad" class="form-control input"
+                  [(ngModel)]="articulo.capacidad">
+              </div>
+
+
+
+            </div> <!-- FIN Seccion de datos, mayoritariamente dinamicos-->
+          </div> <!-- FIN Parte superior, con los datos e imagen-->
+          <div class="inferior horizontal"> <!-- Parte del precio y descripcion-->
+            <div class="col-3 col-md-3">
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Precio:</h4>
+                <input type="text" name="precio" id="precio" class="form-control input" [(ngModel)]="articulo.precio">
+              </div>
+            </div>
+            <div class="col-9 col-md-9">
+              <div class="atributos">
+                <h4 class="txtSubtituloInputs">Descripción:</h4>
+                <textarea name="textarea" rows="5" cols="120" id="descripcion" class="form-control input"
+                  [(ngModel)]="articulo.descripcion"></textarea>
+              </div>
+            </div>
+          </div><!-- FIN Parte del precio y descripcion-->
+
+          <div>
+            <button type="submit">Actualizar</button>
+          </div>
+        </form>
+        <div class="btInferior horizontal">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</main>
