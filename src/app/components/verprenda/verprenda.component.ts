@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PhotoService } from '../../services/photo.service';
 import { GalleriaModule } from 'primeng/galleria';
+import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
 
 interface Prenda {
   ropa: string;
@@ -19,7 +20,7 @@ interface Image {
 
 @Component({
   selector: 'app-verprenda',
-  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule],
+  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule, BtAtrasComponent],
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',

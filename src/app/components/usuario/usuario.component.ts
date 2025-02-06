@@ -17,7 +17,6 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-
   usuarios: UsuarioDTO[] = [];
 
   ngOnInit(): void {
@@ -31,5 +30,7 @@ export class UsuarioComponent implements OnInit {
     })
   }
 
-
+  comprobarUsuario(): void {
+    
+  }
 }
