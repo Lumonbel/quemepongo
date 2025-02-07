@@ -9,7 +9,7 @@ export interface UsuarioDTO {
 	nombreUsuario: string;
 	password: string;
 	telefono:string;
-	imagen:string;
+	imagen?:string;
 	activo:boolean;
 	plan:string;
 	rol:string;
