@@ -5,6 +5,8 @@ import { InicioClienteComponent } from './components/inicio-cliente/inicio-clien
 import { DatosarticuloComponent } from './components/datosarticulo/datosarticulo.component';
 import { VerprendaComponent } from './components/verprenda/verprenda.component';
 import { LoginComponent } from './components/login/login.component';
+import { ActualizarArticuloComponent } from './components/actualizar-articulo/actualizar-articulo.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -12,9 +14,7 @@ export const routes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: 'perfilCliente', component: InicioClienteComponent },
   { path: 'infoarticulo', component: DatosarticuloComponent },
-  { path: 'formulario', component: FormularioComponent },
-  {path:'verprenda', component: VerprendaComponent}
+  {path:  'verprenda', component: VerprendaComponent},
   { path: 'login', component: LoginComponent },
-
-
+  {path: 'actualizarArticulo', component: ActualizarArticuloComponent}
 ];
