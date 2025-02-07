@@ -7,11 +7,13 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UsuarioService {
 
   constructor(private http: HttpClient,
-      private authService: AuthService,
-  ) {  //Esto es como el Autowired del STS
+    private authService: AuthService,
+  ) {
+    //Esto es como el Autowired del STS
 
   }
 
@@ -22,12 +24,17 @@ export class UsuarioService {
   findAllU(): Observable<UsuarioDTO[]> {
     return this.http.get<UsuarioDTO[]>(this.apiUrlU);
   }
-  
-  login (usuario : UsuarioDTO) : Observable<number> {
-    return this.http.post<number>(`${this.apiUrlA}/login`, usuario, {headers: this.authService.getAuthHeader()});
+
+  login(usuario: UsuarioDTO): Observable<number> {
+    return this.http.post<number>(`${this.apiUrlA}/login`, usuario, { headers: this.authService.getAuthHeader() });
   }
 
-  usuarioLoggeado(id : number){
+  //Hacemos el método para buscar por id el usuario que necesitemso
+  findById(id: number): Observable<UsuarioDTO> {
+    return this.http.get<UsuarioDTO>(`${this.apiUrlU}/${id}`);
+  }
+
+  usuarioLoggeado(id: number) {
 
   }
 }
