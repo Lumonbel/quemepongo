@@ -6,7 +6,7 @@ import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { jwtDecode } from 'jwt-decode';
+//import { jwtDecode } from 'jwt-decode';
 
 
 @Component({
