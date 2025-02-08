@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Transaccion } from '../models/transaccion-dto';
 import { UsuarioDTO } from '../models/usuario-dto';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -16,7 +17,10 @@ export class ArticulosService {
   //
   private apiUrlT = 'http://localhost:8888/api/transacciones';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {}
 
   findAll(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);
@@ -35,10 +39,18 @@ export class ArticulosService {
     return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
   }
 
+  updateArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
+    const headers = this.authService.getAuthHeader();
+    console.log('URL:', this.apiUrl);
+    console.log('Headers:', headers);
+    console.log('Articulo:', articulo);
+    return this.http.put<ArticuloDTO>(this.apiUrl, articulo, { headers });
+  }
+  /*
   updateArticulo( articulo: ArticuloDTO): Observable<ArticuloDTO> {
     return this.http.put<ArticuloDTO>(`${this.apiUrl}`, articulo);
   }
-
+*/
   deleteArticulo(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

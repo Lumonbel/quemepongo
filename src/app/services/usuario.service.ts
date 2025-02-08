@@ -27,6 +27,10 @@ export class UsuarioService {
     return this.http.post<number>(`${this.apiUrlA}/login`, usuario, {headers: this.authService.getAuthHeader()});
   }
 
+  findByNombreUsuario(nombreUsuario: string): Observable<UsuarioDTO> {
+    return this.http.get<UsuarioDTO>(`${this.apiUrlU}/search/${nombreUsuario}`);
+  }
+
   usuarioLoggeado(id : number){
 
   }
