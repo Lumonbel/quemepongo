@@ -27,24 +27,22 @@ export class ArticulosService {
   }
 
 
-  
+
    findById(id: number): Observable<ArticuloDTO> {
     return this.http.get<ArticuloDTO>(`${this.apiUrl}/${id}`);
   }
-  
-  
-  
+
+
+
 
   createArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
     return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
   }
 
   updateArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
-    const headers = this.authService.getAuthHeader();
     console.log('URL:', this.apiUrl);
-    console.log('Headers:', headers);
     console.log('Articulo:', articulo);
-    return this.http.put<ArticuloDTO>(this.apiUrl, articulo, { headers });
+    return this.http.put<ArticuloDTO>(this.apiUrl, articulo);
   }
   /*
   updateArticulo( articulo: ArticuloDTO): Observable<ArticuloDTO> {
