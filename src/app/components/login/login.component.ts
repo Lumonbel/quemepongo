@@ -61,7 +61,7 @@ export class LoginComponent  {
     });
 
     localStorage.setItem('nombreUsuario', this.nombreUsuario);
-    this.authService.login(this.nombreUsuario, this.password);
+    //this.authService.login(this.nombreUsuario, this.password);
 
     }
 }
