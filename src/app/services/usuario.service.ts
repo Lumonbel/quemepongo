@@ -22,9 +22,9 @@ export class UsuarioService {
   findAllU(): Observable<UsuarioDTO[]> {
     return this.http.get<UsuarioDTO[]>(this.apiUrlU);
   }
-  
+
   login (usuario : UsuarioDTO) : Observable<number> {
-    return this.http.post<number>(`${this.apiUrlA}/login`, usuario, {headers: this.authService.getAuthHeader()});
+    return this.http.post<number>(`${this.apiUrlU}/login`, usuario);
   }
 
   findByNombreUsuario(nombreUsuario: string): Observable<UsuarioDTO> {

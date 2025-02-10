@@ -14,7 +14,7 @@ import { OnInit } from '@angular/core';
   styleUrl: './login.component.css'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
   password: string = '';
   nombre: string = '';
@@ -35,17 +35,17 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
   ) {}
 
-  ngOnInit() {
-    console.log('LoginComponent');
-    if(localStorage.getItem('token') !== null){
-      this.router.navigate(['/perfilCliente']); 
-      console.log('Usuario loggeado');
-    }
-  }
+  // ngOnInit() {
+  //   console.log('LoginComponent');
+  //   if(localStorage.getItem('token') !== null){
+  //     this.router.navigate(['/perfilCliente']);
+  //     console.log('Usuario loggeado');
+  //   }
+  // }
 
   logIn() {
     console.log('LogIn');
-    /*
+
     const usuario = { nombreUsuario: this.nombreUsuario, password: this.password, nombre: this.nombre, apellidos: this.apellidos, email: this.email, fechaNacimiento: this.fechaNacimiento, telefono: this.telefono, imagen: this.imagen, activo: this.activo, plan: this.plan, rol: this.rol };
     console.log(usuario);
     this.usuarioService.login(usuario).subscribe((datos) => {
@@ -58,10 +58,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/login']);
       }
       console.log(datos);
-    });*/
+    });
 
-    localStorage.setItem('nombreUsuario', this.nombreUsuario); 
+    localStorage.setItem('nombreUsuario', this.nombreUsuario);
     this.authService.login(this.nombreUsuario, this.password);
-    
+
     }
 }
