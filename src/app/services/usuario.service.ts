@@ -25,8 +25,13 @@ export class UsuarioService {
     return this.http.get<UsuarioDTO[]>(this.apiUrlU);
   }
 
-  login(usuario: UsuarioDTO): Observable<number> {
-    return this.http.post<number>(`${this.apiUrlA}/login`, usuario, { headers: this.authService.getAuthHeader() });
+  login (usuario : UsuarioDTO) : Observable<number> {
+    return this.http.post<number>(`${this.apiUrlU}/login`, usuario);
+  }
+
+  findByNombreUsuario(nombreUsuario: string): Observable<UsuarioDTO> {
+    return this.http.get<UsuarioDTO>(`${this.apiUrlU}/search/${nombreUsuario}`);
+
   }
 
   //Hacemos el método para buscar por id el usuario que necesitemso

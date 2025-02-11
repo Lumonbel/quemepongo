@@ -13,8 +13,8 @@ export class InicioClienteComponent implements OnInit{
   constructor(private router: Router) { }
   ngOnInit(): void {
     this.nombreUsuario = localStorage.getItem('nombreUsuario');
-    if(localStorage.getItem('token') === null){
-      this.router.navigate(['/index']); 
+    if(this.nombreUsuario == null){
+      this.router.navigate(['/index']);
     }
 
   }
@@ -52,7 +52,6 @@ export class InicioClienteComponent implements OnInit{
   */
 
   cerrarSesion(){
-    localStorage.removeItem('token');
     localStorage.removeItem('nombreUsuario');
     this.router.navigate(['/index']);
   }
