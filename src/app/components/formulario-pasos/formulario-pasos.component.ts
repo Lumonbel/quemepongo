@@ -5,6 +5,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FluidModule } from 'primeng/fluid';
 import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
+import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioDTO } from '../../models/usuario-dto';
 
 @Component({
   selector: 'app-formulario-pasos',
@@ -27,9 +29,9 @@ export class FormularioPasosComponent {
   formPaso2!: FormGroup;
   formPaso3!: FormGroup;
   planSeleccionado: string | null = null;
-  formPrincipal:FormGroup;
+  nuevoUsuario?: UsuarioDTO;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     //FG1
     this.formPaso1 = this.fb.group({
       nombreUsuario: ['', [Validators.required]],
@@ -49,15 +51,10 @@ export class FormularioPasosComponent {
     //FG3
 
     this.formPaso3 = this.fb.group({
-      terminos: [''],
-      comunicaciones: [''],
+      terminos: [false],
+      comunicaciones: [false],
       plan: [this.planSeleccionado]
     })
-    this.formPrincipal = this.fb.group({
-      form1: this.formPaso1,
-      form2: this.formPaso2,
-      form3: this.formPaso3
-    });
 
   }
 
@@ -70,7 +67,25 @@ export class FormularioPasosComponent {
     this.formPaso3.patchValue({
       plan: this.planSeleccionado
     });
-    console.log(this.formPrincipal.value);
+
+ 
+    this.nuevoUsuario = {
+      nombre: this.formPaso2.value.nombre,
+      apellidos: this.formPaso2.value.apellidos,
+      nombreUsuario: this.formPaso1.value.nombreUsuario,
+      email: this.formPaso1.value.email,
+      fechaNacimiento: this.formPaso2.value.fechaNacimiento,
+      password: this.formPaso1.value.contraseña,
+      telefono: this.formPaso2.value.telefono,
+      activo: true,
+      plan: this.formPaso3.value.plan,
+      rol: 'Cliente'}
+    console.table(this.nuevoUsuario)
+    this.usuarioService.anyadirUsuario(this.nuevoUsuario).subscribe(response => {
+      console.log('Usuario creado', response);
+      alert('Usuario creado con éxito');
+    });
+
   }
 
 
