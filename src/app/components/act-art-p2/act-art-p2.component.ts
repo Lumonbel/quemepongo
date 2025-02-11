@@ -3,6 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { ArticulosService } from '../../services/articulos.service';
 import { CommonModule } from '@angular/common';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
+import { AuthService } from '../../services/auth.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+//import { jwtDecode } from 'jwt-decode';
 
 
 @Component({
@@ -10,7 +14,11 @@ import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
   standalone: true,
   imports: [FormsModule, CommonModule, BtAtrasComponent],
   templateUrl: './act-art-p2.component.html',
-  styleUrl: './act-art-p2.component.css'
+  styleUrl: './act-art-p2.component.css',
+  providers: [
+    { provide: JWT_OPTIONS, useValue: {} },
+    JwtHelperService
+  ]
 })
 export class ActArtP2Component implements OnInit {
   articulo: any = {};
@@ -29,12 +37,16 @@ export class ActArtP2Component implements OnInit {
     }
   ];
   constructor(
-      private articuloService: ArticulosService
+      private articuloService: ArticulosService,
+      private authService: AuthService,
+      private jwtHelper: JwtHelperService,
+      private usuarioService: UsuarioService,
     ) {}
 
   categoriaSeleccionada: string = '';
   subcategoriaSeleccionada: string = '';
   subcategoriasFiltradas: string[] = [];
+  
 
   ngOnInit() {
     this.articuloService.findById(1).subscribe({
@@ -71,15 +83,31 @@ export class ActArtP2Component implements OnInit {
   actualizarCategoria() {
     console.log('Actualizando producto:', this.articulo);
     this.articulo.tipo = this.subcategoriaSeleccionada;
-    this.articuloService.updateArticulo(this.articulo).subscribe({
-      next: (response) => {
-        console.log('Producto actualizado:', response);
-        alert('Producto actualizado correctamente');
-      },
-      error: (err) => {
-        console.error('Error al actualizar:', err);
-      },
-    });
+    const nombreUsuario = localStorage.getItem('nombreUsuario');
+    if (nombreUsuario) {
+      this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
+        next: (data) => {
+          this.articulo.usuario = data;
+          console.log('Usuario encontrado:', data);
+          this.articuloService.updateArticulo(this.articulo).subscribe({
+            next: (response) => {
+              console.log('Producto actualizado:', response);
+              alert('Producto actualizado correctamente');
+            },
+            error: (err) => {
+              console.error('Error al actualizar:', err);
+            },
+          });
+        },
+        error: (err) => {
+          console.error('Error al cargar el usuario:', err);
+        },
+      });
+    } else {
+      console.error('No se encontró el nombre de usuario en el localStorage');
+    }
+   
+    
   }
 
   
