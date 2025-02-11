@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ver-perfil-cliente',
-  imports: [HeaderComponent, FooterComponent, BtAtrasComponent],
+  imports: [BtAtrasComponent, CommonModule, FormsModule],
+  standalone: true,
   templateUrl: './ver-perfil-cliente.component.html',
   styleUrl: './ver-perfil-cliente.component.css'
 })
@@ -16,7 +17,8 @@ import { UsuarioService } from '../../services/usuario.service';
 export class VerPerfilClienteComponent implements OnInit {
 
   formulario!: FormGroup;
-  usuario: any = null;
+  // usuario: any = null;
+  usuario: any = {};
   mostrarDiv: string = '';
 
   constructor(
@@ -25,23 +27,35 @@ export class VerPerfilClienteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.usuarioService.findById(1).subscribe({
+      next: (data) => {
+        this.usuario = data;
+        console.log("Mostramos el usuario" + this.usuario);
+      },
+      error: (error) => {
+        console.error('Error al cargar el usuario' + error);
+      },
+    });
+    console.log("Final del if" + this.usuario);
 
+    /*
+  }
     // Con esto  lo que hacemos es inincializar los datos que mñás tarde se van a mostrar en el formulario
     this.formulario = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      email: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      nombreUsuario: ['', Validators.required],
-      password: ['', Validators.required],
-      telefono: ['', Validators.required],
-      imagen: ['', Validators.required],
-      activo: ['', Validators.required],
-      plan: ['', Validators.required],
-      rol: ['', Validators.required]
-    });
+    nombre: ['', Validators.required],
+    apellidos: ['', Validators.required],
+    email: ['', Validators.required],
+    fechaNacimiento: ['', Validators.required],
+    nombreUsuario: ['', Validators.required],
+    password: ['', Validators.required],
+    telefono: ['', Validators.required],
+    imagen: ['', Validators.required],
+    activo: ['', Validators.required],
+    plan: ['', Validators.required],
+    rol: ['', Validators.required]
+  });*/
 
-    this.cargarUsuario();
+  this.cargarUsuario();
   }
 
   cargarUsuario(): void {
@@ -75,7 +89,7 @@ export class VerPerfilClienteComponent implements OnInit {
         plan: [this.usuario.plan],
         activo: [this.usuario.activo],
         rol: [this.usuario.rol]
-      
+
       });
       this.formulario.patchValue(this.usuario);
     } else {
