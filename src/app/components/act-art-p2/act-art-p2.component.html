@@ -7,13 +7,15 @@
         <form (ngSubmit)="actualizarCategoria()">
           <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
             <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
+              <img src="../../../assets/images/camiseta.png" alt="Imagen del artículo" class="imgArticulo" />
+              <input type="file" id="foto" class="form-control input-file" />
 
             </div>
             <div class="contenedorInformacionDinamico"> <!-- Seccion de datos, mayoritariamente dinamicos-->
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Seleccionar articulo:</h4>
                 <select id="categoria" [(ngModel)]="categoriaSeleccionada" (change)="actualizarSubcategorias()"
-                  name="categoria" placeholder="Seleccionar categoría" class="form-control">
+                  name="categoria" placeholder="Seleccionar categoría" class="form-control input">
                   <option *ngFor="let categoria of categorias" [value]="categoria.nombre">
                     {{ categoria.nombre }}
                   </option>
@@ -76,17 +78,17 @@
                 <h4 class="txtSubtituloInputs">Largo:</h4>
                 <input type="text" name="largo" id="largo" class="form-control input" [(ngModel)]="articulo.largo">
               </div>
-              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'chaqueta'">
+              <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'chaqueta'">
                 <h4 class="txtSubtituloInputs">Grosor:</h4>
                 <input type="text" name="grosor" id="grosor" class="form-control input" [(ngModel)]="articulo.grosor">
               </div>
-              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'bolso'">
+              <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'bolso'">
                 <h4 class="txtSubtituloInputs">Tipo de almacenamiento:</h4>
                 <input type="text" name="capacidad" id="capacidad" class="form-control input"
                   [(ngModel)]="articulo.tipoAlmacenamiento">
               </div>
 
-              <div class="atributos" *ngIf="articulo.tipo.toLowerCase() === 'bolso'">
+              <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'bolso'">
                 <h4 class="txtSubtituloInputs">Capacidad:</h4>
                 <input type="text" name="capacidad" id="capacidad" class="form-control input"
                   [(ngModel)]="articulo.capacidad">
@@ -106,19 +108,25 @@
             <div class="col-9 col-md-9">
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Descripción:</h4>
-                <textarea name="textarea" rows="5" cols="120" id="descripcion" class="form-control input"
+                <textarea name="textarea" rows="5" cols="120" id="descripcion" class="form-control"
                   [(ngModel)]="articulo.descripcion"></textarea>
               </div>
             </div>
           </div><!-- FIN Parte del precio y descripcion-->
 
-          <div>
-            <button type="submit">Actualizar</button>
-          </div>
-        </form>
-        <div class="btInferior horizontal">
+          <div class="btInferior horizontal">
+            <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
+              Actualizar
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="#FFFFFF">
+                <path
+                  d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+              </svg>
 
-        </div>
+            </button>
+          </div>
+
+        </form>
       </div>
 
     </div>
