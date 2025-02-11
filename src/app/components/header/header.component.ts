@@ -22,7 +22,7 @@ export class HeaderComponent {
   }
 
   togglePerfil(){
-    if(localStorage.getItem('token') !== null){
+    if(localStorage.getItem('nombreUsuario') !== null){
       this.router.navigate(['/perfilCliente']); 
     }else{
       this.router.navigate(['/login']);

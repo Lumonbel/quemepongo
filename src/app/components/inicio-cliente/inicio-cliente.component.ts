@@ -23,4 +23,8 @@ export class InicioClienteComponent implements OnInit{
     this.router.navigate(['/index']);
   }
 
+  nuevoArticulo(){
+    console.log("E")
+  }
+
 }

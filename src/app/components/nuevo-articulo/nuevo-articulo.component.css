@@ -1,0 +1,68 @@
+.centrado{
+    display: flex;
+    align-items: center;
+}
+.divContenido{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 32px;
+}
+h3{
+    font-family: 'syne';
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.txtBt{
+    font-family: 'finlandica';
+    color: var(--logo);
+}
+.botonesEleccion{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 8px;
+    gap: 64px;
+    justify-content: center;
+    max-width: 900px;
+}
+textarea {
+    width: 79%;
+    height: 5%;
+    border: 2px solid var(--logo);
+}
+
+textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+}
+
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+}
+.atributos{
+    margin: 30px;
+}
+.txtSubtituloInputs{
+    font-family: 'variz';
+    font-weight: 700;
+    font-size: 20px;
+}
+.divDescripcionT{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.txtDes{
+    align-self: flex-start;
+}
+.divDescripcion{
+    display: flex;
+    justify-content: start;
+}
+
