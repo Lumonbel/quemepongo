@@ -1,55 +1,85 @@
-import { ArticulosService } from './articulos.service';
 import { Injectable } from '@angular/core';
-import { ArticuloDTO } from '../models/articulo-dto';
 import { from, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ArticulosService } from './articulos.service';
+import { ArticuloDTO } from '../models/articulo-dto';
 
 @Injectable()
 export class PhotoService {
   private apiUrl = 'http://localhost:8888/api/articulos';
-
-  constructor(private articulosService: ArticulosService, private http: HttpClient,) {
-    this.articulosService.findAll().subscribe((articulos) => {
-      this.articulos = articulos;
-    });
-  }
-
   articulos: ArticuloDTO[] = [];
-  getData(articulosMostrar: ArticuloDTO[]): Observable<ArticuloDTO[]> {
-    // Creamos un arreglo de promesas para cargar las imágenes de cada artículo
-    const articuloPromises = articulosMostrar.map(articulo => {
-      if (articulo.id !== undefined) {
-        return this.getImage(articulo.id).toPromise().then(imageBlob => {
-          const reader = new FileReader();
-          
-          return new Promise<ArticuloDTO>((resolve, reject) => {
-            reader.onload = () => {
-              articulo.imagen = reader.result as string;  // Almacenamos la imagen convertida en base64
-              resolve(articulo);
-            };
-            reader.onerror = (error) => {
-              console.error('Error al leer el Blob', error);
-              reject(error);  // Manejo de errores
-            };
-            reader.readAsDataURL(imageBlob);  // Convertimos el Blob en base64
-          });
-        }).catch(error => {
-          console.error('Error al obtener la imagen', error);
-          return articulo;  // En caso de error, retornamos el artículo sin imagen
-        });
-      }
-      return Promise.resolve(articulo);  // Si el artículo no tiene id, retornamos el artículo sin cambios
+
+  constructor(
+    private articulosService: ArticulosService,
+    private http: HttpClient
+  ) {
+    this.articulosService.findAll().subscribe((articulos) => {
+      // Procesamos las imágenes antes de asignarlas
+      this.articulos = this.processImages(articulos);
     });
-  
-    // Devolvemos un Observable que se resuelve cuando todas las promesas se resuelven
-    return from(Promise.all(articuloPromises));  // `from` convierte la promesa en un Observable
   }
-  
-  getImage(id: number): Observable<Blob> {
-    // Solicita la imagen del backend como un Blob
-    return this.http.get(`${this.apiUrl}/${id}/imagen`, { responseType: 'blob' });
+
+  /**
+   * Asegura que una imagen Base64 tenga el prefijo correcto.
+   * @param imageString - La imagen en formato Base64.
+   * @param format - El formato de la imagen (por defecto 'png').
+   * @returns Imagen con el prefijo adecuado.
+   */
+  private convertToBase64(imageString: string, format: string = 'png'): string {
+    if (!imageString.startsWith('data:image/')) {
+      return `data:image/${format};base64,${imageString}`;
+    }
+    return imageString;
   }
-  
+
+  /**
+   * Convierte una cadena binaria en un objeto URL para mostrarla en un `<img>`.
+   * @param binaryData - Cadena binaria de la imagen.
+   * @returns URL del objeto Blob.
+   */
+  private convertBinaryToUrl(binaryData: string): string {
+    const byteCharacters = atob(binaryData);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/png' });
+
+    return URL.createObjectURL(blob);
+  }
+
+  /**
+   * Procesa las imágenes de los artículos para asegurarse de que tengan el formato correcto.
+   * @param articulos - Lista de artículos.
+   * @returns Lista de artículos con imágenes en formato adecuado.
+   */
+  private processImages(articulos: ArticuloDTO[]): ArticuloDTO[] {
+    return articulos.map((articulo) => {
+      if (articulo.imagen) {
+        // Si la imagen es Base64, la aseguramos con el prefijo correcto
+        articulo.imagen = this.convertToBase64(articulo.imagen);
+      }
+      return articulo;
+    });
+  }
+
+  /**
+   * Devuelve los artículos con las imágenes ya procesadas.
+   * @param articulosMostrar - Lista de artículos a mostrar.
+   * @returns Observable con los artículos modificados.
+   */
+  getData(articulosMostrar: ArticuloDTO[]): Observable<ArticuloDTO[]> {
+    return from(Promise.resolve(this.processImages(articulosMostrar)));
+  }
+
+  // In photo.service.ts
+  public convertImageToBase64(
+    imageString: string,
+    format: string = 'png'
+  ): string {
+    return this.convertToBase64(imageString, format);
+  }
 }
-
-
