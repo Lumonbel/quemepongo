@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'infoarticulo', component: DatosarticuloComponent },
   { path:  'verprenda', component: VerprendaComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'verPerfilCliente', component: VerPerfilClienteComponent}
+  { path: 'verPerfilCliente', component: VerPerfilClienteComponent},
   { path: 'actualizarArticulo', component: ActArtP2Component},
   { path: 'nuevoArticulo', component: NuevoArticuloComponent},
 ];
