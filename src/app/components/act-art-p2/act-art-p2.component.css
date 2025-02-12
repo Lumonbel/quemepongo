@@ -27,8 +27,8 @@
 
 
 textarea {
-    width: 940px;
-    height: 48px;
+    width: 79%;
+    height: 5%;
     border: 2px solid var(--logo);
 }
 
@@ -52,23 +52,12 @@ input:focus {
     margin-bottom: 3%;
     margin-top: 1%;
 }
-/*
-.btActualizar:hover{
-    background-color: var(--fondoHoverBoton);
-    border: 2px solid var(--logo);
-    color: var(--logo);
-    svg {
-        path {
-          color: var(--logo);
-          fill: var(--logo);
-        }
-    
-      }
-}*/
+.divPrecio{
+    margin-left: -1%;
+}
 .superior{
     display: flex;
     justify-content: space-between;
-    margin-left: 2%;
 
 }
 .input-file{
