@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bt-ropa',
@@ -6,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './bt-ropa.component.html',
   styleUrl: './bt-ropa.component.css'
 })
-export class BtRopaComponent implements OnInit{
-  ngOnInit(): void {
-      
+export class BtRopaComponent{
+  private _svgContent: string = '';
+  sanitizedSvgContent: SafeHtml = '';
+  constructor(
+    private sanitizer: DomSanitizer,
+  ) {}
+
+  @Input() set svgContent(value: string) {
+    this._svgContent = value;
+    this.sanitizedSvgContent = this.sanitizer.bypassSecurityTrustHtml(value);
+  }
+
+  get svgContent(): string {
+    return this._svgContent;
   }
 
 }

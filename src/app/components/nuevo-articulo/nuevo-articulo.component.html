@@ -5,57 +5,59 @@
             <h2 class="txtTituloPag">Nuevo artículo</h2>
             <div class="contenedorNuevoArt vertical centrado">
                 <form> <!--(ngSubmit)="actualizarCategoria()" -->
-                    <div class="pregCategoria vertical divContenido">
+                    <div class="pregCategoria vertical divContenido" >
                         <h3>¿Qué clase de artículo deseas guardar?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent] = "svgCamisa" (click)=seleccionadoRopa()></app-bt-ropa>
                                 <p class="txtBt">Ropa</p>
                             </div>
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent] = "svgZapatos"></app-bt-ropa>
                                 <p class="txtBt">Zapatos</p>
                             </div>
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgBolso" (selectionChange)=seleccionadoComplementos()></app-bt-ropa>
                                 <p class="txtBt">Complementos</p>
                             </div>
                         </div>
                     </div>
                     <!-- Tipo según la categoria-->
-                    <div class="pregTipo vertical divContenido"> <!-- ROPA-->
+                    <div class="pregTipo vertical divContenido" *ngIf="eleccionRopa" > <!-- ROPA-->
                         <h3>¿Qué clase de ropa deseas guardar?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="camisa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent] = "svgCamisa">
+                                </app-bt-ropa>
                                 <p class="txtBt">Camisa</p>
                             </div>
                             <div class="falda vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent] = "svgFalda">
+                                </app-bt-ropa>
                                 <p class="txtBt">Falda</p>
                             </div>
                             <div class="pantalon vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgPantalon"></app-bt-ropa>
                                 <p class="txtBt">Pantalón</p>
                             </div>
                             <div class="chaqueta vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgChaqueta"></app-bt-ropa>
                                 <p class="txtBt">Chaqueta</p>
                             </div>
                             <div class="vestido vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgVestido"></app-bt-ropa>
                                 <p class="txtBt">Vestido</p>
                             </div>
                             <div class="sudadera vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgSudadera"></app-bt-ropa>
                                 <p class="txtBt">Sudadera</p>
                             </div>
                             <div class="ropaBaño vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgRopaBanyo"></app-bt-ropa>
                                 <p class="txtBt">Ropa de baño</p>
                             </div>
                             <div class="jersey vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa  [svgContent]="svgJersey"></app-bt-ropa>
                                 <p class="txtBt">Jersey</p>
                             </div>
                         </div>

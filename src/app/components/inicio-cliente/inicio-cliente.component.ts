@@ -24,7 +24,7 @@ export class InicioClienteComponent implements OnInit{
   }
 
   nuevoArticulo(){
-    console.log("E")
+    this.router.navigate(['/nuevoArticulo']);
   }
 
 }
