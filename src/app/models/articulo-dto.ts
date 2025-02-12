@@ -6,7 +6,7 @@ export interface ArticuloDTO {
   marca: string;
   material: string;
   temporada: string;
-  imagen: string;
+  imagen:  string;
   estado: string;
   publicado: boolean;
   descripcion: string;

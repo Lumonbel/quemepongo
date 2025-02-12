@@ -65,4 +65,8 @@ export class ArticulosService {
   pasoArticulo(articulo: ArticuloDTO) {
     this.artDeGaleria.next(articulo);
   }
+
+  getImage(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${id}/imagen`, { responseType: 'blob' });
+  }
 }

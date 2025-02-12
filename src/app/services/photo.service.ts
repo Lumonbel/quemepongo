@@ -1,35 +1,55 @@
 import { ArticulosService } from './articulos.service';
 import { Injectable } from '@angular/core';
 import { ArticuloDTO } from '../models/articulo-dto';
+import { from, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PhotoService {
-  getData(articulosMostrar: ArticuloDTO[]) {
-    return articulosMostrar;
-    //[
-    //   {
-    //     itemImageSrc: 'assets/images/camiseta.png',
-    //     thumbnailImageSrc: 'assets/images/camiseta.png ',
-    //     alt: 'Imagen 1',
-    //     title: 'Prueba 1'
-    //   },
-    //   {
-    //     itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg',
-    //     thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg',
-    //     alt: 'Imagen 2',
-    //     title: 'Prueba 2'
-    //   },
-    // ];
-  }
-  constructor(private articulosService: ArticulosService) {
+  private apiUrl = 'http://localhost:8888/api/articulos';
+
+  constructor(private articulosService: ArticulosService, private http: HttpClient,) {
     this.articulosService.findAll().subscribe((articulos) => {
       this.articulos = articulos;
     });
   }
 
   articulos: ArticuloDTO[] = [];
-
-  getImages() {
-    return Promise.resolve(this.getData(this.articulos));
+  getData(articulosMostrar: ArticuloDTO[]): Observable<ArticuloDTO[]> {
+    // Creamos un arreglo de promesas para cargar las imágenes de cada artículo
+    const articuloPromises = articulosMostrar.map(articulo => {
+      if (articulo.id !== undefined) {
+        return this.getImage(articulo.id).toPromise().then(imageBlob => {
+          const reader = new FileReader();
+          
+          return new Promise<ArticuloDTO>((resolve, reject) => {
+            reader.onload = () => {
+              articulo.imagen = reader.result as string;  // Almacenamos la imagen convertida en base64
+              resolve(articulo);
+            };
+            reader.onerror = (error) => {
+              console.error('Error al leer el Blob', error);
+              reject(error);  // Manejo de errores
+            };
+            reader.readAsDataURL(imageBlob);  // Convertimos el Blob en base64
+          });
+        }).catch(error => {
+          console.error('Error al obtener la imagen', error);
+          return articulo;  // En caso de error, retornamos el artículo sin imagen
+        });
+      }
+      return Promise.resolve(articulo);  // Si el artículo no tiene id, retornamos el artículo sin cambios
+    });
+  
+    // Devolvemos un Observable que se resuelve cuando todas las promesas se resuelven
+    return from(Promise.all(articuloPromises));  // `from` convierte la promesa en un Observable
   }
+  
+  getImage(id: number): Observable<Blob> {
+    // Solicita la imagen del backend como un Blob
+    return this.http.get(`${this.apiUrl}/${id}/imagen`, { responseType: 'blob' });
+  }
+  
 }
+
+
