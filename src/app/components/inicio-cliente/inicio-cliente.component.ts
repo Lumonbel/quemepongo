@@ -41,7 +41,7 @@ export class InicioClienteComponent implements OnInit{
   */
   
   navPerfilCliente(){
-    this.router.navigate(['/verPerfilCliente']);
+    this.router.navigate(['/verMiPerfil']);
   }
   
   /*
