@@ -51,6 +51,10 @@ export class InicioClienteComponent implements OnInit{
 
   */
 
+  editarPassword(){
+    this.router.navigate(['/editarPassword']);
+  }
+
   cerrarSesion(){
     localStorage.removeItem('nombreUsuario');
     this.router.navigate(['/index']);
