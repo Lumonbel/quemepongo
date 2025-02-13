@@ -12,7 +12,11 @@
     color: white;
 }
 
-.svg-btn:selected{
+.svg-btn:focus{
+    background-color: var(--logo) ;
+    color: white;
+}
+.svg-btn:active{
     background-color: var(--logo) ;
     color: white;
 }

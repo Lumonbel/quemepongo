@@ -12,10 +12,11 @@ import { CommonModule } from '@angular/common';
 export class NuevoArticuloComponent {
   eleccionRopa: boolean = false;
   eleccionZapatos: boolean = false;
-  eleccionComplementos: boolean = false;
-  eleccionTipo:boolean = false;
+  eleccionComplemento: boolean = false;
+  eleccionTipo:string = "";
   eleccionGenero:boolean = false;
   desboqueadoSubirFoto = false;
+  
 
   svgCamisa = ` <svg width="83" height="90" viewBox="0 0 42 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_677_7244)">
@@ -202,8 +203,9 @@ export class NuevoArticuloComponent {
 </svg>`
 
   seleccionadoRopa() {
-    this.eleccionComplementos = false;
+    this.eleccionComplemento = false;
     this.eleccionZapatos = false;
+    this.eleccionTipo="";
     if (this.eleccionRopa) {
       this.eleccionRopa = false;
     } else {
@@ -213,20 +215,66 @@ export class NuevoArticuloComponent {
   seleccionadoComplementos() {
     this.eleccionRopa = false;
     this.eleccionZapatos = false;
+    this.eleccionTipo="";
     if (this.eleccionRopa) {
-      this.eleccionComplementos = false;
+      this.eleccionComplemento = false;
     } else {
-      this.eleccionComplementos = true;
+      this.eleccionComplemento = true;
     }
   }
   seleccionadoZapatos(){
     this.eleccionRopa = false;
-    this.eleccionComplementos = false;
+    this.eleccionComplemento = false;
     if (this.eleccionRopa) {
       this.eleccionZapatos = false;
+      this.eleccionTipo="";
     } else {
       this.eleccionZapatos = true;
+      this.eleccionTipo="Zapatos";
     }
 
   }
+  seleccionadoCamisa(){
+    this.eleccionTipo="Camisa";
+  }
+  seleccionadoChaqueta(){
+    this.eleccionTipo="Chaqueta";
+  }
+  seleccionadoFalda(){
+    this.eleccionTipo="Falda";
+  }
+  seleccionadoJersey(){
+    this.eleccionTipo="Jersey";
+  }
+  seleccionadoPantalon(){
+    this.eleccionTipo="Pantalon";
+  }
+  seleccionadoRopaBanyo(){
+    this.eleccionTipo="Ropa de baño";
+  }
+  seleccionadoSudadera(){
+    this.eleccionTipo="Sudadera";
+  }
+  seleccionadoVestido(){
+    this.eleccionTipo="Vestido";
+  }
+  seleccionadoBolso(){
+    this.eleccionTipo="Bolso";
+  }
+  seleccionadoBufanda(){
+    this.eleccionTipo="Bufanda";
+  }
+  seleccionadoCinturon(){
+    this.eleccionTipo="Cinturon";
+  }
+  seleccionadoCorbata(){
+    this.eleccionTipo="Corbata";
+  }
+  seleccionadoGorro(){
+    this.eleccionTipo="Gorro";
+  }
+  seleccionadoGuantes(){
+    this.eleccionTipo="Guantes";
+  }
 }
+
