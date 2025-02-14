@@ -177,6 +177,43 @@
 
                         <!-- *ngIf="categoriaSeleccionada.toLowerCase() === 'ropa'-->
                     </div>
+
+                    <!-- SSUBIR FOTOS-->
+                    <div class="divPregSubirImagen vertical divContenido">
+                        <h3>¿Qué tal si subes una foto para darle tu toque personal?</h3>
+                        <div class="divSubirFoto vertical">
+                            <!-- Label que simula el botón para subir archivos -->
+                            <label for="inputImagen">
+                                <button class="btSubirImagen">
+                                    Subir foto
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#9662D9" />
+                                    </svg>
+
+                                </button>
+
+                            </label>
+                            <!-- Input de tipo file -->
+                            <input id="inputImagen" type="file" accept="image/*" (change)="previsualizarImagen($event)"
+                                #fileInput />
+
+                            <!-- Imagen para previsualizar el archivo subido -->
+                            <!-- Se muestra solo si previewImage tiene un valor (ngIf) -->
+                            <img *ngIf="previewImage" [src]="previewImage" alt="Vista previa" id="preview" />
+                        </div>
+                    </div>
+                    <div class="btInferior horizontal">
+                        <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
+                            Actualizar
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#FFFFFF">
+                                <path
+                                    d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                            </svg>
+
+                        </button>
+                    </div>
                 </form>
             </div>
 

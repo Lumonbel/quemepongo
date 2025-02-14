@@ -16,6 +16,7 @@ export class NuevoArticuloComponent {
   eleccionTipo:string = "";
   eleccionGenero:boolean = false;
   desboqueadoSubirFoto = false;
+  previewImage: string | ArrayBuffer | null = null;
   
 
   svgCamisa = ` <svg width="83" height="90" viewBox="0 0 42 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -275,6 +276,29 @@ export class NuevoArticuloComponent {
   }
   seleccionadoGuantes(){
     this.eleccionTipo="Guantes";
+  }
+
+
+  previsualizarImagen(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      // Se ejecuta cuando el lector termina de cargar el archivo
+      reader.onload = () => {
+        this.previewImage = reader.result;
+      };
+
+      // Leemos el archivo como Data URL (base64)
+      reader.readAsDataURL(file);
+      /*
+      this.formulario.patchValue({ foto: file });
+      this.imagenSeleccionada = file;
+      const objectUrl = URL.createObjectURL(file);
+      this.imagenPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);*/
+
+    }
   }
 }
 
