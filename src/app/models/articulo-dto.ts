@@ -1,3 +1,5 @@
+import { UsuarioDTO } from "./usuario-dto";
+
 export interface ArticuloDTO {
   id?: number; // Opcional porque podría no estar presente al crear un nuevo artículo
   color: string;
@@ -18,4 +20,5 @@ export interface ArticuloDTO {
   tipoAlmacenamiento?: string;
   estampado?: string;
   precio?: number;
+  usuario?: UsuarioDTO;
 }

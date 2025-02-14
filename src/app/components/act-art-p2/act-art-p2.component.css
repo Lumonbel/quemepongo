@@ -18,9 +18,56 @@
     display: flex;
     flex-wrap: wrap;
 }
-input{
+.input{
     width: 266px;
 }
 .atributos{
     margin: 30px;
+}
+
+
+textarea {
+    width: 79%;
+    height: 5%;
+    border: 2px solid var(--logo);
+}
+
+textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+}
+
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--fondo);
+}
+
+.btInferior{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 9.5%;
+    margin-bottom: 3%;
+    margin-top: 1%;
+}
+.divPrecio{
+    margin-left: -1%;
+}
+.superior{
+    display: flex;
+    justify-content: space-between;
+
+}
+.input-file{
+    border: 2px solid var(--logo);
+    width: 266px;
+}
+
+.imgArticulo{
+    margin-top: 10%;
+    max-width: 266px;
+    height: auto;
+    margin-bottom: 8%;
 }
