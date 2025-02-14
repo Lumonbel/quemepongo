@@ -7,6 +7,7 @@ import { FluidModule } from 'primeng/fluid';
 import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
 import { UsuarioService } from '../../services/usuario.service';
 import { UsuarioDTO } from '../../models/usuario-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-pasos',
@@ -31,7 +32,7 @@ export class FormularioPasosComponent {
   planSeleccionado: string | null = null;
   nuevoUsuario?: UsuarioDTO;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private router:Router) {
     //FG1
     this.formPaso1 = this.fb.group({
       nombreUsuario: ['', [Validators.required]],
@@ -84,11 +85,7 @@ export class FormularioPasosComponent {
     this.usuarioService.anyadirUsuario(this.nuevoUsuario).subscribe(response => {
       console.log('Usuario creado', response);
       alert('Usuario creado con éxito');
-    });
+      this.router.navigate(['/login']);    });
 
   }
-
-
-
-
 }
