@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 //import { jwtDecode } from 'jwt-decode';
 
 
@@ -16,8 +15,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
   templateUrl: './act-art-p2.component.html',
   styleUrl: './act-art-p2.component.css',
   providers: [
-    { provide: JWT_OPTIONS, useValue: {} },
-    JwtHelperService
+
   ]
 })
 export class ActArtP2Component implements OnInit {
@@ -39,7 +37,6 @@ export class ActArtP2Component implements OnInit {
   constructor(
       private articuloService: ArticulosService,
       private authService: AuthService,
-      private jwtHelper: JwtHelperService,
       private usuarioService: UsuarioService,
     ) {}
 

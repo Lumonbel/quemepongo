@@ -18,6 +18,43 @@ export class InicioClienteComponent implements OnInit{
     }
 
   }
+
+  /* 
+
+  Preparado para cuando hagamos el resto, para redirigir todo
+
+  navNuevoArticulo(){
+    this.router.navigate(['/nuevoArticulo']);
+  }
+
+  navArticulosEnVenta(){
+    this.router.navigate(['/articulosEnVenta']);
+  }
+
+  navMiArmario(){
+    this.router.navigate(['/miArmario']);
+  }
+
+  navCesta(){
+    this.router.navigate(['/carrito']);
+  }
+  */
+  
+  navPerfilCliente(){
+    this.router.navigate(['/verMiPerfil']);
+  }
+  
+  /*
+  navEditarPerfil(){
+    this.router.navigate(['/editarPerfilCliente']);
+  }
+
+  */
+
+  editarPassword(){
+    this.router.navigate(['/editarPassword']);
+  }
+
   cerrarSesion(){
     localStorage.removeItem('nombreUsuario');
     this.router.navigate(['/index']);
