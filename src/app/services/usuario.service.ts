@@ -18,7 +18,6 @@ export class UsuarioService {
   }
 
   private apiUrlU = 'http://localhost:8888/api/usuarios';
-  private apiUrlA = 'http://localhost:8888/api/auth';
 
 
   findAllU(): Observable<UsuarioDTO[]> {
@@ -41,5 +40,9 @@ export class UsuarioService {
 
   usuarioLoggeado(id: number) {
 
+  }
+
+  anyadirUsuario(usuario:UsuarioDTO) {
+    return this.http.post<UsuarioDTO>(`${this.apiUrlU}/add`,usuario)
   }
 }

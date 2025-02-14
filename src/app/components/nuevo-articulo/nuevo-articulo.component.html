@@ -9,54 +9,93 @@
                         <h3>¿Qué clase de artículo deseas guardar?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgCamisa" (click)=seleccionadoRopa()></app-bt-ropa>
                                 <p class="txtBt">Ropa</p>
                             </div>
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgZapatos" (click)=seleccionadoZapatos()></app-bt-ropa>
                                 <p class="txtBt">Zapatos</p>
                             </div>
                             <div class="ropa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgBolso" (click)=seleccionadoComplementos()></app-bt-ropa>
                                 <p class="txtBt">Complementos</p>
                             </div>
                         </div>
                     </div>
                     <!-- Tipo según la categoria-->
-                    <div class="pregTipo vertical divContenido"> <!-- ROPA-->
+                    <div class="pregTipo vertical divContenido" *ngIf="eleccionRopa"> <!-- ROPA-->
                         <h3>¿Qué clase de ropa deseas guardar?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="camisa vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgCamisa" (click)=seleccionadoCamisa()>
+                                </app-bt-ropa>
                                 <p class="txtBt">Camisa</p>
                             </div>
-                            <div class="falda vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
-                                <p class="txtBt">Falda</p>
-                            </div>
-                            <div class="pantalon vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
-                                <p class="txtBt">Pantalón</p>
-                            </div>
                             <div class="chaqueta vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgChaqueta" (click)=seleccionadoChaqueta()></app-bt-ropa>
                                 <p class="txtBt">Chaqueta</p>
                             </div>
-                            <div class="vestido vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
-                                <p class="txtBt">Vestido</p>
-                            </div>
-                            <div class="sudadera vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
-                                <p class="txtBt">Sudadera</p>
-                            </div>
-                            <div class="ropaBaño vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
-                                <p class="txtBt">Ropa de baño</p>
+
+                            <div class="falda vertical centrado">
+                                <app-bt-ropa [svgContent]="svgFalda" (click)=seleccionadoFalda()>
+                                </app-bt-ropa>
+                                <p class="txtBt">Falda</p>
                             </div>
                             <div class="jersey vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgJersey" (click)=seleccionadoJersey()>
+                                </app-bt-ropa>
                                 <p class="txtBt">Jersey</p>
+                            </div>
+                            <div class="pantalon vertical centrado">
+                                <app-bt-ropa [svgContent]="svgPantalon" (click)="seleccionadoPantalon()"></app-bt-ropa>
+                                <p class="txtBt">Pantalón</p>
+                            </div>
+                            <div class="ropaBaño vertical centrado">
+                                <app-bt-ropa [svgContent]="svgRopaBanyo"
+                                    (click)="seleccionadoRopaBanyo()"></app-bt-ropa>
+                                <p class="txtBt">Ropa de baño</p>
+                            </div>
+                            <div class="sudadera vertical centrado">
+                                <app-bt-ropa [svgContent]="svgSudadera" (click)="seleccionadoSudadera()"></app-bt-ropa>
+                                <p class="txtBt">Sudadera</p>
+                            </div>
+                            <div class="vestido vertical centrado">
+                                <app-bt-ropa [svgContent]="svgVestido" (click)="seleccionadoVestido()"></app-bt-ropa>
+                                <p class="txtBt">Vestido</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pregTipo vertical divContenido" *ngIf="eleccionComplemento"> <!-- COMPLEMENTOS-->
+                        <h3>¿Qué clase de complemento deseas guardar?</h3>
+                        <div class="botonesEleccion horizontal">
+                            <div class="bolso vertical centrado">
+                                <app-bt-ropa [svgContent]="svgBolso" (click)=seleccionadoBolso()>
+                                </app-bt-ropa>
+                                <p class="txtBt">Bolso</p>
+                            </div>
+                            <div class="bufanda vertical centrado">
+                                <app-bt-ropa [svgContent]="svgBufanda" (click)=seleccionadoBufanda()>
+                                </app-bt-ropa>
+                                <p class="txtBt">Bufanda</p>
+                            </div>
+                            <div class="cinturon vertical centrado">
+                                <app-bt-ropa [svgContent]="svgCinturon" (click)=seleccionadoCinturon()>
+                                </app-bt-ropa>
+                                <p class="txtBt">Cinturón</p>
+                            </div>
+                            <div class="corbata vertical centrado">
+                                <app-bt-ropa [svgContent]="svgCorbata" (click)=seleccionadoCorbata()>
+                                </app-bt-ropa>
+                                <p class="txtBt">Corbata</p>
+                            </div>
+                            <div class="gorro vertical centrado">
+                                <app-bt-ropa [svgContent]="svgGorro" (click)=seleccionadoGorro()></app-bt-ropa>
+                                <p class="txtBt">Gorro</p>
+                            </div>
+                            <div class="guantes vertical centrado">
+                                <app-bt-ropa [svgContent]="svgGuantes" (click)=seleccionadoGuantes()></app-bt-ropa>
+                                <p class="txtBt">Guantes</p>
                             </div>
                         </div>
                     </div>
@@ -66,21 +105,21 @@
                         <h3>¿En qué género clasificarías esta prenda?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="mujer vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgMujer"></app-bt-ropa>
                                 <p class="txtBt">Mujer</p>
                             </div>
                             <div class="hombre vertical centrado">
-                                <app-bt-ropa></app-bt-ropa>
+                                <app-bt-ropa [svgContent]="svgHombre"></app-bt-ropa>
                                 <p class="txtBt">Hombre</p>
                             </div>
                         </div>
                     </div>
 
                     <!--INPUTS DEL ARTIUCLO-->
-                    <div class="pregsInputs vertical divContenido "> 
+                    <div class="pregsInputs vertical divContenido ">
                         <h3>¿Cómo es tu artículo?</h3>
                         <div class="horizontal botonesEleccion">
-                            <div class="atributos">
+                            <div class="atributos" *ngIf="eleccionRopa || eleccionZapatos">
                                 <h4 class="txtSubtituloInputs">Talla:</h4>
                                 <input type="text" name="talla" id="talla" class="form-control input" required>
                             </div>
@@ -104,13 +143,76 @@
                                 <h4 class="txtSubtituloInputs">Estado:</h4>
                                 <input type="text" name="estado" id="estado" class="form-control input" required>
                             </div>
+                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
+                                    || eleccionTipo.toLowerCase() === 'pantalon'
+                                    || eleccionTipo.toLowerCase() === 'falda'
+                                    || eleccionTipo.toLowerCase() === 'vestido' 
+                                    || eleccionTipo.toLowerCase() === 'cinturon'">
+                                <h4 class="txtSubtituloInputs">Largo:</h4>
+                                <input type="text" name="largo" id="largo" class="form-control input">
+                            </div>
+                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
+                                <h4 class="txtSubtituloInputs">Grosor:</h4>
+                                <input type="text" name="grosor" id="grosor" class="form-control input">
+                            </div>
+                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                                <h4 class="txtSubtituloInputs">Tipo de almacenamiento:</h4>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input">
+                            </div>
+
+                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                                <h4 class="txtSubtituloInputs">Capacidad:</h4>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input">
+                            </div>
                         </div>
+
                         <div class="divDescripcionT">
                             <div class="atributos divDescripcion vertical">
                                 <h4 class="txtSubtituloInputs txtDes">Descripción:</h4>
-                                <textarea name="textarea" rows="5" cols="120" id="descripcion" class="form-control"></textarea>
-                              </div>
+                                <textarea name="textarea" rows="5" cols="120" id="descripcion"
+                                    class="form-control"></textarea>
+                            </div>
                         </div>
+
+
+                        <!-- *ngIf="categoriaSeleccionada.toLowerCase() === 'ropa'-->
+                    </div>
+
+                    <!-- SSUBIR FOTOS-->
+                    <div class="divPregSubirImagen vertical divContenido">
+                        <h3>¿Qué tal si subes una foto para darle tu toque personal?</h3>
+                        <div class="divSubirFoto vertical">
+                            <!-- Label que simula el botón para subir archivos -->
+                            <label for="inputImagen">
+                                <button class="btSubirImagen">
+                                    Subir foto
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#9662D9" />
+                                    </svg>
+
+                                </button>
+
+                            </label>
+                            <!-- Input de tipo file -->
+                            <input id="inputImagen" type="file" accept="image/*" (change)="previsualizarImagen($event)"
+                                #fileInput />
+
+                            <!-- Imagen para previsualizar el archivo subido -->
+                            <!-- Se muestra solo si previewImage tiene un valor (ngIf) -->
+                            <img *ngIf="previewImage" [src]="previewImage" alt="Vista previa" id="preview" />
+                        </div>
+                    </div>
+                    <div class="btInferior horizontal">
+                        <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
+                            Actualizar
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#FFFFFF">
+                                <path
+                                    d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                            </svg>
+
+                        </button>
                     </div>
                 </form>
             </div>

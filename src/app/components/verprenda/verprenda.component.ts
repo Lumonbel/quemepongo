@@ -1,6 +1,6 @@
 import { IndexComponent } from './../index/index.component';
 import { ArticulosService } from './../../services/articulos.service';
-import { Component, model } from '@angular/core';
+import { Component } from '@angular/core';
 import { Chip } from 'primeng/chip';
 import { Select } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
@@ -8,25 +8,16 @@ import { CommonModule } from '@angular/common';
 import { PhotoService } from '../../services/photo.service';
 import { GalleriaModule } from 'primeng/galleria';
 import { ArticuloDTO } from '../../models/articulo-dto';
-import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
-
+import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 
 interface Prenda {
   ropa: string;
 }
 
-interface Image {
-  itemImageSrc: string;
-  thumbnailImageSrc: string;
-  alt: string;
-  title: string;
-}
-
 @Component({
   selector: 'app-verprenda',
-  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule, BtAtrasComponent],
+  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule],
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',
@@ -37,6 +28,16 @@ export class VerprendaComponent {
   prendaSeleccionada: Prenda | undefined;
   mostrarDiv: string = '';
   todosArticulos: ArticuloDTO[] = [];
+  images: ArticuloDTO[] = [];
+
+  displayCustom: boolean = false;
+  activeIndex: number = 0;
+
+  responsiveOptions: any[] = [
+    { breakpoint: '1024px', numVisible: 5 },
+    { breakpoint: '768px', numVisible: 3 },
+    { breakpoint: '560px', numVisible: 1 },
+  ];
 
   chipsRopa: string[] = [
     'Baño',
@@ -46,7 +47,7 @@ export class VerprendaComponent {
     'Jerseys',
     'Pantalones',
     'Sudaderas',
-    'Vestidios',
+    'Vestidos',
   ];
   chipsZapatos: string[] = [];
   chipsComplementos: string[] = [
@@ -60,6 +61,32 @@ export class VerprendaComponent {
 
   chipsSeleccionados: string[] = [];
 
+  constructor(
+    private photoService: PhotoService,
+    private articuloservice: ArticulosService,
+    private router: Router
+  ) {}
+
+  // In verprenda.component.ts
+  ngOnInit() {
+    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+      // Procesar imágenes antes de asignarlas
+      this.todosArticulos = articulos.map((articulo) => ({
+        ...articulo,
+        imagen: articulo.imagen
+          ? this.photoService.convertImageToBase64(articulo.imagen)
+          : '',
+      }));
+      this.images = [...this.todosArticulos];
+    });
+
+    this.prendasSel = [
+      { ropa: 'Complementos' },
+      { ropa: 'Ropa' },
+      { ropa: 'Zapatos' },
+    ];
+  }
+
   chipSeleccionadoFunc(chip: string) {
     const index = this.chipsSeleccionados.indexOf(chip);
     if (index > -1) {
@@ -71,18 +98,6 @@ export class VerprendaComponent {
 
   funcSeleccionado(chip: string): boolean {
     return this.chipsSeleccionados.includes(chip);
-  }
-
-  ngOnInit() {
-    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
-      this.images = articulos;
-      this.todosArticulos = articulos;
-    });
-    this.prendasSel = [
-      { ropa: 'Complementos' },
-      { ropa: 'Ropa' },
-      { ropa: 'Zapatos' },
-    ];
   }
 
   onPrendaChange(event: any) {
@@ -121,34 +136,6 @@ export class VerprendaComponent {
       this.mostrarDiv = '';
     }
   }
-
-
-  displayCustom: boolean = false;
-
-  activeIndex: number = 0;
-
-  images: ArticuloDTO[] = [];
-
-  responsiveOptions: any[] = [
-    {
-      breakpoint: '1024px',
-      numVisible: 5,
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 3,
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1,
-    },
-  ];
-
-  constructor(
-    private photoService: PhotoService,
-    private articuloservice: ArticulosService,
-    private router: Router
-  ) {}
 
   imageClick(index: number) {
     this.activeIndex = index;

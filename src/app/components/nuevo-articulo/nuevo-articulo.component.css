@@ -1,24 +1,36 @@
-.centrado{
+.centrado {
     display: flex;
     align-items: center;
 }
-.divContenido{
+
+.divContenido {
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 32px;
+    margin: 10px;
 }
-h3{
+
+h3 {
     font-family: 'syne';
     font-size: 24px;
     font-weight: 600;
 }
 
-.txtBt{
+.txtBt {
     font-family: 'finlandica';
     color: var(--logo);
 }
-.botonesEleccion{
+.pregsInputs{
+    max-width: 1016px;
+    height: auto;
+    border: 1px solid var(--fondo);
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px 0 rgba(225, 203, 255, 0.25);
+    margin-top: 70px;
+}
+
+.botonesEleccion {
     display: flex;
     flex-wrap: wrap;
     padding-top: 8px;
@@ -26,6 +38,7 @@ h3{
     justify-content: center;
     max-width: 900px;
 }
+
 textarea {
     width: 79%;
     height: 5%;
@@ -44,25 +57,95 @@ input:focus {
     box-shadow: none;
     border: 2px solid var(--fondo);
 }
-.atributos{
+
+.atributos {
     margin: 30px;
 }
-.txtSubtituloInputs{
+
+.txtSubtituloInputs {
     font-family: 'variz';
     font-weight: 700;
     font-size: 20px;
 }
-.divDescripcionT{
+
+.divDescripcionT {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    align-content: center;
+    align-self: center;
 }
-.txtDes{
+
+.txtDes {
     align-self: flex-start;
 }
-.divDescripcion{
+
+.divDescripcion {
     display: flex;
     justify-content: start;
 }
 
+.btInferior{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 9.5%;
+    margin-bottom: 3%;
+    margin-top: 1%;
+}
+
+/*SUBIR FOTO */
+
+.divPregSubirImagen {
+    max-width: 1016px;
+    max-height: 513px;
+    border: 1px solid var(--fondo);
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px 0 rgba(225, 203, 255, 0.25);
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.divSubirFoto {
+    margin: 50px;
+    border: 2px dashed #cccccc;
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    min-width: 351px;
+    min-height: 392px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btSubirImagen {
+    width: 170px;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-family: 'syne';
+    font-weight: 600;
+    color: var(--logo);
+    padding: 10px 10px 10px 10px;
+    background-color: var(--masclaro);
+    border:2px solid var(--logo);
+    border-radius: 10px;
+}
+
+.btSubirImagen:hover {
+    background-color: var(--fondo);
+}
+
+#inputImagen{
+    display: none;
+}
+
+#preview {
+    display: block;
+    margin: 1rem auto 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
