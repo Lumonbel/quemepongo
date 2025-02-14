@@ -64,4 +64,7 @@ export class LoginComponent  {
     //this.authService.login(this.nombreUsuario, this.password);
 
     }
+    redireccionRegistro(){
+      this.router.navigate(["/registroPasos"]);
+    }
 }
