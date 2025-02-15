@@ -4,7 +4,8 @@
         <div class="container-fluid vertical contenedorInformacion">
             <h2 class="txtTituloPag">Nuevo artículo</h2>
             <div class="contenedorNuevoArt vertical centrado">
-                <form> <!--(ngSubmit)="actualizarCategoria()" -->
+                <form [formGroup]= "formulario" (ngSubmit)="nuevoArticulo()"
+                enctype="multipart/form-data"> 
                     <div class="pregCategoria vertical divContenido">
                         <h3>¿Qué clase de artículo deseas guardar?</h3>
                         <div class="botonesEleccion horizontal">
@@ -105,11 +106,11 @@
                         <h3>¿En qué género clasificarías esta prenda?</h3>
                         <div class="botonesEleccion horizontal">
                             <div class="mujer vertical centrado">
-                                <app-bt-ropa [svgContent]="svgMujer"></app-bt-ropa>
+                                <app-bt-ropa [svgContent]= "svgMujer" (click)=seleccionadoMujer()></app-bt-ropa>
                                 <p class="txtBt">Mujer</p>
                             </div>
                             <div class="hombre vertical centrado">
-                                <app-bt-ropa [svgContent]="svgHombre"></app-bt-ropa>
+                                <app-bt-ropa [svgContent]= "svgHombre" (click)=seleccionadoHombre()></app-bt-ropa>
                                 <p class="txtBt">Hombre</p>
                             </div>
                         </div>
@@ -120,57 +121,77 @@
                         <h3>¿Cómo es tu artículo?</h3>
                         <div class="horizontal botonesEleccion">
                             <div class="atributos" *ngIf="eleccionRopa || eleccionZapatos">
-                                <h4 class="txtSubtituloInputs">Talla:</h4>
-                                <input type="text" name="talla" id="talla" class="form-control input" required>
+                                <label for="talla" class="txtSubtituloInputs">Talla:</label>
+                                <input type="text" name="talla" id="talla" class="form-control input" formControlName="talla" >
+                                <div *ngIf="mostrarError('talla', 'required')" class="text-danger">
+                                    La talla es obligatoria.
+                                </div>
                             </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Color:</h4>
-                                <input type="text" name="color" id="color" class="form-control input" required>
+                            <div class="form-group">
+                                <label for="color" class="txtSubtituloInputs">Color</label>
+                                <input type="text" id="color" formControlName="color" class="form-control input" [ngClass]="{'is-invalid': mostrarError('color', 'required')}">
+                                <div *ngIf="mostrarError('color', 'required')" class="invalid-feedback">
+                                    El color es obligatorio.
+                                </div>
                             </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Marca:</h4>
-                                <input type="text" name="marca" id="marca" class="form-control input" required>
+                            <div class="form-group">
+                                <label for="marca" class="txtSubtituloInputs">Marca</label>
+                                <input type="text" id="marca" formControlName="marca" class="form-control input" [ngClass]="{'is-invalid': mostrarError('marca', 'required')}">
+                                <div *ngIf="mostrarError('marca', 'required')" class="invalid-feedback">
+                                    La marca es obligatoria.
+                                </div>
                             </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Temporada:</h4>
-                                <input type="text" name="temporada" id="temporada" class="form-control input" required>
+                            <div class="form-group">
+                                <label for="material" class="txtSubtituloInputs">Material</label>
+                                <input type="text" id="material" formControlName="material" class="form-control input" [ngClass]="{'is-invalid': mostrarError('material', 'required')}">
+                                <div *ngIf="mostrarError('material', 'required')" class="invalid-feedback">
+                                    El material es obligatorio.
+                                </div>
                             </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Material:</h4>
-                                <input type="text" name="material" id="material" class="form-control input" required>
+                            <div class="form-group">
+                                <label for="temporada" class="txtSubtituloInputs">Temporada</label>
+                                <input type="text" id="temporada" formControlName="temporada" class="form-control input" [ngClass]="{'is-invalid': mostrarError('temporada', 'required')}">
+                                <div *ngIf="mostrarError('temporada', 'required')" class="invalid-feedback">
+                                    La temporada es obligatoria.
+                                </div>
                             </div>
-                            <div class="atributos">
-                                <h4 class="txtSubtituloInputs">Estado:</h4>
-                                <input type="text" name="estado" id="estado" class="form-control input" required>
+                            <div class="form-group">
+                                <label for="estado" class="txtSubtituloInputs">Estado</label>
+                                <input type="text" id="estado" formControlName="estado" class="form-control input" [ngClass]="{'is-invalid': mostrarError('estado', 'required')}">
+                                <div *ngIf="mostrarError('estado', 'required')" class="invalid-feedback">
+                                    El estado es obligatorio.
+                                </div>
                             </div>
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
                                     || eleccionTipo.toLowerCase() === 'pantalon'
                                     || eleccionTipo.toLowerCase() === 'falda'
-                                    || eleccionTipo.toLowerCase() === 'vestido' 
+                                    || eleccionTipo.toLowerCase() === 'vestido'
                                     || eleccionTipo.toLowerCase() === 'cinturon'">
-                                <h4 class="txtSubtituloInputs">Largo:</h4>
-                                <input type="text" name="largo" id="largo" class="form-control input">
+                                <label for="largo" class="txtSubtituloInputs">Largo:</label>
+                                <input type="text" name="largo" id="largo" class="form-control input" formControlName="largo">
                             </div>
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
-                                <h4 class="txtSubtituloInputs">Grosor:</h4>
-                                <input type="text" name="grosor" id="grosor" class="form-control input">
+                                <label for="grosor" class="txtSubtituloInputs">Grosor:</label>
+                                <input type="text" name="grosor" id="grosor" class="form-control input" formControlName="grosor">
                             </div>
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
-                                <h4 class="txtSubtituloInputs">Tipo de almacenamiento:</h4>
-                                <input type="text" name="capacidad" id="capacidad" class="form-control input">
+                                <label for="tipoAlmacenamiento" class="txtSubtituloInputs">Tipo de almacenamiento:</label>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                             </div>
 
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
-                                <h4 class="txtSubtituloInputs">Capacidad:</h4>
-                                <input type="text" name="capacidad" id="capacidad" class="form-control input">
+                                <label for="capacidad" class="txtSubtituloInputs">Capacidad:</label>
+                                <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                             </div>
                         </div>
 
                         <div class="divDescripcionT">
-                            <div class="atributos divDescripcion vertical">
-                                <h4 class="txtSubtituloInputs txtDes">Descripción:</h4>
-                                <textarea name="textarea" rows="5" cols="120" id="descripcion"
-                                    class="form-control"></textarea>
+                            <div class="form-group divDescripcion vertical">
+                                <label for="descripcion" class="txtSubtituloInputs">Descripción</label>
+                                <textarea id="descripcion"  rows="5" cols="120" formControlName="descripcion" class="form-control input" [ngClass]="{'is-invalid': mostrarError('descripcion', 'required')}"></textarea>
+                                <div *ngIf="mostrarError('descripcion', 'required')" class="invalid-feedback">
+                                    La descripción es obligatoria.
+                                </div>
                             </div>
                         </div>
 
@@ -190,16 +211,10 @@
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#9662D9" />
                                     </svg>
-
                                 </button>
-
                             </label>
-                            <!-- Input de tipo file -->
                             <input id="inputImagen" type="file" accept="image/*" (change)="previsualizarImagen($event)"
                                 #fileInput />
-
-                            <!-- Imagen para previsualizar el archivo subido -->
-                            <!-- Se muestra solo si previewImage tiene un valor (ngIf) -->
                             <img *ngIf="previewImage" [src]="previewImage" alt="Vista previa" id="preview" />
                         </div>
                     </div>
@@ -211,7 +226,6 @@
                                 <path
                                     d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
                             </svg>
-
                         </button>
                     </div>
                 </form>
