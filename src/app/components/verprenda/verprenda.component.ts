@@ -150,4 +150,13 @@ export class VerprendaComponent {
     this.articuloservice.pasoArticulo(articuloPasar);
     this.router.navigate(['/infoarticulo']);
   }
+
+  getGroupedImages(): any[][] {
+    const groupSize = 6;
+    const groupedImages = [];
+    for (let i = 0; i < this.images.length; i += groupSize) {
+      groupedImages.push(this.images.slice(i, i + groupSize));
+    }
+    return groupedImages;
+  }
 }
