@@ -199,13 +199,15 @@
                         <!-- *ngIf="categoriaSeleccionada.toLowerCase() === 'ropa'-->
                     </div>
 
+
                     <!-- SSUBIR FOTOS-->
                     <div class="divPregSubirImagen vertical divContenido">
                         <h3>¿Qué tal si subes una foto para darle tu toque personal?</h3>
                         <div class="divSubirFoto vertical">
                             <!-- Label que simula el botón para subir archivos -->
+                            <img *ngIf="previewImage" [src]="previewImage" alt="Vista previa" id="preview" />
                             <label for="inputImagen">
-                                <button class="btSubirImagen">
+                                <button class="btSubirImagen" type="button" onclick="document.getElementById('inputImagen').click()">
                                     Subir foto
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -214,8 +216,10 @@
                                 </button>
                             </label>
                             <input id="inputImagen" type="file" accept="image/*" (change)="previsualizarImagen($event)"
-                                #fileInput />
-                            <img *ngIf="previewImage" [src]="previewImage" alt="Vista previa" id="preview" />
+                                #fileInput formControlName="imagen"/>
+                        </div>
+                        <div *ngIf="mostrarError('imagen', 'required')" class="invalid-feedback">
+                            La imagen es obligatoria.
                         </div>
                     </div>
                     <div class="btInferior horizontal">

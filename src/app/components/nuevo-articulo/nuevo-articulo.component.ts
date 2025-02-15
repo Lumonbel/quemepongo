@@ -4,6 +4,8 @@ import { BtRopaComponent } from "../bt-ropa/bt-ropa.component";
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArticulosService } from '../../services/articulos.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-nuevo-articulo',
@@ -21,6 +23,7 @@ export class NuevoArticuloComponent {
   previewImage: string | ArrayBuffer | null = null;
   formulario!: FormGroup;
   articulo: any = null;
+  imagenSeleccionada: File | null = null;
 
 
   svgCamisa = ` <svg width="83" height="90" viewBox="0 0 42 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,10 +211,12 @@ export class NuevoArticuloComponent {
 </svg>`
   constructor(
     private formBuilder: FormBuilder,
+    private articuloService: ArticulosService,
+    private usuarioService: UsuarioService,
   ) {
     this.formulario = this.formBuilder.group({
       id: [''],// Opcional porque podría no estar presente al crear un nuevo artículo
-      color: ['', Validators.required], 
+      color: ['', Validators.required],
       marca: ['', Validators.required],
       material: ['', Validators.required],
       temporada: ['', Validators.required],
@@ -233,12 +238,51 @@ export class NuevoArticuloComponent {
     });
   }
 
-  
+
   nuevoArticulo(): void {
-    this.articulo = this.formulario.value;
-    this.articulo.genero = this.eleccionGenero;
-    this.articulo.tipo = this.eleccionTipo;
-    console.log(this.articulo);
+    if (this.formulario.invalid) {
+      Object.keys(this.formulario.controls).forEach((field) => {
+        const control = this.formulario.get(field);
+        control?.markAsTouched();
+
+      });
+    } else {
+
+
+      this.articulo = this.formulario.value;
+      this.articulo.genero = this.eleccionGenero;
+      this.articulo.tipo = this.eleccionTipo;
+      if (this.formulario.value.imagen && this.imagenSeleccionada) {
+        this.articulo.imagen = this.imagenSeleccionada;
+      }
+
+      console.log(this.articulo);
+
+      const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+      if (nombreUsuario) {
+        this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
+          next: (data) => {
+            this.articulo.usuario = data;
+            console.log('Usuario encontrado:', data);
+            this.articuloService.createArticulo(this.articulo).subscribe({
+              next: (response) => {
+                console.log('Producto actualizado:', response);
+                alert('Producto actualizado correctamente');
+              },
+              error: (err) => {
+                console.error('Error al actualizar:', err);
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Error al cargar el usuario:', err);
+          },
+        });
+      } else {
+        console.error('No se encontró el nombre de usuario en el localStorage');
+      }
+    }
   }
 
   seleccionadoRopa() {
@@ -248,7 +292,7 @@ export class NuevoArticuloComponent {
     this.toggleSelectedButton('ropa');
     this.eleccionRopa = !this.eleccionRopa;
     if (!this.eleccionRopa) {
-        this.eleccionTipo = "";
+      this.eleccionTipo = "";
     }
     this.reapplyGeneroSelection();
   }
@@ -259,7 +303,7 @@ export class NuevoArticuloComponent {
     this.toggleSelectedButton('complementos');
     this.eleccionComplemento = !this.eleccionComplemento;
     if (!this.eleccionComplemento) {
-        this.eleccionTipo = "";
+      this.eleccionTipo = "";
     }
     this.reapplyGeneroSelection();
   }
@@ -270,19 +314,19 @@ export class NuevoArticuloComponent {
     this.eleccionZapatos = !this.eleccionZapatos;
     this.eleccionTipo = this.eleccionZapatos ? "Zapatos" : "";
     if (!this.eleccionZapatos) {
-        this.eleccionTipo = "";
+      this.eleccionTipo = "";
     }
     this.reapplyGeneroSelection();
   }
   toggleSelectedButton(buttonType: string, isGenero: boolean = false) {
     const buttons = document.querySelectorAll('.svg-btn');
     if (!isGenero) {
-        buttons.forEach(button => button.classList.remove('selected'));
+      buttons.forEach(button => button.classList.remove('selected'));
     }
 
     const selectedButton = document.querySelector(`.${buttonType} .svg-btn`);
     if (selectedButton) {
-        selectedButton.classList.add('selected');
+      selectedButton.classList.add('selected');
     }
   }
   seleccionadoCamisa() {
@@ -327,27 +371,27 @@ export class NuevoArticuloComponent {
   seleccionadoGuantes() {
     this.eleccionTipo = "Guantes";
   }
-  seleccionadoMujer(){
-    this.eleccionGenero="Mujer";
+  seleccionadoMujer() {
+    this.eleccionGenero = "Mujer";
     this.toggleSelectedButton('mujer', true);
     this.toggleDeseleccionarGenero('hombre');
   }
-  seleccionadoHombre(){
-    this.eleccionGenero="Hombre";
+  seleccionadoHombre() {
+    this.eleccionGenero = "Hombre";
     this.toggleSelectedButton('hombre', true);
     this.toggleDeseleccionarGenero('mujer');
   }
   toggleDeseleccionarGenero(genero: string) {
     const button = document.querySelector(`.${genero} .svg-btn`);
     if (button) {
-        button.classList.remove('selected');
+      button.classList.remove('selected');
     }
-}
+  }
   reapplyGeneroSelection() {
     if (this.eleccionGenero === "Mujer") {
-        this.toggleSelectedButton('mujer', true);
+      this.toggleSelectedButton('mujer', true);
     } else if (this.eleccionGenero === "Hombre") {
-        this.toggleSelectedButton('hombre', true);
+      this.toggleSelectedButton('hombre', true);
     }
   }
 
@@ -357,7 +401,7 @@ export class NuevoArticuloComponent {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
-
+      this.imagenSeleccionada = file;
       // Se ejecuta cuando el lector termina de cargar el archivo
       reader.onload = () => {
         this.previewImage = reader.result;

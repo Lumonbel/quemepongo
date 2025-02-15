@@ -6,6 +6,7 @@ import { Transaccion } from '../models/transaccion-dto';
 import { UsuarioDTO } from '../models/usuario-dto';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -36,7 +37,7 @@ export class ArticulosService {
 
 
   createArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
-    return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
+    return this.http.post<ArticuloDTO>(this.apiUrl, articulo );
   }
 
   updateArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
