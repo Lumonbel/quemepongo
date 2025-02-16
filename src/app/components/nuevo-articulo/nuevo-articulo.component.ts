@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { BtRopaComponent } from "../bt-ropa/bt-ropa.component";
 import { CommonModule } from '@angular/common';
+import { FormGroup, FormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ArticulosService } from '../../services/articulos.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-nuevo-articulo',
-  imports: [BtAtrasComponent, BtRopaComponent, CommonModule],
+  imports: [BtAtrasComponent, BtRopaComponent, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './nuevo-articulo.component.html',
   styleUrl: './nuevo-articulo.component.css'
 })
@@ -13,11 +17,14 @@ export class NuevoArticuloComponent {
   eleccionRopa: boolean = false;
   eleccionZapatos: boolean = false;
   eleccionComplemento: boolean = false;
-  eleccionTipo:string = "";
-  eleccionGenero:boolean = false;
+  eleccionTipo: string = "";
+  eleccionGenero: string = "";
   desboqueadoSubirFoto = false;
   previewImage: string | ArrayBuffer | null = null;
-  
+  formulario!: FormGroup;
+  articulo: any = null;
+  imagenSeleccionada: File | null = null;
+
 
   svgCamisa = ` <svg width="83" height="90" viewBox="0 0 42 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_677_7244)">
@@ -202,80 +209,190 @@ export class NuevoArticuloComponent {
   svgHombre = `<svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M70 0V24.8387H63.2258V11.646L42.6684 32.0476C44.1278 34.1837 45.2844 36.4467 46.1379 38.8365C46.9922 41.2262 47.4194 43.7109 47.4194 46.2903C47.4194 52.9004 45.1206 58.5046 40.5232 63.1027C35.9258 67.7009 30.3224 70 23.7131 70C17.1045 70 11.5003 67.7013 6.90064 63.1039C2.30021 58.5064 0 52.9031 0 46.2937C0 39.6851 2.29909 34.081 6.89726 29.4813C11.4954 24.8809 17.0996 22.5806 23.7097 22.5806C26.2515 22.5806 28.7196 22.9961 31.1139 23.8271C33.5074 24.6581 35.7493 25.8262 37.8395 27.3316L58.3969 6.77419H45.1613V0H70ZM23.7029 29.3548C19.0234 29.3548 15.0319 31.0089 11.7284 34.3169C8.42559 37.6242 6.77419 41.6176 6.77419 46.2971C6.77419 50.9766 8.42823 54.9681 11.7363 58.2716C15.0436 61.5744 19.037 63.2258 23.7164 63.2258C28.3959 63.2258 32.3874 61.5718 35.691 58.2637C38.9938 54.9564 40.6452 50.963 40.6452 46.2835C40.6452 41.6041 38.9911 37.6126 35.6831 34.309C32.3758 31.0062 28.3824 29.3548 23.7029 29.3548Z" fill="currentColor"/>
 </svg>`
+  constructor(
+    private formBuilder: FormBuilder,
+    private articuloService: ArticulosService,
+    private usuarioService: UsuarioService,
+  ) {
+    this.formulario = this.formBuilder.group({
+      id: [''],// Opcional porque podría no estar presente al crear un nuevo artículo
+      color: ['', Validators.required],
+      marca: ['', Validators.required],
+      material: ['', Validators.required],
+      temporada: ['', Validators.required],
+      imagen: ['', Validators.required],
+      estado: ['', Validators.required],
+      publicado: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      tipo: ['', Validators.required],
+      genero: [''],
+      activo: [true],
+      talla: [''],
+      largo: [''],
+      grosor: [''],
+      capacidad: [''],
+      tipoAlmacenamiento: [''],
+      estampado: [''],
+      precio: [''],
+      usuario: [''],
+    });
+  }
+
+
+  nuevoArticulo(): void {
+    if (this.formulario.invalid) {
+      Object.keys(this.formulario.controls).forEach((field) => {
+        const control = this.formulario.get(field);
+        control?.markAsTouched();
+
+      });
+    } else {
+
+
+      this.articulo = this.formulario.value;
+      this.articulo.genero = this.eleccionGenero;
+      this.articulo.tipo = this.eleccionTipo;
+      if (this.formulario.value.imagen && this.imagenSeleccionada) {
+        this.articulo.imagen = this.imagenSeleccionada;
+      }
+
+      console.log(this.articulo);
+
+      const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+      if (nombreUsuario) {
+        this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
+          next: (data) => {
+            this.articulo.usuario = data;
+            console.log('Usuario encontrado:', data);
+            this.articuloService.createArticulo(this.articulo).subscribe({
+              next: (response) => {
+                console.log('Producto actualizado:', response);
+                alert('Producto actualizado correctamente');
+              },
+              error: (err) => {
+                console.error('Error al actualizar:', err);
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Error al cargar el usuario:', err);
+          },
+        });
+      } else {
+        console.error('No se encontró el nombre de usuario en el localStorage');
+      }
+    }
+  }
 
   seleccionadoRopa() {
     this.eleccionComplemento = false;
     this.eleccionZapatos = false;
-    this.eleccionTipo="";
-    if (this.eleccionRopa) {
-      this.eleccionRopa = false;
-    } else {
-      this.eleccionRopa = true;
+    this.eleccionTipo = "";
+    this.toggleSelectedButton('ropa');
+    this.eleccionRopa = !this.eleccionRopa;
+    if (!this.eleccionRopa) {
+      this.eleccionTipo = "";
     }
+    this.reapplyGeneroSelection();
   }
   seleccionadoComplementos() {
     this.eleccionRopa = false;
     this.eleccionZapatos = false;
-    this.eleccionTipo="";
-    if (this.eleccionRopa) {
-      this.eleccionComplemento = false;
-    } else {
-      this.eleccionComplemento = true;
+    this.eleccionTipo = "";
+    this.toggleSelectedButton('complementos');
+    this.eleccionComplemento = !this.eleccionComplemento;
+    if (!this.eleccionComplemento) {
+      this.eleccionTipo = "";
     }
+    this.reapplyGeneroSelection();
   }
-  seleccionadoZapatos(){
+  seleccionadoZapatos() {
     this.eleccionRopa = false;
     this.eleccionComplemento = false;
-    if (this.eleccionRopa) {
-      this.eleccionZapatos = false;
-      this.eleccionTipo="";
-    } else {
-      this.eleccionZapatos = true;
-      this.eleccionTipo="Zapatos";
+    this.toggleSelectedButton('zapatos');
+    this.eleccionZapatos = !this.eleccionZapatos;
+    this.eleccionTipo = this.eleccionZapatos ? "Zapatos" : "";
+    if (!this.eleccionZapatos) {
+      this.eleccionTipo = "";
+    }
+    this.reapplyGeneroSelection();
+  }
+  toggleSelectedButton(buttonType: string, isGenero: boolean = false) {
+    const buttons = document.querySelectorAll('.svg-btn');
+    if (!isGenero) {
+      buttons.forEach(button => button.classList.remove('selected'));
     }
 
+    const selectedButton = document.querySelector(`.${buttonType} .svg-btn`);
+    if (selectedButton) {
+      selectedButton.classList.add('selected');
+    }
   }
-  seleccionadoCamisa(){
-    this.eleccionTipo="Camisa";
+  seleccionadoCamisa() {
+    this.eleccionTipo = "Camisa";
   }
-  seleccionadoChaqueta(){
-    this.eleccionTipo="Chaqueta";
+  seleccionadoChaqueta() {
+    this.eleccionTipo = "Chaqueta";
   }
-  seleccionadoFalda(){
-    this.eleccionTipo="Falda";
+  seleccionadoFalda() {
+    this.eleccionTipo = "Falda";
   }
-  seleccionadoJersey(){
-    this.eleccionTipo="Jersey";
+  seleccionadoJersey() {
+    this.eleccionTipo = "Jersey";
   }
-  seleccionadoPantalon(){
-    this.eleccionTipo="Pantalon";
+  seleccionadoPantalon() {
+    this.eleccionTipo = "Pantalon";
   }
-  seleccionadoRopaBanyo(){
-    this.eleccionTipo="Ropa de baño";
+  seleccionadoRopaBanyo() {
+    this.eleccionTipo = "Ropa de baño";
   }
-  seleccionadoSudadera(){
-    this.eleccionTipo="Sudadera";
+  seleccionadoSudadera() {
+    this.eleccionTipo = "Sudadera";
   }
-  seleccionadoVestido(){
-    this.eleccionTipo="Vestido";
+  seleccionadoVestido() {
+    this.eleccionTipo = "Vestido";
   }
-  seleccionadoBolso(){
-    this.eleccionTipo="Bolso";
+  seleccionadoBolso() {
+    this.eleccionTipo = "Bolso";
   }
-  seleccionadoBufanda(){
-    this.eleccionTipo="Bufanda";
+  seleccionadoBufanda() {
+    this.eleccionTipo = "Bufanda";
   }
-  seleccionadoCinturon(){
-    this.eleccionTipo="Cinturon";
+  seleccionadoCinturon() {
+    this.eleccionTipo = "Cinturon";
   }
-  seleccionadoCorbata(){
-    this.eleccionTipo="Corbata";
+  seleccionadoCorbata() {
+    this.eleccionTipo = "Corbata";
   }
-  seleccionadoGorro(){
-    this.eleccionTipo="Gorro";
+  seleccionadoGorro() {
+    this.eleccionTipo = "Gorro";
   }
-  seleccionadoGuantes(){
-    this.eleccionTipo="Guantes";
+  seleccionadoGuantes() {
+    this.eleccionTipo = "Guantes";
+  }
+  seleccionadoMujer() {
+    this.eleccionGenero = "Mujer";
+    this.toggleSelectedButton('mujer', true);
+    this.toggleDeseleccionarGenero('hombre');
+  }
+  seleccionadoHombre() {
+    this.eleccionGenero = "Hombre";
+    this.toggleSelectedButton('hombre', true);
+    this.toggleDeseleccionarGenero('mujer');
+  }
+  toggleDeseleccionarGenero(genero: string) {
+    const button = document.querySelector(`.${genero} .svg-btn`);
+    if (button) {
+      button.classList.remove('selected');
+    }
+  }
+  reapplyGeneroSelection() {
+    if (this.eleccionGenero === "Mujer") {
+      this.toggleSelectedButton('mujer', true);
+    } else if (this.eleccionGenero === "Hombre") {
+      this.toggleSelectedButton('hombre', true);
+    }
   }
 
 
@@ -284,7 +401,7 @@ export class NuevoArticuloComponent {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
-
+      this.imagenSeleccionada = file;
       // Se ejecuta cuando el lector termina de cargar el archivo
       reader.onload = () => {
         this.previewImage = reader.result;
@@ -299,6 +416,13 @@ export class NuevoArticuloComponent {
       this.imagenPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);*/
 
     }
+  }
+
+
+  mostrarError(controlName: string, errorName: string): boolean {
+    const control = this.formulario.get(controlName);
+    //return control?.hasError(errorName) && control.touched;
+    return control!.hasError(errorName) && control!.touched;
   }
 }
 
