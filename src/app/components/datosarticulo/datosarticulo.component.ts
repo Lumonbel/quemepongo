@@ -1,3 +1,4 @@
+import { PhotoService } from './../../services/photo.service';
 import { ArticulosService } from './../../services/articulos.service';
 import {
   Component,
@@ -24,15 +25,19 @@ export class DatosarticuloComponent implements OnInit {
   artVer!: ArticuloDTO;
   private subscription: Subscription = new Subscription();
 
-  constructor(private articulosService: ArticulosService) {}
+  constructor(
+    private articulosService: ArticulosService,
+    private photoService: PhotoService
+  ) {}
   ngOnInit(): void {
     this.subscription = this.articulosService.art$.subscribe(
       (art: ArticuloDTO) => {
         this.artVer = art;
       }
     );
-     this.cargarDatos();
-     console.log(this.artVer);
+    this.cargarDatos();
+
+    console.log(this.artVer);
   }
 
   cargarDatos() {
@@ -40,6 +45,11 @@ export class DatosarticuloComponent implements OnInit {
       .findById(this.artVer.id!)
       .subscribe((articulos: ArticuloDTO) => {
         this.articulo = articulos;
+        if (this.articulo) {
+          this.articulo.imagen = this.photoService.convertImageToBase64(
+            articulos.imagen
+          );
+        }
       });
   }
 }

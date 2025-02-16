@@ -50,17 +50,26 @@
     <div *ngIf="images && images.length > 0" class="contenedorTarjetas">
       <div *ngFor="let image of images; let index = index" key="index">
         <div class="card">
-          <img [src]="image.imagen" (click)="envioArticulo(image)" />
-          <div class="card-content">
-            <div class="info">
-              <span>{{ image.descripcion }}</span>
-              <i class="icon"><!-- Icono SVG aquí --></i>
+          <img
+            [src]="image.imagen"
+            class="card-image"
+            (click)="envioArticulo(image)"
+          />
+          <div class="card-overlay">
+            <div class="card-content">
+              <div class="info">
+                <span>{{ image.descripcion }}</span>
+                <i class="icon"></i>
+              </div>
+              <p>{{ image.precio }}</p>
             </div>
-            <p>{{ image.precio }}</p>
+            <button class="edit-btn"></button>
           </div>
-          <button class="edit-btn"><!-- Icono SVG aquí --></button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Elemento para detectar el final de la lista -->
+  <div #endOfList></div>
 </div>
