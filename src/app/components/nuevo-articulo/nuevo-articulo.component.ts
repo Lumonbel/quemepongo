@@ -244,44 +244,55 @@ export class NuevoArticuloComponent {
       Object.keys(this.formulario.controls).forEach((field) => {
         const control = this.formulario.get(field);
         control?.markAsTouched();
-
       });
     } else {
-
-
+      let validacion = true;
       this.articulo = this.formulario.value;
-      this.articulo.genero = this.eleccionGenero;
-      this.articulo.tipo = this.eleccionTipo;
+
+      if (!this.eleccionGenero || this.eleccionGenero === "") {
+        validacion = false;
+      } else {
+        this.articulo.genero = this.eleccionGenero;
+      }
+
+      if (!this.eleccionTipo || this.eleccionTipo === "") {
+        validacion = false;
+      } else {
+        this.articulo.tipo = this.eleccionTipo;
+      }
+
       if (this.formulario.value.imagen && this.imagenSeleccionada) {
         this.articulo.imagen = this.imagenSeleccionada;
-      }
-
-      console.log(this.articulo);
-
-      const nombreUsuario = localStorage.getItem("nombreUsuario");
-
-      if (nombreUsuario) {
-        this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
-          next: (data) => {
-            this.articulo.usuario = data;
-            console.log('Usuario encontrado:', data);
-            this.articuloService.createArticulo(this.articulo).subscribe({
-              next: (response) => {
-                console.log('Producto actualizado:', response);
-                alert('Producto actualizado correctamente');
-              },
-              error: (err) => {
-                console.error('Error al actualizar:', err);
-              },
-            });
-          },
-          error: (err) => {
-            console.error('Error al cargar el usuario:', err);
-          },
-        });
       } else {
-        console.error('No se encontró el nombre de usuario en el localStorage');
+        validacion = false;
       }
+      console.log(this.articulo);
+      if (validacion) {
+        const nombreUsuario = localStorage.getItem("nombreUsuario");
+        if (nombreUsuario) {
+          this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
+            next: (data) => {
+              this.articulo.usuario = data;
+              console.log('Usuario encontrado:', data);
+              this.articuloService.createArticulo(this.articulo).subscribe({
+                next: (response) => {
+                  console.log('Producto actualizado:', response);
+                  alert('Producto actualizado correctamente');
+                },
+                error: (err) => {
+                  console.error('Error al actualizar:', err);
+                },
+              });
+            },
+            error: (err) => {
+              console.error('Error al cargar el usuario:', err);
+            },
+          });
+        } else {
+          console.error('No se encontró el nombre de usuario en el localStorage');
+        }
+      }
+
     }
   }
 
