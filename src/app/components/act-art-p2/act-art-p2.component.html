@@ -4,7 +4,7 @@
     <div class="container-fluid vertical contenedorInformacion">
       <h2 class="txtTituloPag">Actualizar artículo</h2>
       <div class="contenidoActualizarArticulo vertical">
-        <form (ngSubmit)="actualizarCategoria()">
+        <form #formulario="ngForm" (ngSubmit)="actualizarCategoria()" novalidate>
           <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
             <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
               <img src="../../../assets/images/camiseta.png" alt="Imagen del artículo" class="imgArticulo" />
@@ -38,26 +38,30 @@
               </div>
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Color:</h4>
-                <input id="color" [(ngModel)]="articulo.color" name="color" required class="form-control input">
+                <input id="color" [(ngModel)]="articulo.color" name="color" required class="form-control input" #color="ngModel">
+                <div *ngIf="color.invalid && color.touched" class="error">El color es obligatorio.</div>
               </div>
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Marca:</h4>
-                <input id="marca" [(ngModel)]="articulo.marca" name="marca" required class="form-control input">
+                <input id="marca" [(ngModel)]="articulo.marca" name="marca" required class="form-control input" #marca="ngModel">
+                <div *ngIf="marca.invalid && marca.touched" class="error">La marca es obligatoria.</div>
               </div>
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Temporada:</h4>
                 <input type="text" name="temporada" id="temporada" class="form-control input"
-                  [(ngModel)]="articulo.temporada" name="temporada" required>
+                  [(ngModel)]="articulo.temporada" name="temporada" required #temporada="ngModel">
+                  <div *ngIf="temporada.invalid && temporada.touched" class="error">La temporada es obligatoria.</div>
               </div>
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Material:</h4>
                 <input type="text" name="material" id="material" class="form-control input"
-                  [(ngModel)]="articulo.material" required>
+                  [(ngModel)]="articulo.material" required #material="ngModel">
+                  <div *ngIf="material.invalid && material.touched" class="error">El material es obligatorio.</div>
               </div>
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Estado:</h4>
-                <input type="text" name="estado" id="estado" class="form-control input" [(ngModel)]="articulo.estado"
-                  required>
+                <input type="text" name="estado" id="estado" class="form-control input" [(ngModel)]="articulo.estado" required #estado="ngModel">
+                <div *ngIf="estado.invalid && estado.touched" class="error">El estado es obligatorio.</div>
               </div>
 
               <div class="atributos">
@@ -67,7 +71,8 @@
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Estampado:</h4>
                 <input type="text" name="estampado" id="estampado" class="form-control input"
-                  [(ngModel)]="articulo.estampado" required>
+                  [(ngModel)]="articulo.estampado" required #estampado="ngModel">
+                  <div *ngIf="estampado.invalid && estampado.touched" class="error">El estampado es obligatorio.</div>
               </div>
               <!--  ESTO NO SALE MIRAR-->
               <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'camisa'
@@ -108,14 +113,17 @@
             <div class="col-9 col-md-9">
               <div class="atributos">
                 <h4 class="txtSubtituloInputs">Descripción:</h4>
-                <textarea name="textarea" rows="5" cols="120" id="descripcion" class="form-control"
-                  [(ngModel)]="articulo.descripcion"></textarea>
+                <textarea name="descripcion" rows="5" cols="120" id="descripcion" class="form-control"
+                  [(ngModel)]="articulo.descripcion" #descripcion="ngModel" required></textarea>
+                  <div *ngIf="descripcion.invalid && descripcion.touched" class="error">
+                    La descripción es obligatoria.
+                  </div>
               </div>
             </div>
           </div><!-- FIN Parte del precio y descripcion-->
 
           <div class="btInferior horizontal">
-            <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
+            <button type="submit" class="btTextoUnaImagen horizontal btActualizar"  [disabled]="formulario.invalid">
               Actualizar
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                 fill="#FFFFFF">
