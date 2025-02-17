@@ -18,7 +18,7 @@ export class ArticulosService {
   //
   private apiUrlT = 'http://localhost:8888/api/transacciones';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   findAll(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);
@@ -64,7 +64,7 @@ export class ArticulosService {
     });
   }
 
-  findByTipo(tipo: string): Observable<ArticuloDTO[]> {
+  findByTipo(tipo: string): Observable<any> {
     const url = `${this.apiUrl}/tipo/${tipo}`;
     return this.http.get<ArticuloDTO[]>(url);
   }

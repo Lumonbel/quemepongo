@@ -32,7 +32,7 @@ export class FormularioPasosComponent {
   planSeleccionado: string | null = null;
   nuevoUsuario?: UsuarioDTO;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private router:Router) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private router: Router) {
     //FG1
     this.formPaso1 = this.fb.group({
       nombreUsuario: ['', [Validators.required]],
@@ -69,7 +69,7 @@ export class FormularioPasosComponent {
       plan: this.planSeleccionado
     });
 
- 
+
     this.nuevoUsuario = {
       nombre: this.formPaso2.value.nombre,
       apellidos: this.formPaso2.value.apellidos,
@@ -80,12 +80,14 @@ export class FormularioPasosComponent {
       telefono: this.formPaso2.value.telefono,
       activo: true,
       plan: this.formPaso3.value.plan,
-      rol: 'Cliente'}
+      rol: 'Cliente'
+    }
     console.table(this.nuevoUsuario)
     this.usuarioService.anyadirUsuario(this.nuevoUsuario).subscribe(response => {
       console.log('Usuario creado', response);
       alert('Usuario creado con éxito');
-      this.router.navigate(['/login']);    });
+      this.router.navigate(['/login']);
+    });
 
   }
 }

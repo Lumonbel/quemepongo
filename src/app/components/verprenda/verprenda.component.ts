@@ -21,7 +21,7 @@ interface Prenda {
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',
-  styleUrl: './verprenda.component.css',
+  styleUrls: ['./verprenda.component.css'],
 })
 export class VerprendaComponent {
   prendasSel: Prenda[] = [];
@@ -42,19 +42,19 @@ export class VerprendaComponent {
 
   chipsRopa: string[] = [
     'Baño',
-    'Camisas',
-    'Chaquetas',
-    'Faldas',
-    'Jerseys',
-    'Pantalones',
-    'Sudaderas',
-    'Vestidos',
+    'Camisa',
+    'Chaqueta',
+    'Falda',
+    'Jersey',
+    'Pantalon',
+    'Sudadera',
+    'Vestido',
   ];
   chipsZapatos: string[] = [];
   chipsComplementos: string[] = [
-    'Bolsos',
+    'Bolso',
     'Bufandas',
-    'Cinturones',
+    'Cinturon',
     'Corbatas',
     'Gorras',
     'Guantes',
@@ -97,48 +97,26 @@ export class VerprendaComponent {
     } else {
       this.chipsSeleccionados.push(chip);
     }
+
+    // Filtrar artículos por tipo seleccionado
+    this.articuloservice.findByTipo(chip).subscribe((response) => {
+      // Procesar los artículos para convertir las imágenes a base64
+      const articulosProcesados = response.map((articulo: { imagen: string; }) => ({
+        ...articulo,
+        imagen: articulo.imagen
+          ? this.photoService.convertImageToBase64(articulo.imagen)
+          : '',
+      }));
+      // Actualizar las imágenes con los artículos filtrados
+      this.images = articulosProcesados;
+      console.log(response);
+    });
   }
 
   funcSeleccionado(chip: string): boolean {
     return this.chipsSeleccionados.includes(chip);
   }
 
-  // onPrendaChange(event: any) {
-  //   const selectedOption = this.prendasSel.find(
-  //     (prenda) => prenda.ropa === event.value.ropa
-  //   );
-  //   const ropaTipoMap: { [key: string]: string[] } = {
-  //     Complementos: [
-  //       'AccesorioAlmacenamiento',
-  //       'Bufanda',
-  //       'Cinturones',
-  //       'Corbatas',
-  //       'Gorra',
-  //       'Guantes',
-  //     ],
-  //     Ropa: [
-  //       'Camisa',
-  //       'Baño',
-  //       'Jersey',
-  //       'Pantalon',
-  //       'Falda',
-  //       'Vestido',
-  //       'Chaquetas',
-  //       'Sudaderas',
-  //       'Vestidos',
-  //     ],
-  //     Zapatos: ['Zapatos'],
-  //   };
-
-  //   if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
-  //     this.images = this.todosArticulos.filter((articulo) =>
-  //       ropaTipoMap[selectedOption.ropa].includes(articulo.tipo)
-  //     );
-  //     this.mostrarDiv = selectedOption.ropa;
-  //   } else {
-  //     this.mostrarDiv = '';
-  //   }
-  // }
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
       (prenda) => prenda.ropa === event.value.ropa
@@ -176,20 +154,18 @@ export class VerprendaComponent {
 
       // Llamar al servicio para cada tipo de prenda
       tipos.forEach((tipo) => {
-        this.articuloservice
-          .findByTipo(tipo)
-          .subscribe((articulos: ArticuloDTO[]) => {
-            // Procesar imágenes antes de agregarlas
-            const articulosProcesados = articulos.map((articulo) => ({
-              ...articulo,
-              imagen: articulo.imagen
-                ? this.photoService.convertImageToBase64(articulo.imagen)
-                : '',
-            }));
+        this.articuloservice.findByTipo(tipo).subscribe((articulos: ArticuloDTO[]) => {
+          // Procesar imágenes antes de agregarlas
+          const articulosProcesados = articulos.map((articulo) => ({
+            ...articulo,
+            imagen: articulo.imagen
+              ? this.photoService.convertImageToBase64(articulo.imagen)
+              : '',
+          }));
 
-            // Agregar los artículos procesados a la lista de imágenes
-            this.images = [...this.images, ...articulosProcesados];
-          });
+          // Agregar los artículos procesados a la lista de imágenes
+          this.images = [...this.images, ...articulosProcesados];
+        });
       });
 
       this.mostrarDiv = selectedOption.ropa;
@@ -233,6 +209,7 @@ export class VerprendaComponent {
     }
     return groupedImages;
   }
+
   cargaMasArticulos() {
     const currentLength = this.images.length;
     const nextArticles = this.todosArticulos.slice(
