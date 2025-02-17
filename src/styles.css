@@ -36,11 +36,11 @@
 
 :root {
   /*Colores*/
-  --logo: #9662d9;
+  --logo: rgb(150, 98, 217);
   --botones: #6f42c1;
   --fondo: rgb(225, 203, 255);
   --bordesClaros: #cda9ff;
-  --masclaro: #f0e5ff;
+  --masclaro: rgb(240, 229, 255);
   --fondoCajones: #f6f0ff;
   --fondoBorde: #e1cbff40;
   --fondoHoverBoton: #E4D0FF;

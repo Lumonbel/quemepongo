@@ -9,12 +9,14 @@ import { routes } from './app.routes';
 import { PhotoService } from './services/photo.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), PhotoService, provideRouter(routes),
-  provideHttpClient(), provideAnimationsAsync(),
-  providePrimeNG({
-    theme: {
-      preset: Aura
-    }
-  })
+  providers: [ provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+    PhotoService,
+    provideHttpClient(), provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+                preset: Aura
+            }
+        })
+
   ]
 };

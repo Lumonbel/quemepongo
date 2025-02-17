@@ -1,6 +1,20 @@
 .containerInfoArticulo {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  gap: 1em;
+}
+
+.imgContainer {
+
+  width: 720px;
+  height: 916px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 
 .nombrePrecio {
@@ -14,15 +28,13 @@
   h2 {
     font-size: 50px;
   }
+  margin-top: 2em;
 }
-
-  #btAtrasId{
-    background: #0000 !important;
-    color: aquamarine !important;
-  }
-
 .datosContainer {
-  display: grid;
+  width: 720px;
+  height: 916px;
+  padding-top: 1em;
+display: grid;
   grid-template-rows: repeat(3, 1fr);
   .columnas {
     display: grid;
@@ -51,7 +63,7 @@
 .descripcion {
   border-radius: 10px;
   border: 1px solid rgba(184, 143, 255, 0.58);
-  width: 790px;
+  width: 675px;
   text-wrap: wrap;
   display: flex;
   align-items: center;
@@ -62,12 +74,8 @@
   .rayaD {
     width: 6px;
     height: 80%;
-    background-color: #b88fff !important;
+    background-color: #b88fff ;
     border-radius: 10px;
   }
 }
 
-.btVolver {
-  background: #0000 !important;
-  color: aquamarine !important;
-}
