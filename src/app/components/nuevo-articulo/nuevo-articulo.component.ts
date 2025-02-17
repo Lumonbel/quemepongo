@@ -460,24 +460,35 @@ export class NuevoArticuloComponent {
 
   previsualizarImagen(event: Event): void {
     const input = event.target as HTMLInputElement;
+
     if (input.files && input.files[0]) {
       const file = input.files[0];
+      this.imagenSeleccionada = file; // Guardamos el archivo
+
       const reader = new FileReader();
+
       this.imagenSeleccionada = file;
       // Se ejecuta cuando el lector termina de cargar el archivo
       reader.onload = () => {
         this.previewImage = reader.result as string;
         this.articulo.imagen = this.previewImage;
+
       };
 
-      // Leemos el archivo como Data URL (base64)
+      // Leemos el archivo como Data URL (esto devuelve la imagen en Base64)
       reader.readAsDataURL(file);
-      /*
-      this.formulario.patchValue({ foto: file });
-      this.imagenSeleccionada = file;
-      const objectUrl = URL.createObjectURL(file);
-      this.imagenPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);*/
 
+      // Convertir la imagen a Binario
+      const readerBinario = new FileReader();
+      readerBinario.onload = (e) => {
+        const dataUrl = e.target?.result as string;
+        const binaryString = atob(dataUrl.split(',')[1]);
+
+        // extract binary data from data URL
+      };
+
+      // Leemos el archivo como una cadena binaria
+      readerBinario.readAsDataURL(file);
     }
   }
 

@@ -7,6 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SesionService } from '../../services/sesion.service';
+import { AlertService } from '../../services/alerts.service';
+import { PhotoService } from '../../services/photo.service';
 
 @Component({
   selector: 'app-ver-perfil-cliente',
@@ -18,25 +22,43 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 export class VerPerfilClienteComponent implements OnInit {
 
-  formulario!: FormGroup;
-  // usuario: any = null;
-  usuario: any = {};
-  mostrarDiv: string = '';
-  nombreUsuario = localStorage.getItem('nombreUsuario');
+  previewImage: string | null = null;
 
+  imagenSeleccionada: File | null = null;
+
+  usuario: any = {};
   constructor(
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router
-  ) { }
+    private alertService: AlertService,
+    private router: Router,
+    private fb: FormBuilder,
+    private photoService: PhotoService,
+    private sanitizer: DomSanitizer,
+  ) {
+
+    const nombreUsuario = localStorage.getItem('nombreUsuario');
+    this.nombreUsuario = nombreUsuario;
+    console.log("Nombre de usuario: ", this.nombreUsuario);
+    //this.usuario = this.sesionService.obtenerUsuario().nombre;
+  }
+
+  formulario!: FormGroup;
+  // usuario: any = null;
+  mostrarDiv: string = '';
+  nombreUsuario = localStorage.getItem('nombreUsuario');
 
   //aqui puedo usar el find by nombre usuario
   // de inicio cliente vaya a 
-  ngOnInit(): void {
+  ngOnInit() {
     this.nombreUsuario = localStorage.getItem('nombreUsuario');
     if (this.nombreUsuario == null) {
       this.router.navigate(['/index']);
     }
+    console.log("Inicio del ver peewferfrrfil cliente", this.usuario);
+    // Cosas de la imagen
+    
+
     console.log("Inicio del ver perfil cliente");
     /*
     this.usuarioService.findById(2).subscribe({
@@ -94,6 +116,15 @@ export class VerPerfilClienteComponent implements OnInit {
       this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
         next: (data) => {
           this.usuario = data;
+          
+          if (this.usuario?.imagen) {
+            // this.previewImage =  this.usuario?.imagen;
+            // this.usuario.imagen = this.previewImage;
+
+
+            this.previewImage = this.photoService.convertToBase64(this.usuario?.imagen);
+            console.log('Imagen:', this.previewImage);
+          }
           console.log("Mostramos el usuario:", this.usuario);
 
           if (this.formulario) {
@@ -109,30 +140,107 @@ export class VerPerfilClienteComponent implements OnInit {
   }
 
 
-  inicializarFormulario(): void {
-    if (this.usuario) {
+  actualizarUsuario(): void {
+    console.log('Actualizando usuario:', this.usuario);
+    this.alertService.confirm(
+      'Confirmar cambios',
+      `¿Estás seguro de que quieres actualizar el usuario?`,
+      'Sí, actualizar',
+      'Descartar cambios'
+    ).then((confirmed) => {
+      if (confirmed) {
+        const nombreUsuario = localStorage.getItem('nombreUsuario');
+        if (nombreUsuario) {
+          if (this.previewImage) {
+            const base64Data = this.previewImage.split(',')[1];
+            this.usuario.imagen = base64Data;
+          }
+          
+          this.usuarioService.updateUsuario(this.usuario).subscribe({
+            next: (response) => {
+              console.log('Usuario actualizado:', response);
+            },
+            error: (error) => {
+              console.error('Error al actualizar el usuario', error);
+            },
+          });
+        } else {
+          console.error('Error al encontrar el nombre de usuario en el localStorage');
+        }
+      }
+    }); // <- Se cerró correctamente el `.then()`
 
-      //Inicializamos los datos
-      this.formulario = this.formBuilder.group({
-        id: [this.usuario.id],
-        nombre: [this.usuario.nombre],
-        apellidos: [this.usuario.apellidos],
-        email: [this.usuario.email],
-        fechaNacimiento: [this.usuario.fechaNacimiento],
-        nombreUsuario: [this.usuario.nombreUsuario],
-        password: [this.usuario.password],
-        telefono: [this.usuario.telefono],
-        imagen: [this.usuario.imagen],
-        plan: [this.usuario.plan],
-        activo: [this.usuario.activo],
-        rol: [this.usuario.rol]
+    /*
+    actualizarUsuario(): void {
+    this.alertService.confirm(
+      'Confirmar cambios',
+      `¿Estás seguro de que quieres actualizar el usuario?`,
+      'Sí, actualizar',
+      'Descartar cambios'
+    ).then((confirmed) => {
+      if (confirmed) {
+        console.log('Actualizando usuario:', this.usuario);
+        this.usuarioService.findByNombreUsuario('nombreUsuario').subscribe({
+          next: (data) => {
+            this.usuario = data;
+            console.log("Hemos encontrado el usuario", data);
+            //this.usuarioService.
+          },
+          error: (error) => {
+            console.error('Error al cargar el usuario', error);
+          },
+        });
+    
+      }
+    });
+    console.log('Actualizando usuario:', this.usuario);
+    this.usuario.tipo = 
+    
+    }
+    */
 
-      });
-      this.formulario.patchValue(this.usuario);
-    } else {
-      console.error('Error al importar el usuairo');
+    /*
+      inicializarFormulario(): void {
+        if (this.usuario) {
+     
+          //Inicializamos los datos
+          this.formulario = this.formBuilder.group({
+            id: [this.usuario.id],
+            nombre: [this.usuario.nombre],
+            apellidos: [this.usuario.apellidos],
+            email: [this.usuario.email],
+            fechaNacimiento: [this.usuario.fechaNacimiento],
+            nombreUsuario: [this.usuario.nombreUsuario],
+            password: [this.usuario.password],
+            telefono: [this.usuario.telefono],
+            imagen: [this.usuario.imagen],
+            plan: [this.usuario.plan],
+            activo: [this.usuario.activo],
+            rol: [this.usuario.rol]
+     
+          });
+          this.formulario.patchValue(this.usuario);
+        } else {
+          console.error('Error al importar el usuairo');
+        }
+      }
+    */
+  }
+  previsualizarImagen(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      this.imagenSeleccionada = file;
+      // Se ejecuta cuando el lector termina de cargar el archivo
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+        this.usuario.imagen = this.previewImage;
+      };
+
+      // Leemos el archivo como Data URL (base64)
+      reader.readAsDataURL(file);
+
     }
   }
-
-  imagenUrl = 'assets/images/image.png';
 }

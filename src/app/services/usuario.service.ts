@@ -24,7 +24,7 @@ export class UsuarioService {
     return this.http.get<UsuarioDTO[]>(this.apiUrlU);
   }
 
-  login (usuario : UsuarioDTO) : Observable<number> {
+  login(usuario: UsuarioDTO): Observable<number> {
     return this.http.post<number>(`${this.apiUrlU}/login`, usuario);
   }
 
@@ -36,6 +36,13 @@ export class UsuarioService {
   //Hacemos el método para buscar por id el usuario que necesitemso
   findById(id: number): Observable<UsuarioDTO> {
     return this.http.get<UsuarioDTO>(`${this.apiUrlU}/${id}`);
+  }
+
+  //Actualizamos el usuario
+  updateUsuario(usuario: UsuarioDTO): Observable<UsuarioDTO> {
+    console.log('URL:', this.apiUrlU);
+    console.log('Usuario en el service:', usuario);
+    return this.http.put<UsuarioDTO>(this.apiUrlU, usuario);
   }
 
   usuarioLoggeado(id: number) {
