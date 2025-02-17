@@ -1,6 +1,6 @@
-    <app-bt-atras></app-bt-atras>
+<app-bt-atras></app-bt-atras>
 <h1>Registro</h1>
-  <div class="card flex justify-center p-5 w-80">
+<div class="card flex justify-center p-5 w-80">
   <p-stepper [value]="1" class="basis-[50rem]">
     <p-step-list>
       <p-step [value]="1">Datos App</p-step>
@@ -12,71 +12,40 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-            >
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
               <div class="container d-flex g-5">
-                <form class="container-fluid d-flex flex-column g-5 pasosForm">
+                <form class="container-fluid d-flex flex-column g-5 pasosForm" [formGroup]="formPaso1">
                   <div class="row p-3">
                     <!-- Nombre usuario -->
                     <div class="col-md-6">
-                      <label for="username" class="form-label"
-                        >Nombre usuario</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        placeholder="Nombre usuario"
-                      />
+                      <label for="username" class="form-label">Nombre usuario</label>
+                      <input type="text" class="form-control" id="username" placeholder="Nombre usuario" formControlName="nombreUsuario" />
                     </div>
 
                     <!-- Email -->
                     <div class="col-md-6">
                       <label for="email" class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        placeholder="Email"
-                      />
+                      <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" />
                     </div>
                   </div>
                   <div class="row p-3">
                     <div class="col-md-6">
-                      <label for="password" class="form-label"
-                        >Contraseña</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        placeholder="Contraseña"
-                      />
+                      <label for="password" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="password" placeholder="Contraseña" formControlName="contraseña" />
                     </div>
 
                     <!-- Repetir contraseña -->
                     <div class="col-md-6">
-                      <label for="repeat-password" class="form-label"
-                        >Repetir contraseña</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="repeat-password"
-                        placeholder="Repetir contraseña"
-                      />
+                      <label for="repeat-password" class="form-label">Repetir contraseña</label>
+                      <input type="password" class="form-control" id="repeat-password"
+                        placeholder="Repetir contraseña"  formControlName="repiteContraseña"/>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
             <div class="flex pt-6 justify-end">
-              <p-button
-                label="Siguiente"
-                icon="pi pi-arrow-right"
-                iconPos="right"
-                (onClick)="activateCallback(2)"
-              />
+              <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
             </div>
           </div>
         </ng-template>
@@ -86,57 +55,32 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-            >
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
               <div class="container d-flex g-5">
-                <form class="container-fluid d-flex flex-column g-5 pasosForm">
+                <form class="container-fluid d-flex flex-column g-5 pasosForm" [formGroup]="formPaso2">
                   <div class="row p-3">
                     <!-- Nombre usuario -->
                     <div class="col-md-6">
                       <label for="nombre" class="form-label">Nombre</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nombre"
-                        placeholder="Nombre usuario"
-                      />
+                      <input type="text" class="form-control" id="nombre" placeholder="Nombre usuario" formControlName="nombre" />
                     </div>
 
                     <!-- Email -->
                     <div class="col-md-6">
-                      <label for="apellidos" class="form-label"
-                        >Apellidos</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="apellidos"
-                        placeholder="Apellidos"
-                      />
+                      <label for="apellidos" class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" formControlName="apellidos" />
                     </div>
                   </div>
                   <div class="row p-3">
                     <div class="col-md-6">
-                      <label for="fechaNacimiento" class="form-label"
-                        >Fecha Nacimiento</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="fechaNacimiento"
-                        placeholder="Fecha Nacimiento"
-                      />
+                      <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                      <input type="date" class="form-control" id="fechaNacimiento" placeholder="Fecha Nacimiento" formControlName="fechaNacimiento"/>
                     </div>
 
                     <!-- Repetir contraseña -->
                     <div class="col-md-6">
                       <label for="telefono" class="form-label">Teléfono</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="telefono"
-                        placeholder="telefono"
-                      />
+                      <input type="text" class="form-control" id="telefono" placeholder="telefono" formControlName="telefono"/>
                     </div>
                   </div>
                 </form>
@@ -144,12 +88,7 @@
             </div>
           </div>
           <div class="flex pt-6 justify-between">
-            <p-button
-              label="Siguiente"
-              icon="pi pi-arrow-right"
-              iconPos="right"
-              (onClick)="activateCallback(3)"
-            />
+            <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
           </div>
         </ng-template>
       </p-step-panel>
@@ -158,20 +97,14 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-            >
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
               <section id="pricing" class="pricing section">
+                <form [formGroup]="formPaso3" >
                 <div class="container" data-aos="fade-up" data-aos-delay="100">
                   <div class="row justify-content-center">
                     <!-- Basic Plan -->
-                    <div
-                      class="col-lg-4 d-flex justify-content-center"
-                      data-aos="fade-up"
-                      data-aos-delay="100"
-                    >
-                      <div
-                        class="pricing-card d-flex flex-column align-items-center justify-content-between"
-                      >
+                    <div class="col-lg-4 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                      <div class="pricing-card d-flex flex-column align-items-center justify-content-between">
                         <h3>Plan Free</h3>
                         <div class="price">
                           <span class="currency">€</span>
@@ -194,21 +127,15 @@
                           </li>
                         </ul>
 
-                        <a href="#" class="btnplan btn btn-light">
+                        <a (click)="seleccionarPlan('free')"  class="btnplan btn btn-light">
                           Quiero este plan
                         </a>
                       </div>
                     </div>
 
                     <!-- Standard Plan -->
-                    <div
-                      class="col-lg-4 d-flex justify-content-center"
-                      data-aos="fade-up"
-                      data-aos-delay="200"
-                    >
-                      <div
-                        class="pricing-card popular d-flex flex-column align-items-center justify-content-between"
-                      >
+                    <div class="col-lg-4 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                      <div class="pricing-card popular d-flex flex-column align-items-center justify-content-between">
                         <h3>Plan Premiun Mensual</h3>
                         <div class="price">
                           <span class="currency">€</span>
@@ -236,7 +163,7 @@
                           </li>
                         </ul>
 
-                        <a href="#" class="btnplanP btn btn-light">
+                        <a (click)="seleccionarPlan('premium')"  class="btnplanP btn btn-light">
                           Quiero este plan
                         </a>
                       </div>
@@ -244,54 +171,32 @@
 
                     <div class="form-check ">
                       <div class="group-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckDefault"
-                        />
-                        <label
-                          class="form-check-label text-black fw-medium"
-                          for="flexCheckDefault"
-                        >
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="terminos" />
+                        <label class="form-check-label text-black fw-medium" for="flexCheckDefault">
                           He leido y acepto la política de privacidad de la
                           empresa
                         </label>
                       </div>
-                         <div class="group-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckDefault"
-                        />
-                        <label
-                          class="form-check-label text-black fw-medium"
-                          for="flexCheckDefault"
-                        >
+                      <div class="group-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="comunicaciones"  />
+                        <label class="form-check-label text-black fw-medium" for="flexCheckDefault">
                           He leido y acepto la política de privacidad de la
                           empresa
                         </label>
                       </div>
 
-                      </div>
                     </div>
                   </div>
+                </div>
+              </form>
               </section>
             </div>
           </div>
           <div class="flex pt-6 justify-center">
-            <p-button
-              label="Finalizar"
-              icon="pi pi-arrow-left"
-              iconPos="right"
-              (onClick)="activateCallback(2)"
-            />
+            <p-button label="Finalizar" icon="pi pi-arrow-left" iconPos="right" (onClick)="verDatos()" />
           </div>
         </ng-template>
       </p-step-panel>
     </p-step-panels>
   </p-stepper>
 </div>
-
-
