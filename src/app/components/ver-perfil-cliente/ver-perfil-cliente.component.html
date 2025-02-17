@@ -34,12 +34,13 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control input"
-                                    [(ngModel)]="usuario.fechaNacimiento">
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento"
+                                    class="form-control input" [(ngModel)]="usuario.fechaNacimiento">
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="email" id="email" class="form-control input" name="email" [(ngModel)]="usuario.email">
+                                <input type="email" id="email" class="form-control input" name="email"
+                                    [(ngModel)]="usuario.email">
                             </div>
                             <div class="col-md-6">
                                 <label for="telefono" class="form-label">Número de teléfono:</label>
@@ -61,13 +62,12 @@
 
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña:</label>
-                                <input type="password" id="password" [(ngModel)]="usuario.password" name="password" class="form-control input" readonly>
+                                <input type="password" id="password" [(ngModel)]="usuario.password" name="password"
+                                    class="form-control input" readonly>
                             </div>
                             <div class="col-md-6">
-
                                 <label for="plan" class="form-label">Plan del usuario:</label>
                                 <input type="plan" id="plan" name="plan" [(ngModel)]="usuario.plan" class="form-control input" readonly>
-
                             </div>
                         </div>
                         <div class="btInferior horizontal">
@@ -84,9 +84,9 @@
                     </form>
                 </div>
                 <div class="col-lg-4 g-3 text-center">
-                    <div class="contenedor-img">
-                        <img [src]="imagenUrl" alt="Foto del cliente" class="img-fluid">
-                    </div>
+                    <img *ngIf="previewImage" [src]="previewImage" alt="Imagen del artículo"
+                        class="img-fluid rounded shadow">
+                    <input type="file" id="foto" class="form-control mt-2" (change)="previsualizarImagen($event)"> 
                 </div>
             </div>
         </div>
