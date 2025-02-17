@@ -1,12 +1,16 @@
 <div class="containerInfoArticulo">
-  <div >
-  <app-bt-atras></app-bt-atras>
-    <img src={{articulo?.imagen}} alt="" />
+  <div class="imgContainer">
+    <app-bt-atras></app-bt-atras>
+    <img
+      src="{{ articulo?.imagen }}"
+      alt="{{ articulo?.tipo }}"
+      class="img-fluid"
+    />
   </div>
   <div class="datosContainer">
     <div class="nombrePrecio">
       <h1>{{ articulo?.tipo }}</h1>
-      <h2>{{ articulo?.precio }}</h2>
+      <h2>{{ articulo?.precio }} €</h2>
     </div>
     <div class="boton">
       <button class="btTextoUnaImagen">
@@ -78,7 +82,7 @@
           <div class="raya"></div>
           En venta desde:
           <br />
-          falta fecha
+          <!-- falta fecha -->
         </div>
       </div>
     </div>

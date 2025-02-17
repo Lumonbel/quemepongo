@@ -19,13 +19,14 @@ export class PhotoService {
     });
   }
 
+
   /**
    * Asegura que una imagen Base64 tenga el prefijo correcto.
    * @param imageString - La imagen en formato Base64.
    * @param format - El formato de la imagen (por defecto 'png').
    * @returns Imagen con el prefijo adecuado.
    */
-  private convertToBase64(imageString: string, format: string = 'png'): string {
+  convertToBase64(imageString: string, format: string = 'png'): string {
     if (!imageString.startsWith('data:image/')) {
       return `data:image/${format};base64,${imageString}`;
     }

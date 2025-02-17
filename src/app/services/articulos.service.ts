@@ -6,6 +6,7 @@ import { Transaccion } from '../models/transaccion-dto';
 import { UsuarioDTO } from '../models/usuario-dto';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -17,23 +18,15 @@ export class ArticulosService {
   //
   private apiUrlT = 'http://localhost:8888/api/transacciones';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   findAll(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);
   }
 
-
-
-   findById(id: number): Observable<ArticuloDTO> {
+  findById(id: number): Observable<ArticuloDTO> {
     return this.http.get<ArticuloDTO>(`${this.apiUrl}/${id}`);
   }
-
-
-
 
   createArticulo(articulo: ArticuloDTO): Observable<ArticuloDTO> {
     return this.http.post<ArticuloDTO>(this.apiUrl, articulo);
@@ -59,14 +52,20 @@ export class ArticulosService {
 
   //PASO DE VARIABLES
   private artDeGaleria = new BehaviorSubject<ArticuloDTO>({} as ArticuloDTO); // Inicializa con un valor vacío
- art$= this.artDeGaleria.asObservable();
-
+  art$ = this.artDeGaleria.asObservable();
 
   pasoArticulo(articulo: ArticuloDTO) {
     this.artDeGaleria.next(articulo);
   }
 
   getImage(id: number): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/${id}/imagen`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/${id}/imagen`, {
+      responseType: 'blob',
+    });
+  }
+
+  findByTipo(tipo: string): Observable<any> {
+    const url = `${this.apiUrl}/tipo/${tipo}`;
+    return this.http.get<ArticuloDTO[]>(url);
   }
 }
