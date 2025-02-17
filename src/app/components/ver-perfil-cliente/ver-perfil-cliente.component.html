@@ -67,8 +67,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="plan" class="form-label">Plan del usuario:</label>
-                                <input type="plan" id="plan" name="plan" [(ngModel)]="usuario.plan"
-                                    class="form-control input" readonly>
+                                <input type="plan" id="plan" name="plan" [(ngModel)]="usuario.plan" class="form-control input" readonly>
                             </div>
                         </div>
                         <div class="btInferior horizontal">
@@ -87,7 +86,7 @@
                 <div class="col-lg-4 g-3 text-center">
                     <img *ngIf="previewImage" [src]="previewImage" alt="Imagen del artículo"
                         class="img-fluid rounded shadow">
-                    <input type="file" id="foto" class="form-control mt-2" (change)="previsualizarImagen($event)">
+                    <input type="file" id="foto" class="form-control mt-2" (change)="previsualizarImagen($event)"> 
                 </div>
             </div>
         </div>
