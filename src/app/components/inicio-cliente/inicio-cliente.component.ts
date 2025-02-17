@@ -34,11 +34,11 @@ export class InicioClienteComponent implements OnInit{
   navMiArmario(){
     this.router.navigate(['/miArmario']);
   }
-
+*/
   navCesta(){
-    this.router.navigate(['/carrito']);
+    this.router.navigate(['/cesta']);
   }
-  */
+  
   
   navPerfilCliente(){
     this.router.navigate(['/verMiPerfil']);
