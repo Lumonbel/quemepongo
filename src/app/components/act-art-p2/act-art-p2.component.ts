@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { BtAtrasComponent } from '../bt-atras/bt-atras.component';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { SweetAlertArrayOptions } from 'sweetalert2';
+import { AlertService } from '../../services/alerts.service';
 //import { jwtDecode } from 'jwt-decode';
 
 
@@ -19,7 +21,31 @@ import { UsuarioService } from '../../services/usuario.service';
   ]
 })
 export class ActArtP2Component implements OnInit {
-  articulo: any = {};
+  previewImage: string | null = null;
+  imagenSeleccionada: File | null = null;
+  articulo: any = {
+    id: '',
+    color: '',
+    marca: '',
+    material: '',
+    temporada: '',
+    imagen: '',
+    estado: '',
+    publicado: '',
+    descripcion: '',
+    tipo: '',
+    genero: '',
+    activo: '',
+    talla: '',
+    largo: '',
+    grosor: '',
+    capacidad: '',
+    tipoAlmacenamiento: '',
+    estampado: '',
+    precio: '',
+    usuario: '',
+
+  };
   categorias = [
     {
       nombre: 'Complementos',
@@ -27,7 +53,7 @@ export class ActArtP2Component implements OnInit {
     },
     {
       nombre: 'Ropa',
-      subcategorias: ['Camisa','Chaqueta', 'Falda','Jersey' ,'Pantalon', 'Ropa de baño' ,'Sudadera' ,'Vestido']
+      subcategorias: ['Camisa', 'Chaqueta', 'Falda', 'Jersey', 'Pantalon', 'Baño', 'Sudadera', 'Vestido']
     },
     {
       nombre: 'Zapatos',
@@ -35,15 +61,16 @@ export class ActArtP2Component implements OnInit {
     }
   ];
   constructor(
-      private articuloService: ArticulosService,
-      private authService: AuthService,
-      private usuarioService: UsuarioService,
-    ) {}
+    private articuloService: ArticulosService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
+    private alerta: AlertService,
+  ) { }
 
   categoriaSeleccionada: string = '';
   subcategoriaSeleccionada: string = '';
   subcategoriasFiltradas: string[] = [];
-  
+
 
   ngOnInit() {
     this.articuloService.findById(1).subscribe({
@@ -52,7 +79,11 @@ export class ActArtP2Component implements OnInit {
         console.log(this.articulo);
         // Datos recibidos de la base de datos
         this.subcategoriaSeleccionada = this.articulo.tipo;
-
+        if (this.articulo?.imagen) {
+          this.previewImage = 'data:image/png;base64,' + this.articulo.imagen;
+          console.log(this.previewImage)
+          this.articulo.imagen = this.previewImage;
+        }
         // Encontrar y establecer la categoría correspondiente
         for (let categoria of this.categorias) {
           if (categoria.subcategorias.includes(this.subcategoriaSeleccionada)) {
@@ -69,7 +100,7 @@ export class ActArtP2Component implements OnInit {
       },
     });
     console.log(this.articulo);
-    
+
   }
 
   actualizarSubcategorias() {
@@ -80,6 +111,15 @@ export class ActArtP2Component implements OnInit {
   actualizarCategoria() {
     console.log('Actualizando producto:', this.articulo);
     this.articulo.tipo = this.subcategoriaSeleccionada;
+    if(this.subcategoriaSeleccionada==="Ropa de baño"){
+      this.articulo.tipo="Baño"
+    }
+    // Eliminar el prefijo "data:image/png;base64,"
+    if (this.previewImage) {
+      const base64Data = this.previewImage.split(',')[1];
+      this.articulo.imagen = base64Data;
+    }
+
     const nombreUsuario = localStorage.getItem('nombreUsuario');
     if (nombreUsuario) {
       this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
@@ -89,7 +129,7 @@ export class ActArtP2Component implements OnInit {
           this.articuloService.updateArticulo(this.articulo).subscribe({
             next: (response) => {
               console.log('Producto actualizado:', response);
-              alert('Producto actualizado correctamente');
+              this.alerta.success("Actualización correcta", "Su actualización se ha realizado correctamente")
             },
             error: (err) => {
               console.error('Error al actualizar:', err);
@@ -103,9 +143,23 @@ export class ActArtP2Component implements OnInit {
     } else {
       console.error('No se encontró el nombre de usuario en el localStorage');
     }
-   
-    
   }
 
-  
+  previsualizarImagen(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      this.imagenSeleccionada = file;
+      // Se ejecuta cuando el lector termina de cargar el archivo
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+        this.articulo.imagen = this.previewImage;
+      };
+
+      // Leemos el archivo como Data URL (base64)
+      reader.readAsDataURL(file);
+
+    }
+  }
 }

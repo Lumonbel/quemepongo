@@ -123,9 +123,6 @@
                             <div class="atributos" *ngIf="eleccionRopa || eleccionZapatos">
                                 <label for="talla" class="txtSubtituloInputs">Talla:</label>
                                 <input type="text" name="talla" id="talla" class="form-control input" formControlName="talla" >
-                                <div *ngIf="mostrarError('talla', 'required')" class="text-danger">
-                                    La talla es obligatoria.
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="color" class="txtSubtituloInputs">Color</label>
@@ -169,19 +166,23 @@
                                     || eleccionTipo.toLowerCase() === 'cinturon'">
                                 <label for="largo" class="txtSubtituloInputs">Largo:</label>
                                 <input type="text" name="largo" id="largo" class="form-control input" formControlName="largo">
+                                
                             </div>
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
                                 <label for="grosor" class="txtSubtituloInputs">Grosor:</label>
                                 <input type="text" name="grosor" id="grosor" class="form-control input" formControlName="grosor">
+                                
                             </div>
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="tipoAlmacenamiento" class="txtSubtituloInputs">Tipo de almacenamiento:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
+                                
                             </div>
 
                             <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="capacidad" class="txtSubtituloInputs">Capacidad:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
+                                
                             </div>
                         </div>
 
@@ -224,7 +225,7 @@
                     </div>
                     <div class="btInferior horizontal">
                         <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
-                            Actualizar
+                            Nuevo artículo
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#FFFFFF">
                                 <path

@@ -11,6 +11,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticulosService } from '../../services/articulos.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { AlertService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-nuevo-articulo',
@@ -31,9 +32,31 @@ export class NuevoArticuloComponent {
   eleccionTipo: string = '';
   eleccionGenero: string = '';
   desboqueadoSubirFoto = false;
-  previewImage: string | ArrayBuffer | null = null;
+  previewImage: string | null = null;
   formulario!: FormGroup;
-  articulo: any = null;
+  articulo: any = {
+    id: '',
+    color: '',
+    marca: '',
+    material: '',
+    temporada: '',
+    imagen: '',
+    estado: '',
+    publicado: '',
+    descripcion: '',
+    tipo: '',
+    genero: '',
+    activo: '',
+    talla: '',
+    largo: '',
+    grosor: '',
+    capacidad: '',
+    tipoAlmacenamiento: '',
+    estampado: '',
+    precio: '',
+    usuario: '',
+
+  };
   imagenSeleccionada: File | null = null;
   binaryString: string | null = null;
   imagenBinaria: string | null = null;
@@ -224,7 +247,10 @@ export class NuevoArticuloComponent {
   constructor(
     private formBuilder: FormBuilder,
     private articuloService: ArticulosService,
-    private usuarioService: UsuarioService
+
+    private usuarioService: UsuarioService,
+    private alerta: AlertService,
+
   ) {
     this.formulario = this.formBuilder.group({
       id: [''], // Opcional porque podría no estar presente al crear un nuevo artículo
@@ -234,7 +260,7 @@ export class NuevoArticuloComponent {
       temporada: ['', Validators.required],
       imagen: ['', Validators.required],
       estado: ['', Validators.required],
-      publicado: ['', Validators.required],
+      publicado: [false],
       descripcion: ['', Validators.required],
       tipo: ['', Validators.required],
       genero: [''],
@@ -251,47 +277,88 @@ export class NuevoArticuloComponent {
   }
 
   nuevoArticulo(): void {
+
+    console.log("Entro a crear articulo");
+    let validacion = true;
+    
+    
     console.log(this.formulario.value);
+    console.log(this.eleccionTipo);
+    this.formulario.value.tipo = this.eleccionTipo;
+    console.log(this.formulario.value);
+    
+    
+    if(this.formulario.value.tipo==="" || this.formulario.value.color==="" || this.formulario.value.marca==="" ||
+      this.formulario.value.material==="" || this.formulario.value.temporada ==="" ||
+      this.formulario.value.estado==="" || this.formulario.value.descripcion===""
+    ){
+      console.log("Validacion manual, es invalido");
+      console.log(" TIPO: "+this.formulario.value.tipo);
+      console.log(" Color: "+this.formulario.value.color);
+      console.log(" MARCA: "+this.formulario.value.marca);
+      console.log(" Material: "+this.formulario.value.material);
+      console.log(" Temporada: "+this.formulario.value.temporada);
+      console.log(" estado: "+this.formulario.value.estado);
+      console.log( " descripcion " + this.formulario.value.descripcion);
+      console.log( " IMAGEN " + this.formulario.value.imagen);
+      this.alerta.error('Error', 'Por favor, completa todos los campos correctamente.');
+
+    }else{
+      console.log("Valido el form");
+      
+      this.articulo = this.formulario.value;
+
+      if (!this.eleccionGenero || this.eleccionGenero === "") {
+        validacion = false;
+      } else {
+        this.articulo.genero = this.eleccionGenero;
+      }
+
+      if (this.previewImage) {
+        const base64Data = this.previewImage.split(',')[1];
+        this.articulo.imagen = base64Data;
+      }
+
+      console.log(this.articulo);
+      
+      if (validacion) {
+        const nombreUsuario = localStorage.getItem("nombreUsuario");
+        if (nombreUsuario) {
+          this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
+            next: (data) => {
+              this.articulo.usuario = data;
+              console.log('Usuario encontrado:', data);
+              this.articuloService.createArticulo(this.articulo).subscribe({
+                next: (response) => {
+                  console.log('Producto actualizado:', response);
+                  alert('Producto actualizado correctamente');
+                },
+                error: (err) => {
+                  console.error('Error al actualizar:', err);
+                },
+              });
+            },
+            error: (err) => {
+              console.error('Error al cargar el usuario:', err);
+            },
+          });
+        } else {
+          console.error('No se encontró el nombre de usuario en el localStorage');
+        }
+      }
+
+    }
+/*
     if (this.formulario.invalid) {
+      console.log("Invalido el formulario")
       Object.keys(this.formulario.controls).forEach((field) => {
         const control = this.formulario.get(field);
         control?.markAsTouched();
       });
+      return; // Salir de la función si el formulario es inválido
     } else {
-      this.articulo = this.formulario.value;
-      this.articulo.genero = this.eleccionGenero;
-      this.articulo.tipo = this.eleccionTipo;
-      if (this.formulario.value.imagen && this.imagenSeleccionada) {
-        this.articulo.imagen = this.imagenSeleccionada;
-      }
-
-      console.log(this.articulo);
-
-      const nombreUsuario = localStorage.getItem('nombreUsuario');
-
-      if (nombreUsuario) {
-        this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
-          next: (data) => {
-            this.articulo.usuario = data;
-            console.log('Usuario encontrado:', data);
-            this.articuloService.createArticulo(this.articulo).subscribe({
-              next: (response) => {
-                console.log('Producto actualizado:', response);
-                alert('Producto actualizado correctamente');
-              },
-              error: (err) => {
-                console.error('Error al actualizar:', err);
-              },
-            });
-          },
-          error: (err) => {
-            console.error('Error al cargar el usuario:', err);
-          },
-        });
-      } else {
-        console.error('No se encontró el nombre de usuario en el localStorage');
-      }
-    }
+      
+    }*/
   }
 
   seleccionadoRopa() {
@@ -354,7 +421,7 @@ export class NuevoArticuloComponent {
     this.eleccionTipo = 'Pantalon';
   }
   seleccionadoRopaBanyo() {
-    this.eleccionTipo = 'Ropa de baño';
+    this.eleccionTipo = "Baño";
   }
   seleccionadoSudadera() {
     this.eleccionTipo = 'Sudadera';
@@ -413,14 +480,12 @@ export class NuevoArticuloComponent {
 
       const reader = new FileReader();
 
-      // Convertir la imagen a Base64 cuando se complete la lectura
-      reader.onload = (e) => {
-        this.previewImage = e.target?.result as string; // La cadena Base64 de la imagen
-        console.log(this.previewImage);
-        const base64Data = this.previewImage.substring(
-          this.previewImage.indexOf(',') + 1
-        );
-        this.formulario.value.imagen = base64Data; // Imprimir Base64 en consola
+      this.imagenSeleccionada = file;
+      // Se ejecuta cuando el lector termina de cargar el archivo
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+        this.articulo.imagen = this.previewImage;
+
       };
 
       // Leemos el archivo como Data URL (esto devuelve la imagen en Base64)
