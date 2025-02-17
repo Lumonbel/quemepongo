@@ -21,9 +21,31 @@ export class NuevoArticuloComponent {
   eleccionTipo: string = "";
   eleccionGenero: string = "";
   desboqueadoSubirFoto = false;
-  previewImage: string | ArrayBuffer | null = null;
+  previewImage: string | null = null;
   formulario!: FormGroup;
-  articulo: any = null;
+  articulo: any = {
+    id: '',
+    color: '',
+    marca: '',
+    material: '',
+    temporada: '',
+    imagen: '',
+    estado: '',
+    publicado: '',
+    descripcion: '',
+    tipo: '',
+    genero: '',
+    activo: '',
+    talla: '',
+    largo: '',
+    grosor: '',
+    capacidad: '',
+    tipoAlmacenamiento: '',
+    estampado: '',
+    precio: '',
+    usuario: '',
+
+  };
   imagenSeleccionada: File | null = null;
 
 
@@ -278,14 +300,13 @@ export class NuevoArticuloComponent {
         this.articulo.genero = this.eleccionGenero;
       }
 
-      
-
-      if (this.formulario.value.imagen && this.imagenSeleccionada) {
-        this.articulo.imagen = this.imagenSeleccionada;
-      } else {
-        validacion = false;
+      if (this.previewImage) {
+        const base64Data = this.previewImage.split(',')[1];
+        this.articulo.imagen = base64Data;
       }
+
       console.log(this.articulo);
+      
       if (validacion) {
         const nombreUsuario = localStorage.getItem("nombreUsuario");
         if (nombreUsuario) {
@@ -445,7 +466,8 @@ export class NuevoArticuloComponent {
       this.imagenSeleccionada = file;
       // Se ejecuta cuando el lector termina de cargar el archivo
       reader.onload = () => {
-        this.previewImage = reader.result;
+        this.previewImage = reader.result as string;
+        this.articulo.imagen = this.previewImage;
       };
 
       // Leemos el archivo como Data URL (base64)
