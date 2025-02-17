@@ -10,52 +10,76 @@
     <div class="vertical contenedorPrincipal">
         <app-bt-atras></app-bt-atras>
         <div class="container-fluid vertical contenedorInformacion">
-            <h2 class="txtTituloPag">Ver perfil del cliente</h2>
+            <h2 class="txtTituloPag">Perfil del cliente</h2>
         </div>
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg-8">
-                    <form [formGroup]="formulario">
+                    <!--
+                        [formGroup]="formulario"
+                        readonly
+                        formControlName="nombre"
+                    -->
+                    <form (ngSubmit)="actualizarUsuario()">
                         <div class="row g-5">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" id="nombre" name="nombre" class="form-control input" formControlName="nombre"
-                                    readonly>
+                                <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre"
+                                    class="form-control input">
                             </div>
                             <div class="col-md-6">
                                 <label for="apellidos" class="form-label">Apellidos:</label>
-                                <input type="text" id="apellidos" class="form-control input" formControlName="apellidos"
-                                readonly>
+                                <input type="text" id="apellidos" name="apellidos" [(ngModel)]="usuario.apellidos"
+                                    class="form-control input">
                             </div>
                             <div class="col-md-6">
                                 <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
-                                <input type="date" id="fechaNacimiento" class="form-control input"
-                                    formControlName="fechaNacimiento" readonly>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control input"
+                                    [(ngModel)]="usuario.fechaNacimiento">
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="email" id="email" class="form-control input" formControlName="email"
-                                readonly>
+                                <input type="email" id="email" class="form-control input" name="email" [(ngModel)]="usuario.email">
                             </div>
                             <div class="col-md-6">
                                 <label for="telefono" class="form-label">Número de teléfono:</label>
-                                <input type="tel" id="telefono" class="form-control input" formControlName="telefono"
-                                readonly>
+                                <input type="tel" id="telefono" name="telefono" class="form-control input"
+                                    [(ngModel)]="usuario.telefono">
                             </div>
                             <div class="col-md-6">
                                 <label for="nombreUsuario" class="form-label">Usuario:</label>
-                                <input type="text" id="nombreUsuario" class="form-control input"
-                                    formControlName="nombreUsuario" readonly>
+                                <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control input"
+                                    [(ngModel)]="usuario.nombreUsuario">
                             </div>
+                            <!--
                             <div class="col-md-6">
                                 <label for="password" class="form-label">Contraseña:</label>
                                 <input type="password" id="password" class="form-control input"
                                     formControlName="password" readonly>
+                            </div> 
+                            -->
+
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Contraseña:</label>
+                                <input type="password" id="password" [(ngModel)]="usuario.password" name="password" class="form-control input" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label for="premium" class="form-label">Premium:</label>
-                                <input type="text" id="plan" class="form-control input" formControlName="plan" readonly>
+
+                                <label for="plan" class="form-label">Plan del usuario:</label>
+                                <input type="plan" id="plan" name="plan" [(ngModel)]="usuario.plan" class="form-control input" readonly>
+
                             </div>
+                        </div>
+                        <div class="btInferior horizontal">
+                            <button type="submit" class="btTextoUnaImagen horizontal btActualizar">
+                                Actualizar usuario
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                    width="24px" fill="#FFFFFF">
+                                    <path
+                                        d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                                </svg>
+
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -63,7 +87,6 @@
                     <div class="contenedor-img">
                         <img [src]="imagenUrl" alt="Foto del cliente" class="img-fluid">
                     </div>
-                    
                 </div>
             </div>
         </div>
