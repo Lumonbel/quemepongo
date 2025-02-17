@@ -407,7 +407,7 @@ export class NuevoArticuloComponent {
     this.eleccionTipo = "Pantalon";
   }
   seleccionadoRopaBanyo() {
-    this.eleccionTipo = "Ropa de baño";
+    this.eleccionTipo = "Baño";
   }
   seleccionadoSudadera() {
     this.eleccionTipo = "Sudadera";

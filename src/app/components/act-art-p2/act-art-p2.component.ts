@@ -53,7 +53,7 @@ export class ActArtP2Component implements OnInit {
     },
     {
       nombre: 'Ropa',
-      subcategorias: ['Camisa', 'Chaqueta', 'Falda', 'Jersey', 'Pantalon', 'Ropa de baño', 'Sudadera', 'Vestido']
+      subcategorias: ['Camisa', 'Chaqueta', 'Falda', 'Jersey', 'Pantalon', 'Baño', 'Sudadera', 'Vestido']
     },
     {
       nombre: 'Zapatos',
@@ -81,6 +81,7 @@ export class ActArtP2Component implements OnInit {
         this.subcategoriaSeleccionada = this.articulo.tipo;
         if (this.articulo?.imagen) {
           this.previewImage = 'data:image/png;base64,' + this.articulo.imagen;
+          console.log(this.previewImage)
           this.articulo.imagen = this.previewImage;
         }
         // Encontrar y establecer la categoría correspondiente
@@ -110,6 +111,9 @@ export class ActArtP2Component implements OnInit {
   actualizarCategoria() {
     console.log('Actualizando producto:', this.articulo);
     this.articulo.tipo = this.subcategoriaSeleccionada;
+    if(this.subcategoriaSeleccionada==="Ropa de baño"){
+      this.articulo.tipo="Baño"
+    }
     // Eliminar el prefijo "data:image/png;base64,"
     if (this.previewImage) {
       const base64Data = this.previewImage.split(',')[1];
