@@ -27,6 +27,13 @@ export class PhotoService {
     });
   }
 
+  convertToBase64(imageString: string, format: string = 'png'): string {
+    if (!imageString.startsWith('data:image/')) {
+      return `data:image/${format};base64,${imageString}`;
+    }
+    return imageString;
+  }
+
   articulos: ArticuloDTO[] = [];
 
   getImages() {
