@@ -7,9 +7,9 @@
         <form #formulario="ngForm" (ngSubmit)="actualizarCategoria()" novalidate>
           <div class=" superior horizontal"> <!-- Parte superior, con los datos e imagen-->
             <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
-              <img src="../../../assets/images/camiseta.png" alt="Imagen del artículo" class="imgArticulo" />
-              <input type="file" id="foto" class="form-control input-file" />
-
+              <img *ngIf= "previewImage" [src]="previewImage" alt="Imagen del artículo" class="img-fluid rounded shadow">
+              <input type="file" id="foto" class="form-control mt-2" (change)="previsualizarImagen($event)">
+    
             </div>
             <div class="contenedorInformacionDinamico"> <!-- Seccion de datos, mayoritariamente dinamicos-->
               <div class="atributos">
