@@ -1,0 +1,26 @@
+h3{
+    font-family: 'syne';
+    font-weight: 700;
+    font-size:18px;
+}
+.divCestaVacia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2em;
+}
+.divCestaVaciaSuperior{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2em;
+}
+.h3CestaVacia{
+    text-align: center;
+    gap:0.5em;
+}
+.h3SegundaLineaCestaVacia{
+    color: var(--logo);
+    cursor: pointer;
+}

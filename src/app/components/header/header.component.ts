@@ -16,7 +16,8 @@ import { AlertService } from '../../services/alerts.service';
 })
 export class HeaderComponent{
   mostrarMenu: boolean = false;
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private alertService: AlertService
   ) {}
 
