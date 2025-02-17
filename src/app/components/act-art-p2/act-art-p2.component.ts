@@ -19,7 +19,29 @@ import { UsuarioService } from '../../services/usuario.service';
   ]
 })
 export class ActArtP2Component implements OnInit {
-  articulo: any = {};
+  articulo: any = {
+    id: '',
+    color: '',
+    marca: '',
+    material: '',
+    temporada: '',
+    imagen: '',
+    estado: '',
+    publicado: '',
+    descripcion: '',
+    tipo: '',
+    genero: '',
+    activo: '',
+    talla: '',
+    largo: '',
+    grosor: '',
+    capacidad: '',
+    tipoAlmacenamiento: '',
+    estampado: '',
+    precio: '',
+    usuario: '',
+
+  };
   categorias = [
     {
       nombre: 'Complementos',
@@ -27,7 +49,7 @@ export class ActArtP2Component implements OnInit {
     },
     {
       nombre: 'Ropa',
-      subcategorias: ['Camisa','Chaqueta', 'Falda','Jersey' ,'Pantalon', 'Ropa de baño' ,'Sudadera' ,'Vestido']
+      subcategorias: ['Camisa', 'Chaqueta', 'Falda', 'Jersey', 'Pantalon', 'Ropa de baño', 'Sudadera', 'Vestido']
     },
     {
       nombre: 'Zapatos',
@@ -35,15 +57,15 @@ export class ActArtP2Component implements OnInit {
     }
   ];
   constructor(
-      private articuloService: ArticulosService,
-      private authService: AuthService,
-      private usuarioService: UsuarioService,
-    ) {}
+    private articuloService: ArticulosService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
+  ) { }
 
   categoriaSeleccionada: string = '';
   subcategoriaSeleccionada: string = '';
   subcategoriasFiltradas: string[] = [];
-  
+
 
   ngOnInit() {
     this.articuloService.findById(1).subscribe({
@@ -69,7 +91,7 @@ export class ActArtP2Component implements OnInit {
       },
     });
     console.log(this.articulo);
-    
+
   }
 
   actualizarSubcategorias() {
@@ -103,9 +125,5 @@ export class ActArtP2Component implements OnInit {
     } else {
       console.error('No se encontró el nombre de usuario en el localStorage');
     }
-   
-    
   }
-
-  
 }

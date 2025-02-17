@@ -7,16 +7,10 @@
     color:var(--logo);
 }
 
-.svg-btn:hover{
+.svg-btn:hover,
+.svg-btn:focus,
+.svg-btn:active,
+.svg-btn.selected {
     background-color: var(--logo);
-    color: white;
-}
-
-.svg-btn:focus{
-    background-color: var(--logo) ;
-    color: white;
-}
-.svg-btn:active{
-    background-color: var(--logo) ;
     color: white;
 }
