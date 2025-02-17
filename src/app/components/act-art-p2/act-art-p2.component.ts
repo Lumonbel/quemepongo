@@ -21,7 +21,7 @@ import { AlertService } from '../../services/alerts.service';
   ]
 })
 export class ActArtP2Component implements OnInit {
-  previewImage: string  | null = null;
+  previewImage: string | null = null;
   imagenSeleccionada: File | null = null;
   articulo: any = {
     id: '',
@@ -81,12 +81,8 @@ export class ActArtP2Component implements OnInit {
         this.subcategoriaSeleccionada = this.articulo.tipo;
         if (this.articulo?.imagen) {
           this.previewImage = 'data:image/png;base64,' + this.articulo.imagen;
-          // Asignar imagen en el objeto artículo
           this.articulo.imagen = this.previewImage;
         }
-
-
-
         // Encontrar y establecer la categoría correspondiente
         for (let categoria of this.categorias) {
           if (categoria.subcategorias.includes(this.subcategoriaSeleccionada)) {
@@ -115,13 +111,11 @@ export class ActArtP2Component implements OnInit {
     console.log('Actualizando producto:', this.articulo);
     this.articulo.tipo = this.subcategoriaSeleccionada;
     // Eliminar el prefijo "data:image/png;base64,"
-    if(this.previewImage){
+    if (this.previewImage) {
       const base64Data = this.previewImage.split(',')[1];
-
-    // Ahora puedes enviar base64Data al backend
-    this.articulo.imagen = base64Data;
+      this.articulo.imagen = base64Data;
     }
-    
+
     const nombreUsuario = localStorage.getItem('nombreUsuario');
     if (nombreUsuario) {
       this.usuarioService.findByNombreUsuario(nombreUsuario).subscribe({
@@ -155,18 +149,12 @@ export class ActArtP2Component implements OnInit {
       this.imagenSeleccionada = file;
       // Se ejecuta cuando el lector termina de cargar el archivo
       reader.onload = () => {
-        //this.previewImage = reader.result;
         this.previewImage = reader.result as string;
         this.articulo.imagen = this.previewImage;
       };
 
       // Leemos el archivo como Data URL (base64)
       reader.readAsDataURL(file);
-      /*
-      this.formulario.patchValue({ foto: file });
-      this.imagenSeleccionada = file;
-      const objectUrl = URL.createObjectURL(file);
-      this.imagenPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);*/
 
     }
   }
