@@ -1,0 +1,13 @@
+
+/*Css para el boton de cambiar contraseña*/
+.btInferior{
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 500px;
+    margin-bottom: 1%;
+    margin-top: 3%;
+}
+
+.tituloPagina{
+    margin-bottom: 3%;
+}

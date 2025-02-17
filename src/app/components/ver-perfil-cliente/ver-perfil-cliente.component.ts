@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SesionService } from '../../services/sesion.service';
+import { AlertService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-ver-perfil-cliente',
@@ -17,22 +20,30 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 
 export class VerPerfilClienteComponent implements OnInit {
-
-  formulario!: FormGroup;
-  // usuario: any = null;
   usuario: any = {};
-  mostrarDiv: string = '';
-  nombreUsuario = localStorage.getItem('nombreUsuario');
-
   constructor(
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router
-  ) { }
+    private alertService: AlertService,
+    private router: Router,
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer,
+  ) {
+
+    const nombreUsuario = localStorage.getItem('nombreUsuario');
+    this.nombreUsuario = nombreUsuario;
+    console.log("Nombre de usuario: ", this.nombreUsuario);
+    //this.usuario = this.sesionService.obtenerUsuario().nombre;
+  }
+
+  formulario!: FormGroup;
+  // usuario: any = null;
+  mostrarDiv: string = '';
+  nombreUsuario = localStorage.getItem('nombreUsuario');
 
   //aqui puedo usar el find by nombre usuario
   // de inicio cliente vaya a 
-  ngOnInit(): void {
+  ngOnInit() {
     this.nombreUsuario = localStorage.getItem('nombreUsuario');
     if (this.nombreUsuario == null) {
       this.router.navigate(['/index']);
@@ -109,30 +120,87 @@ export class VerPerfilClienteComponent implements OnInit {
   }
 
 
-  inicializarFormulario(): void {
-    if (this.usuario) {
-
-      //Inicializamos los datos
-      this.formulario = this.formBuilder.group({
-        id: [this.usuario.id],
-        nombre: [this.usuario.nombre],
-        apellidos: [this.usuario.apellidos],
-        email: [this.usuario.email],
-        fechaNacimiento: [this.usuario.fechaNacimiento],
-        nombreUsuario: [this.usuario.nombreUsuario],
-        password: [this.usuario.password],
-        telefono: [this.usuario.telefono],
-        imagen: [this.usuario.imagen],
-        plan: [this.usuario.plan],
-        activo: [this.usuario.activo],
-        rol: [this.usuario.rol]
-
+  actualizarUsuario(): void {
+    console.log('Actualizando usuario:', this.usuario);
+    // this.alertService.confirm(
+    //   'Confirmar cambios',
+    //   `¿Estás seguro de que quieres actualizar el usuario?`,
+    //   'Sí, actualizar',
+    //   'Descartar cambios'
+    // ).then((confirmed) => {
+    //   if (confirmed) {
+    const nombreUsuario = localStorage.getItem('nombreUsuario');
+    if (nombreUsuario) {
+      this.usuarioService.updateUsuario(this.usuario).subscribe({
+        next: (response) => {
+          console.log('Usuario actualizado:', response);
+          alert('Usuario actualizado correctamente');
+          alert('QUITAR LOS ALERTS');
+        },
+        error: (error) => {
+          console.error('Error al actualizar el usuario', error);
+        },
       });
-      this.formulario.patchValue(this.usuario);
     } else {
-      console.error('Error al importar el usuairo');
+      console.error('Error al encontrar el nombre de usuario en el localstorage');
     }
-  }
+  };
 
+
+  /*
+  actualizarUsuario(): void {
+  this.alertService.confirm(
+    'Confirmar cambios',
+    `¿Estás seguro de que quieres actualizar el usuario?`,
+    'Sí, actualizar',
+    'Descartar cambios'
+  ).then((confirmed) => {
+    if (confirmed) {
+      console.log('Actualizando usuario:', this.usuario);
+      this.usuarioService.findByNombreUsuario('nombreUsuario').subscribe({
+        next: (data) => {
+          this.usuario = data;
+          console.log("Hemos encontrado el usuario", data);
+          //this.usuarioService.
+        },
+        error: (error) => {
+          console.error('Error al cargar el usuario', error);
+        },
+      });
+  
+    }
+  });
+  console.log('Actualizando usuario:', this.usuario);
+  this.usuario.tipo = 
+  
+  }
+  */
+
+  /*
+    inicializarFormulario(): void {
+      if (this.usuario) {
+   
+        //Inicializamos los datos
+        this.formulario = this.formBuilder.group({
+          id: [this.usuario.id],
+          nombre: [this.usuario.nombre],
+          apellidos: [this.usuario.apellidos],
+          email: [this.usuario.email],
+          fechaNacimiento: [this.usuario.fechaNacimiento],
+          nombreUsuario: [this.usuario.nombreUsuario],
+          password: [this.usuario.password],
+          telefono: [this.usuario.telefono],
+          imagen: [this.usuario.imagen],
+          plan: [this.usuario.plan],
+          activo: [this.usuario.activo],
+          rol: [this.usuario.rol]
+   
+        });
+        this.formulario.patchValue(this.usuario);
+      } else {
+        console.error('Error al importar el usuairo');
+      }
+    }
+  */
   imagenUrl = 'assets/images/image.png';
 }
