@@ -6,6 +6,7 @@ import { FormGroup, FormsModule, FormBuilder, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticulosService } from '../../services/articulos.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { AlertService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-nuevo-articulo',
@@ -213,6 +214,7 @@ export class NuevoArticuloComponent {
     private formBuilder: FormBuilder,
     private articuloService: ArticulosService,
     private usuarioService: UsuarioService,
+    private alerta: AlertService,
   ) {
     this.formulario = this.formBuilder.group({
       id: [''],// Opcional porque podría no estar presente al crear un nuevo artículo
@@ -222,7 +224,7 @@ export class NuevoArticuloComponent {
       temporada: ['', Validators.required],
       imagen: ['', Validators.required],
       estado: ['', Validators.required],
-      publicado: ['', Validators.required],
+      publicado: [false],
       descripcion: ['', Validators.required],
       tipo: ['', Validators.required],
       genero: [''],
@@ -240,13 +242,34 @@ export class NuevoArticuloComponent {
 
 
   nuevoArticulo(): void {
-    if (this.formulario.invalid) {
-      Object.keys(this.formulario.controls).forEach((field) => {
-        const control = this.formulario.get(field);
-        control?.markAsTouched();
-      });
-    } else {
-      let validacion = true;
+    console.log("Entro a crear articulo");
+    let validacion = true;
+    
+    
+    console.log(this.formulario.value);
+    console.log(this.eleccionTipo);
+    this.formulario.value.tipo = this.eleccionTipo;
+    console.log(this.formulario.value);
+    
+    
+    if(this.formulario.value.tipo==="" || this.formulario.value.color==="" || this.formulario.value.marca==="" ||
+      this.formulario.value.material==="" || this.formulario.value.temporada ==="" ||
+      this.formulario.value.estado==="" || this.formulario.value.descripcion===""
+    ){
+      console.log("Validacion manual, es invalido");
+      console.log(" TIPO: "+this.formulario.value.tipo);
+      console.log(" Color: "+this.formulario.value.color);
+      console.log(" MARCA: "+this.formulario.value.marca);
+      console.log(" Material: "+this.formulario.value.material);
+      console.log(" Temporada: "+this.formulario.value.temporada);
+      console.log(" estado: "+this.formulario.value.estado);
+      console.log( " descripcion " + this.formulario.value.descripcion);
+      console.log( " IMAGEN " + this.formulario.value.imagen);
+      this.alerta.error('Error', 'Por favor, completa todos los campos correctamente.');
+
+    }else{
+      console.log("Valido el form");
+      
       this.articulo = this.formulario.value;
 
       if (!this.eleccionGenero || this.eleccionGenero === "") {
@@ -255,11 +278,7 @@ export class NuevoArticuloComponent {
         this.articulo.genero = this.eleccionGenero;
       }
 
-      if (!this.eleccionTipo || this.eleccionTipo === "") {
-        validacion = false;
-      } else {
-        this.articulo.tipo = this.eleccionTipo;
-      }
+      
 
       if (this.formulario.value.imagen && this.imagenSeleccionada) {
         this.articulo.imagen = this.imagenSeleccionada;
@@ -294,6 +313,17 @@ export class NuevoArticuloComponent {
       }
 
     }
+/*
+    if (this.formulario.invalid) {
+      console.log("Invalido el formulario")
+      Object.keys(this.formulario.controls).forEach((field) => {
+        const control = this.formulario.get(field);
+        control?.markAsTouched();
+      });
+      return; // Salir de la función si el formulario es inválido
+    } else {
+      
+    }*/
   }
 
   seleccionadoRopa() {
