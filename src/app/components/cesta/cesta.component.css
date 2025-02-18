@@ -3,6 +3,13 @@ h3{
     font-weight: 700;
     font-size:18px;
 }
+h4{
+    font-family: 'variz';
+    font-weight: 700;
+    font-size:20px;
+    margin:10px;
+}
+/* CESTA VACIA*/
 .divCestaVacia{
     display: flex;
     flex-direction: column;
@@ -23,4 +30,17 @@ h3{
 .h3SegundaLineaCestaVacia{
     color: var(--logo);
     cursor: pointer;
+}
+
+/*CESTA LLENA*/
+.divCestaLlena{
+    display: flex;
+    flex-direction: row;
+}
+.cajonera{
+
+        padding-left: 15px;
+    padding-right: 50px;
+        
+    
 }
