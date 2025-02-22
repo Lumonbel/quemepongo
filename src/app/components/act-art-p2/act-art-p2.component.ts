@@ -9,18 +9,16 @@ import { SweetAlertArrayOptions } from 'sweetalert2';
 import { AlertService } from '../../services/alerts.service';
 //import { jwtDecode } from 'jwt-decode';
 
-
 @Component({
   selector: 'app-act-art-p2',
   standalone: true,
   imports: [FormsModule, CommonModule, BtAtrasComponent],
   templateUrl: './act-art-p2.component.html',
   styleUrl: './act-art-p2.component.css',
-  providers: [
-
-  ]
+  providers: [],
 })
 export class ActArtP2Component implements OnInit {
+  id: number | undefined;
   previewImage: string | null = null;
   imagenSeleccionada: File | null = null;
   articulo: any = {
@@ -44,36 +42,52 @@ export class ActArtP2Component implements OnInit {
     estampado: '',
     precio: '',
     usuario: '',
-
   };
   categorias = [
     {
       nombre: 'Complementos',
-      subcategorias: ['Bolso', 'Bufanda', 'Cinturón', 'Corbata', 'Gorro', 'Guantes']
+      subcategorias: [
+        'Bolso',
+        'Bufanda',
+        'Cinturón',
+        'Corbata',
+        'Gorro',
+        'Guantes',
+      ],
     },
     {
       nombre: 'Ropa',
-      subcategorias: ['Camisa', 'Chaqueta', 'Falda', 'Jersey', 'Pantalon', 'Baño', 'Sudadera', 'Vestido']
+      subcategorias: [
+        'Camisa',
+        'Chaqueta',
+        'Falda',
+        'Jersey',
+        'Pantalon',
+        'Baño',
+        'Sudadera',
+        'Vestido',
+      ],
     },
     {
       nombre: 'Zapatos',
-      subcategorias: []
-    }
+      subcategorias: ['Zapatos'],
+    },
   ];
   constructor(
     private articuloService: ArticulosService,
     private authService: AuthService,
     private usuarioService: UsuarioService,
-    private alerta: AlertService,
-  ) { }
+    private alerta: AlertService
+  ) {}
 
   categoriaSeleccionada: string = '';
   subcategoriaSeleccionada: string = '';
   subcategoriasFiltradas: string[] = [];
 
-
   ngOnInit() {
-    this.articuloService.findById(1).subscribe({
+    this.id = this.articuloService.getId();
+
+    this.articuloService.findById(this.id!).subscribe({
       next: (data) => {
         this.articulo = data;
         console.log(this.articulo);
@@ -81,7 +95,7 @@ export class ActArtP2Component implements OnInit {
         this.subcategoriaSeleccionada = this.articulo.tipo;
         if (this.articulo?.imagen) {
           this.previewImage = 'data:image/png;base64,' + this.articulo.imagen;
-          console.log(this.previewImage)
+          console.log(this.previewImage);
           this.articulo.imagen = this.previewImage;
         }
         // Encontrar y establecer la categoría correspondiente
@@ -100,19 +114,20 @@ export class ActArtP2Component implements OnInit {
       },
     });
     console.log(this.articulo);
-
   }
 
   actualizarSubcategorias() {
-    const categoria = this.categorias.find(cat => cat.nombre === this.categoriaSeleccionada);
+    const categoria = this.categorias.find(
+      (cat) => cat.nombre === this.categoriaSeleccionada
+    );
     this.subcategoriasFiltradas = categoria ? categoria.subcategorias : [];
   }
 
   actualizarCategoria() {
     console.log('Actualizando producto:', this.articulo);
     this.articulo.tipo = this.subcategoriaSeleccionada;
-    if(this.subcategoriaSeleccionada==="Ropa de baño"){
-      this.articulo.tipo="Baño"
+    if (this.subcategoriaSeleccionada === 'Ropa de baño') {
+      this.articulo.tipo = 'Baño';
     }
     // Eliminar el prefijo "data:image/png;base64,"
     if (this.previewImage) {
@@ -129,7 +144,10 @@ export class ActArtP2Component implements OnInit {
           this.articuloService.updateArticulo(this.articulo).subscribe({
             next: (response) => {
               console.log('Producto actualizado:', response);
-              this.alerta.success("Actualización correcta", "Su actualización se ha realizado correctamente")
+              this.alerta.success(
+                'Actualización correcta',
+                'Su actualización se ha realizado correctamente'
+              );
             },
             error: (err) => {
               console.error('Error al actualizar:', err);
@@ -159,7 +177,6 @@ export class ActArtP2Component implements OnInit {
 
       // Leemos el archivo como Data URL (base64)
       reader.readAsDataURL(file);
-
     }
   }
 }

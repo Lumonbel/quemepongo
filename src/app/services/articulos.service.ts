@@ -13,12 +13,22 @@ import { HttpParams } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ArticulosService {
+  private id: number | undefined;
+
+  setId(id: number): void {
+    this.id = id;
+  }
+
+  getId(): number | undefined {
+    return this.id;
+  }
+
   private apiUrl = 'http://localhost:8888/api/articulos';
   //
   //
   private apiUrlT = 'http://localhost:8888/api/transacciones';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   findAll(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(this.apiUrl);

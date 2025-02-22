@@ -24,6 +24,7 @@ interface Prenda {
   styleUrls: ['./verprenda.component.css'],
 })
 export class VerprendaComponent {
+
   prendasSel: Prenda[] = [];
   prendaSeleccionada: Prenda | undefined;
   mostrarDiv: string = '';
@@ -217,5 +218,10 @@ export class VerprendaComponent {
       currentLength + 10
     );
     this.images = [...this.images, ...nextArticles];
+  }
+
+  editarArticulo(id?: number) {
+      this.articuloservice.setId(id!);
+      this.router.navigate(['/actualizarArticulo']);
   }
 }
