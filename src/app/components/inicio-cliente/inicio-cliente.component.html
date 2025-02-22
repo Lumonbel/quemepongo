@@ -2,7 +2,7 @@
     <div class="vertical contenedorPrincipal">
         <app-bt-atras></app-bt-atras>
         <div class="container-fluid horizontal">
-            <div class="col-6">
+            <div class="col-4">
                 <h1 class="txtHola">hola, {{nombreUsuario}}!</h1>
 
                 <div class="misPrendasDiv secciones">
@@ -93,10 +93,10 @@
                     </button>
                 </div>
             </div>
-            <div class="col-6">
-                <p>
-                    Aqui va la galeria con las fotos
-                </p>
+            <div class="col-8 galeriaImagenes">
+                <div class="image-container" *ngFor="let articulo of articulos">
+                    <img [src]="articulo.imagen" alt=articulos.descripcion>
+                  </div>
             </div>
 
         </div>
