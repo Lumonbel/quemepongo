@@ -1,15 +1,31 @@
+body{
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   gap: 2em;
+   height: 100vh;
+}
+
+
 .containerInfoArticulo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
   width: 100%;
   height: 100%;
   gap: 1em;
+
 }
 
 .imgContainer {
-
+  border: 1px solid black;
   width: 720px;
-  height: 916px;
+  height:100%;
+  align-self: flex-start;
+  justify-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     width: 100%;
     height: 100%;
@@ -79,3 +95,7 @@ display: grid;
   }
 }
 
+.negrita
+{
+  font-weight: bold;
+}
