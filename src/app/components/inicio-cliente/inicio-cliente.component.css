@@ -37,3 +37,32 @@
         margin-top: 8px;
     }
 }
+
+.galeriaImagenes{
+    display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+}
+
+.image-container {
+    flex: 1 1 calc(33.333% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--logo);
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-container img {
+width: 100%;
+height: auto;
+max-width: 200px;
+max-height: 200px;
+object-fit: contain;
+border-radius: 8px;
+}

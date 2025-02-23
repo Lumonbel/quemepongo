@@ -68,4 +68,8 @@ export class ArticulosService {
     const url = `${this.apiUrl}/tipo/${tipo}`;
     return this.http.get<ArticuloDTO[]>(url);
   }
+
+  findByNombreUsuario(nombreUsuario: string): Observable<ArticuloDTO[]> {
+    return this.http.get<ArticuloDTO[]>(`${this.apiUrl}/usuarios/${nombreUsuario}`);
+  }
 }

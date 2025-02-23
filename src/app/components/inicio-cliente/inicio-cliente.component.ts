@@ -1,21 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
 import { Router } from '@angular/router';
+import { ArticulosService } from '../../services/articulos.service';
+import { ArticuloDTO } from '../../models/articulo-dto';
 
 @Component({
   selector: 'app-inicio-cliente',
-  imports: [BtAtrasComponent],
+  imports: [BtAtrasComponent, CommonModule],
   templateUrl: './inicio-cliente.component.html',
   styleUrl: './inicio-cliente.component.css'
 })
 export class InicioClienteComponent implements OnInit{
   nombreUsuario = localStorage.getItem('nombreUsuario');
-  constructor(private router: Router) { }
+  articulos: ArticuloDTO[] = [];
+  constructor(
+    private router: Router,
+    private articuloService: ArticulosService,
+  ) { }
   ngOnInit(): void {
     this.nombreUsuario = localStorage.getItem('nombreUsuario');
     if(this.nombreUsuario == null){
       this.router.navigate(['/index']);
     }
+    this.cargarArticulos();
 
   }
 
@@ -34,11 +42,11 @@ export class InicioClienteComponent implements OnInit{
   navMiArmario(){
     this.router.navigate(['/miArmario']);
   }
-
+*/
   navCesta(){
-    this.router.navigate(['/carrito']);
+    this.router.navigate(['/cesta']);
   }
-  */
+  
   
   navPerfilCliente(){
     this.router.navigate(['/verMiPerfil']);
@@ -64,4 +72,18 @@ export class InicioClienteComponent implements OnInit{
     this.router.navigate(['/nuevoArticulo']);
   }
 
+  cargarArticulos():void{
+    if(this.nombreUsuario){
+      this.articuloService.findByNombreUsuario(this.nombreUsuario).subscribe({
+        next: (a) => {
+          let articulosTranformados: ArticuloDTO[] = [];
+          a.forEach(art =>{
+            art.imagen='data:image/png;base64,' + art.imagen;
+            articulosTranformados.push(art);
+          })
+          this.articulos = articulosTranformados;
+        }
+      })
+    }
+  }
 }
