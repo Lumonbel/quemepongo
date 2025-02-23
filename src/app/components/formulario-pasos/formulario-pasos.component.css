@@ -4,16 +4,12 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #e8dcfc;
-}
-
 h1 {
   font-family: "syne";
-  font-size: 40px;
+  font-size: 36px;
   text-align: center;
   margin: 1em auto;
-  margin-top: -1em;
+  margin-top: -1.5em;
 }
 
 .p-step-title {
@@ -321,12 +317,13 @@ input[type="checkbox"] {
 
 .card
 {
- height: 100% !important;
+ height: 90% !important;
  display: flex !important;
  flex-direction: column !important;
  justify-content:space-between !important;
  align-items: center !important;
  gap: 2em;
+ width: 100% !important;
 }
 
 
