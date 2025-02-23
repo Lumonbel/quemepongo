@@ -6,19 +6,20 @@
 
 
 
-
 .contenedorPrincipal {
   display: grid;
   grid-template-columns: 1fr 1fr;
   background-color: var(--fondo);
-  height: 100vh;
+  height: 86vh;
 }
+
+
 
 .imgVertical{
   background: url("../../../assets/images/pruebarecorte.png") no-repeat center center;
   background-size: cover;
   width: 100%;
-  height: 916px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
