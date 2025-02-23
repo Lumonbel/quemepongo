@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
 .contenedorPrincipal {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -13,10 +11,9 @@
   height: 86vh;
 }
 
-
-
-.imgVertical{
-  background: url("../../../assets/images/pruebarecorte.png") no-repeat center center;
+.imgVertical {
+  background: url("../../../assets/images/pruebarecorte.png") no-repeat center
+    center;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -30,8 +27,7 @@
   grid-template-rows: 1fr 1fr;
 }
 
-
-#imgRopa{
+#imgRopa {
   background: url("../../../assets/images/ropa.png") no-repeat center center;
   background-size: cover;
   width: 100%;
@@ -40,16 +36,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-#imgAccesorios{
-  background: url("../../../assets/images/accesorios.png") no-repeat center center;
+#imgAccesorios {
+  background: url("../../../assets/images/accesorios.png") no-repeat center
+    center;
   background-size: cover;
   width: 100%;
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
 }
 
@@ -65,9 +64,7 @@
   align-items: center;
   flex-direction: column;
   margin-top: -3em;
-  }
-
-
+}
 
 .textoIndexCentrado {
   font-family: "syne";
@@ -80,9 +77,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
-
 
 button {
   font-family: "syne";
@@ -95,28 +90,85 @@ button {
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
-
-
 }
 
 /* Media Query para pantallas pequeñas (por ejemplo, móviles) */
 @media (max-width: 768px) {
-  .imgVertical {
-    height: auto; /* Permite que el contenedor crezca dinámicamente según su contenido */
-    padding: 10px; /* Reduce el padding en pantallas más pequeñas */
-    background-size: contain; /* Ajusta la imagen para que no se corte en pantallas pequeñas */
+  button {
+    font-family: "syne";
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    background-color: var(--logo);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
   }
 
-  /* Opcional: Ajusta la disposición de los elementos internos */
-  .imgVertical > * {
-    margin-bottom: 10px; /* Espaciado entre elementos */
+  .textoIndexCentrado {
+    font-size: 1.25em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .textoIndex {
+    font-family: "syne";
+    font-size: 1.25em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
   }
 }
 
 /* Media Query para pantallas muy pequeñas (por ejemplo, menos de 480px) */
 @media (max-width: 480px) {
-  .imgVertical {
-    flex-direction: column; /* Asegura que los elementos internos se apilen verticalmente */
-    justify-content: center; /* Centra los elementos */
+  .textoIndexCentrado {
+    font-size: 1em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  button {
+    font-family: "syne";
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    background-color: var(--logo);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .textoIndex {
+    font-family: "syne";
+    font-size: 1.5em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
   }
 }
