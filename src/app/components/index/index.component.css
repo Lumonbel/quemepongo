@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   background-color: var(--fondo);
-  height: 86vh;
+  height: 100vh;
 }
 
 .imgVertical {
