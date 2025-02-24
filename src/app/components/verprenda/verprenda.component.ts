@@ -74,32 +74,58 @@ export class VerprendaComponent {
     private photoService: PhotoService,
     private articuloservice: ArticulosService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-
     const state = history.state;
     if (state && state.from) {
       this.fromComponent = state.from;
     }
 
     this.nombreUsuario = localStorage.getItem('nombreUsuario');
+    console.warn('nombre usuario  ------>   ' + this.nombreUsuario);
 
-    console.warn("nombre usuaior  ------>   " + this.nombreUsuario)
-    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
-      this.todosArticulos = articulos.map((articulo) => ({
-        ...articulo,
-        imagen: articulo.imagen
-          ? this.photoService.convertImageToBase64(articulo.imagen)
-          : '',
-      }));
+    // Filtramos artículos si venimos de "InicioClienteComponent"
+    if (this.fromComponent === 'InicioClienteComponent') {
+      this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+        let articulosFiltrados = articulos.filter(
+          (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+        );
 
-      this.shuffleArray(this.todosArticulos);
+        this.todosArticulos = articulosFiltrados.map((articulo) => ({
+          ...articulo,
+          imagen: articulo.imagen
+            ? this.photoService.convertImageToBase64(articulo.imagen)
+            : '',
+        }));
 
-      this.images = this.todosArticulos.slice(0, 12);
+        this.indiceAleatorio(this.todosArticulos);
 
-      this.articulosFiltrados = this.todosArticulos.slice(12);
-    });
+        // Mostrar solo los primeros 12 artículos filtrados
+        this.images = this.todosArticulos.slice(0, 12);
+
+        // El resto de artículos para cargarlos después
+        this.articulosFiltrados = this.todosArticulos.slice(12);
+      });
+    } else {
+      // Si no estamos desde "InicioClienteComponent", traemos todos los artículos
+      this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+        this.todosArticulos = articulos.map((articulo) => ({
+          ...articulo,
+          imagen: articulo.imagen
+            ? this.photoService.convertImageToBase64(articulo.imagen)
+            : '',
+        }));
+
+        this.indiceAleatorio(this.todosArticulos);
+
+        // Mostrar solo los primeros 12 artículos
+        this.images = this.todosArticulos.slice(0, 12);
+
+        // El resto de artículos para cargarlos después
+        this.articulosFiltrados = this.todosArticulos.slice(12);
+      });
+    }
 
     this.prendasSel = [
       { ropa: 'Complementos' },
@@ -107,7 +133,6 @@ export class VerprendaComponent {
       { ropa: 'Zapatos' },
     ];
   }
-
 
   chipSeleccionadoFunc(chip: string) {
     if (this.chipsSeleccionados.includes(chip)) {
@@ -124,29 +149,33 @@ export class VerprendaComponent {
     this.images = [];
     this.articulosFiltrados = [];
 
-    // Si no hay chips seleccionados, mostramos todos los artículos
+    // Si no hay chips seleccionados, mostramos solo los artículos del usuario
     if (this.chipsSeleccionados.length === 0) {
-      this.images = this.todosArticulos.slice(0, 12); // Mostrar solo los primeros 10
-      this.articulosFiltrados = this.todosArticulos.slice(12); // El resto para cargar después
+      let articulosDelUsuario = this.todosArticulos.filter(
+        (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+      );
+      this.images = articulosDelUsuario.slice(0, 12);
+      this.articulosFiltrados = articulosDelUsuario.slice(12);
       return;
     }
 
-    // Filtrar artículos por los tipos seleccionados
-    const articulosFiltrados = this.todosArticulos.filter((articulo) =>
-      this.chipsSeleccionados.includes(articulo.tipo)
+    // Filtrar artículos por los tipos seleccionados y el usuario actual
+    const articulosFiltrados = this.todosArticulos.filter(
+      (articulo) =>
+        this.chipsSeleccionados.includes(articulo.tipo) &&
+        articulo.usuario?.nombreUsuario === this.nombreUsuario
     );
 
-    // Mostrar los primeros 10 artículos filtrados
+    // Mostrar los primeros 12 artículos filtrados
     this.images = articulosFiltrados.slice(0, 12);
 
     // Guardar el resto de artículos filtrados para cargar después
-    this.articulosFiltrados = articulosFiltrados.slice(10);
+    this.articulosFiltrados = articulosFiltrados.slice(12);
   }
+
   funcSeleccionado(chip: string): boolean {
     return this.chipsSeleccionados.includes(chip);
   }
-
-
 
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
@@ -184,14 +213,18 @@ export class VerprendaComponent {
       const tipos = ropaTipoMap[selectedOption.ropa];
 
       let articulosTotales: ArticuloDTO[] = [];
-
       let tipoProcesadoCount = 0;
 
       tipos.forEach((tipo) => {
         this.articuloservice.findByTipo(tipo).subscribe((articulos: ArticuloDTO[]) => {
-          console.log(`Artículos de tipo: ${tipo}`, articulos);  // Log para ver qué artículos devuelve el backend
+          console.log(`Artículos de tipo: ${tipo}`, articulos);
 
-          const articulosProcesados = articulos.map((articulo) => ({
+          // Filtramos los artículos por el usuario actual
+          const articulosFiltradosDelUsuario = articulos.filter(
+            (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+          );
+
+          const articulosProcesados = articulosFiltradosDelUsuario.map((articulo) => ({
             ...articulo,
             imagen: articulo.imagen
               ? this.photoService.convertImageToBase64(articulo.imagen)
@@ -203,7 +236,7 @@ export class VerprendaComponent {
           tipoProcesadoCount++;
 
           if (tipoProcesadoCount === tipos.length) {
-            this.shuffleArray(articulosTotales);
+            this.indiceAleatorio(articulosTotales);
 
             this.images = articulosTotales.slice(0, 12);
 
@@ -218,13 +251,12 @@ export class VerprendaComponent {
     }
   }
 
-  shuffleArray(array: any[]) {
+  indiceAleatorio(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]]; // Intercambiar los elementos
     }
   }
-
 
   imageClick(index: number) {
     this.activeIndex = index;
@@ -262,5 +294,4 @@ export class VerprendaComponent {
       this.articulosFiltrados = this.articulosFiltrados.slice(12);
     }
   }
-
 }
