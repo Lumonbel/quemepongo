@@ -1,6 +1,7 @@
 <app-bt-atras></app-bt-atras>
 
-<h2>Prendas en venta</h2>
+<h2 *ngIf="!fromComponent">Prendas en venta</h2>
+<h2 *ngIf="fromComponent">Mis prendas</h2>
 
 <div class="container">
   <div class="flex justify-center contenedor-complementos">
