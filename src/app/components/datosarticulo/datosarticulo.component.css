@@ -1,36 +1,38 @@
-body{
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start;
-   gap: 2em;
-   height: 100vh;
+ .btAtras{
+  z-index: 1;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2em;
+  width: 100vw;
+  height:80%;
+  overflow-x: hidden;
+}
 
 .containerInfoArticulo {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
   width: 100%;
   height: 100%;
-  gap: 1em;
-
+  gap: 2em;
 }
 
 .imgContainer {
-  border: 1px solid black;
-  width: 720px;
-  height:100%;
+  height: 80%;
+  width: 50%;
+  display: flex;
   align-self: flex-start;
   justify-self: flex-start;
-  display: flex;
   align-items: center;
   justify-content: center;
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit:contain;
   }
+  z-index: -1;
 }
 
 .nombrePrecio {
@@ -50,8 +52,9 @@ body{
   width: 720px;
   height: 916px;
   padding-top: 1em;
-display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  display: grid;
+  grid-template-rows: 200px 200px 200px;
+  gap: 2em;
   .columnas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -90,12 +93,25 @@ display: grid;
   .rayaD {
     width: 6px;
     height: 80%;
-    background-color: #b88fff ;
+    background-color: #b88fff;
     border-radius: 10px;
   }
 }
 
-.negrita
-{
-  font-weight: bold;
+
+.divBtn{
+  height: fit-content;
 }
+  .boton {
+    width: 200px;
+    height: 50px;
+    background-color: var(--botones);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: "syne";
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.7s;
+}
+

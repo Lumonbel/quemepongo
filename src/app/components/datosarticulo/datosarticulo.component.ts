@@ -1,3 +1,4 @@
+import { FormularioComponent } from './../formulario/formulario.component';
 import { PhotoService } from './../../services/photo.service';
 import { ArticulosService } from './../../services/articulos.service';
 import {
@@ -25,7 +26,9 @@ export class DatosarticuloComponent implements OnInit {
   articulo: ArticuloDTO | null = null;
   esUsuario: boolean = false;
   usuario: UsuarioDTO | null = null;
+  nombreUsuario: string | null = null;
   private subscription: Subscription = new Subscription();
+  fromComponent: string | null = null;
 
   constructor(
     private articulosService: ArticulosService,
@@ -35,7 +38,12 @@ export class DatosarticuloComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usuario = this.sesionService.obtenerUsuario();
+    this.nombreUsuario = localStorage.getItem('nombreUsuario');
+     const state = history.state;
+     if (state && state.from) {
+       this.fromComponent = state.from;
+     }
+
     console.log('Usuario logueado:', this.usuario); // Depuración
 
     this.subscription = this.articulosService.art$.subscribe(
@@ -52,7 +60,7 @@ export class DatosarticuloComponent implements OnInit {
   }
 
   verificarPropiedad(): void {
-    if (this.articulo && this.usuario) {
+    if (this.articulo && this.usuario && this.fromComponent === 'VerPrendaComponent') {
       this.esUsuario =
         this.articulo.usuario?.nombreUsuario === this.usuario.nombreUsuario;
       console.log('¿Es el usuario dueño del artículo?:', this.esUsuario); // Depuración
