@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
 import { Router } from '@angular/router';
 import { ArticulosService } from '../../services/articulos.service';
 import { ArticuloDTO } from '../../models/articulo-dto';
 
 @Component({
   selector: 'app-inicio-cliente',
-  imports: [BtAtrasComponent, CommonModule],
+  imports: [ CommonModule],
   templateUrl: './inicio-cliente.component.html',
   styleUrl: './inicio-cliente.component.css'
 })
