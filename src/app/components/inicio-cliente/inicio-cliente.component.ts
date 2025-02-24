@@ -13,6 +13,7 @@ import { ArticuloDTO } from '../../models/articulo-dto';
 })
 export class InicioClienteComponent implements OnInit{
   nombreUsuario = localStorage.getItem('nombreUsuario');
+  misprendas:boolean = false;
   articulos: ArticuloDTO[] = [];
   constructor(
     private router: Router,
@@ -24,7 +25,6 @@ export class InicioClienteComponent implements OnInit{
       this.router.navigate(['/index']);
     }
     this.cargarArticulos();
-
   }
 
   /* 
@@ -38,11 +38,12 @@ export class InicioClienteComponent implements OnInit{
   navArticulosEnVenta(){
     this.router.navigate(['/articulosEnVenta']);
   }
-
-  navMiArmario(){
-    this.router.navigate(['/miArmario']);
-  }
 */
+  navMiArmario(){
+    this.router.navigate(['/verprenda'], { state: { from: 'InicioClienteComponent' } });
+
+}
+
   navCesta(){
     this.router.navigate(['/cesta']);
   }

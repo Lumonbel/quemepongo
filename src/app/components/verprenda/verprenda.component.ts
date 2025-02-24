@@ -37,7 +37,8 @@ export class VerprendaComponent {
   images: ArticuloDTO[] = [];
   @ViewChild('endOfList') endOfList!: ElementRef;
   articulosFiltrados: ArticuloDTO[] = [];
-
+  nombreUsuario: string | null = null;
+  fromComponent: string | null = null;
   displayCustom: boolean = false;
   activeIndex: number = 0;
 
@@ -73,22 +74,58 @@ export class VerprendaComponent {
     private photoService: PhotoService,
     private articuloservice: ArticulosService,
     private router: Router
-  ) { }
+  ) {}
 
-  // In verprenda.component.ts
   ngOnInit() {
-    this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
-      // Procesar imágenes antes de asignarlas
-      this.todosArticulos = articulos.map((articulo) => ({
-        ...articulo,
-        imagen: articulo.imagen
-          ? this.photoService.convertImageToBase64(articulo.imagen)
-          : '',
-      }));
+    const state = history.state;
+    if (state && state.from) {
+      this.fromComponent = state.from;
+    }
 
-      // Cargar solo los primeros 10 artículos
-      this.images = this.todosArticulos.slice(0, 12);
-    });
+    this.nombreUsuario = localStorage.getItem('nombreUsuario');
+    console.warn('nombre usuario  ------>   ' + this.nombreUsuario);
+
+    // Filtramos artículos si venimos de "InicioClienteComponent"
+    if (this.fromComponent === 'InicioClienteComponent') {
+      this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+        let articulosFiltrados = articulos.filter(
+          (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+        );
+
+        this.todosArticulos = articulosFiltrados.map((articulo) => ({
+          ...articulo,
+          imagen: articulo.imagen
+            ? this.photoService.convertImageToBase64(articulo.imagen)
+            : '',
+        }));
+
+        this.indiceAleatorio(this.todosArticulos);
+
+        // Mostrar solo los primeros 12 artículos filtrados
+        this.images = this.todosArticulos.slice(0, 12);
+
+        // El resto de artículos para cargarlos después
+        this.articulosFiltrados = this.todosArticulos.slice(12);
+      });
+    } else {
+      // Si no estamos desde "InicioClienteComponent", traemos todos los artículos
+      this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
+        this.todosArticulos = articulos.map((articulo) => ({
+          ...articulo,
+          imagen: articulo.imagen
+            ? this.photoService.convertImageToBase64(articulo.imagen)
+            : '',
+        }));
+
+        this.indiceAleatorio(this.todosArticulos);
+
+        // Mostrar solo los primeros 12 artículos
+        this.images = this.todosArticulos.slice(0, 12);
+
+        // El resto de artículos para cargarlos después
+        this.articulosFiltrados = this.todosArticulos.slice(12);
+      });
+    }
 
     this.prendasSel = [
       { ropa: 'Complementos' },
@@ -96,6 +133,7 @@ export class VerprendaComponent {
       { ropa: 'Zapatos' },
     ];
   }
+
   chipSeleccionadoFunc(chip: string) {
     if (this.chipsSeleccionados.includes(chip)) {
       // Si el chip ya está seleccionado, lo quitamos
@@ -111,43 +149,46 @@ export class VerprendaComponent {
     this.images = [];
     this.articulosFiltrados = [];
 
-    // Si no hay chips seleccionados, mostramos todos los artículos
+    // Si no hay chips seleccionados, mostramos solo los artículos del usuario
     if (this.chipsSeleccionados.length === 0) {
-      this.images = this.todosArticulos.slice(0, 12); // Mostrar solo los primeros 10
-      this.articulosFiltrados = this.todosArticulos.slice(12); // El resto para cargar después
+      let articulosDelUsuario = this.todosArticulos.filter(
+        (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+      );
+      this.images = articulosDelUsuario.slice(0, 12);
+      this.articulosFiltrados = articulosDelUsuario.slice(12);
       return;
     }
 
-    // Filtrar artículos por los tipos seleccionados
-    const articulosFiltrados = this.todosArticulos.filter((articulo) =>
-      this.chipsSeleccionados.includes(articulo.tipo)
+    // Filtrar artículos por los tipos seleccionados y el usuario actual
+    const articulosFiltrados = this.todosArticulos.filter(
+      (articulo) =>
+        this.chipsSeleccionados.includes(articulo.tipo) &&
+        articulo.usuario?.nombreUsuario === this.nombreUsuario
     );
 
-    // Mostrar los primeros 10 artículos filtrados
+    // Mostrar los primeros 12 artículos filtrados
     this.images = articulosFiltrados.slice(0, 12);
 
     // Guardar el resto de artículos filtrados para cargar después
-    this.articulosFiltrados = articulosFiltrados.slice(10);
+    this.articulosFiltrados = articulosFiltrados.slice(12);
   }
+
   funcSeleccionado(chip: string): boolean {
     return this.chipsSeleccionados.includes(chip);
   }
 
-
-  
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
       (prenda) => prenda.ropa === event.value.ropa
     );
-  
+
     console.log(selectedOption);
-  
-    // Mapeo de los tipos de cada categoría (Complementos, Ropa, Zapatos)
+
     const ropaTipoMap: { [key: string]: string[] } = {
       Complementos: [
         'Bolso',
         'Bufanda',
-        'Cinturon',  // Asegúrate de que esté escrito correctamente en el backend también.
+        'Cinturon',
         'Corbatas',
         'Gorra',
         'Guantes',
@@ -164,68 +205,58 @@ export class VerprendaComponent {
       ],
       Zapatos: ['Zapatos'],
     };
-  
-    // Reiniciar la carga de artículos
+
     this.images = [];
     this.articulosFiltrados = [];
-  
+
     if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
-      // Obtener todos los tipos de prendas para la categoría seleccionada
       const tipos = ropaTipoMap[selectedOption.ropa];
-  
-      // Array para almacenar los artículos de todas las subcategorías seleccionadas
+
       let articulosTotales: ArticuloDTO[] = [];
-  
-      // Variable para contar las subcategorías procesadas
       let tipoProcesadoCount = 0;
-  
-      // Llamar al servicio para obtener todos los artículos de cada tipo dentro de la categoría seleccionada
+
       tipos.forEach((tipo) => {
         this.articuloservice.findByTipo(tipo).subscribe((articulos: ArticuloDTO[]) => {
-          console.log(`Artículos de tipo: ${tipo}`, articulos);  // Log para ver qué artículos devuelve el backend
-  
-          // Procesar imágenes antes de agregarlas
-          const articulosProcesados = articulos.map((articulo) => ({
+          console.log(`Artículos de tipo: ${tipo}`, articulos);
+
+          // Filtramos los artículos por el usuario actual
+          const articulosFiltradosDelUsuario = articulos.filter(
+            (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
+          );
+
+          const articulosProcesados = articulosFiltradosDelUsuario.map((articulo) => ({
             ...articulo,
             imagen: articulo.imagen
               ? this.photoService.convertImageToBase64(articulo.imagen)
               : '',
           }));
-  
-          // Agregar los artículos procesados al array total
+
           articulosTotales = [...articulosTotales, ...articulosProcesados];
-  
-          // Incrementar el contador de subcategorías procesadas
+
           tipoProcesadoCount++;
-  
-          // Si ya se han recibido todos los artículos de las subcategorías, actualizar la lista de imágenes
+
           if (tipoProcesadoCount === tipos.length) {
-            // Mezclar aleatoriamente los artículos (Fisher-Yates shuffle)
-            this.shuffleArray(articulosTotales);
-  
-            // Cargar los primeros 12 artículos (si hay más)
+            this.indiceAleatorio(articulosTotales);
+
             this.images = articulosTotales.slice(0, 12);
-  
-            // Guardar el resto de artículos filtrados para cargar después
+
             this.articulosFiltrados = articulosTotales.slice(12);
           }
         });
       });
-  
+
       this.mostrarDiv = selectedOption.ropa;
     } else {
       this.mostrarDiv = '';
     }
   }
-  
-  // Función para mezclar un array de forma aleatoria (Fisher-Yates Shuffle)
-  shuffleArray(array: any[]) {
+
+  indiceAleatorio(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]]; // Intercambiar los elementos
     }
   }
-  
 
   imageClick(index: number) {
     this.activeIndex = index;
@@ -255,17 +286,12 @@ export class VerprendaComponent {
   }
 
   cargaMasArticulos() {
-    // Verificar si hay más artículos filtrados para cargar
     if (this.articulosFiltrados.length > 0) {
-      // Tomar los siguientes 10 artículos filtrados
       const nextArticles = this.articulosFiltrados.slice(0, 12);
 
-      // Agregarlos a la lista de imágenes mostradas
       this.images = [...this.images, ...nextArticles];
 
-      // Actualizar la lista de artículos filtrados restantes
       this.articulosFiltrados = this.articulosFiltrados.slice(12);
     }
   }
-
 }
