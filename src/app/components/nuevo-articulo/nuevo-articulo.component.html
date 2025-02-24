@@ -23,6 +23,20 @@
                             </div>
                         </div>
                     </div>
+                    <!-- GÉNERO-->
+                    <div class="pregCategoria vertical divContenido">
+                        <h3>¿En qué género clasificarías esta prenda?</h3>
+                        <div class="botonesEleccion horizontal">
+                            <div class="mujer vertical centrado">
+                                <app-bt-ropa [svgContent]= "svgMujer" (click)=seleccionadoMujer()></app-bt-ropa>
+                                <p class="txtBt">Mujer</p>
+                            </div>
+                            <div class="hombre vertical centrado">
+                                <app-bt-ropa [svgContent]= "svgHombre" (click)=seleccionadoHombre()></app-bt-ropa>
+                                <p class="txtBt">Hombre</p>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Tipo según la categoria-->
                     <div class="pregTipo vertical divContenido" *ngIf="eleccionRopa"> <!-- ROPA-->
                         <h3>¿Qué clase de ropa deseas guardar?</h3>
@@ -101,26 +115,13 @@
                         </div>
                     </div>
 
-                    <!-- GÉNERO-->
-                    <div class="pregCategoria vertical divContenido">
-                        <h3>¿En qué género clasificarías esta prenda?</h3>
-                        <div class="botonesEleccion horizontal">
-                            <div class="mujer vertical centrado">
-                                <app-bt-ropa [svgContent]= "svgMujer" (click)=seleccionadoMujer()></app-bt-ropa>
-                                <p class="txtBt">Mujer</p>
-                            </div>
-                            <div class="hombre vertical centrado">
-                                <app-bt-ropa [svgContent]= "svgHombre" (click)=seleccionadoHombre()></app-bt-ropa>
-                                <p class="txtBt">Hombre</p>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <!--INPUTS DEL ARTIUCLO-->
                     <div class="pregsInputs vertical divContenido ">
                         <h3>¿Cómo es tu artículo?</h3>
                         <div class="horizontal botonesEleccion">
-                            <div class="atributos" *ngIf="eleccionRopa || eleccionZapatos">
+                            <div class="form-group" *ngIf="eleccionRopa || eleccionZapatos">
                                 <label for="talla" class="txtSubtituloInputs">Talla:</label>
                                 <input type="text" name="talla" id="talla" class="form-control input" formControlName="talla" >
                             </div>
@@ -159,7 +160,13 @@
                                     El estado es obligatorio.
                                 </div>
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
+                            <div class="form-group">
+                                <label for="estado" class="txtSubtituloInputs">Estampado</label>
+                                <input type="text" id="estado" formControlName="estampado" class="form-control input">
+                                
+                            </div>
+                            
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
                                     || eleccionTipo.toLowerCase() === 'pantalon'
                                     || eleccionTipo.toLowerCase() === 'falda'
                                     || eleccionTipo.toLowerCase() === 'vestido'
@@ -168,18 +175,18 @@
                                 <input type="text" name="largo" id="largo" class="form-control input" formControlName="largo">
                                 
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
                                 <label for="grosor" class="txtSubtituloInputs">Grosor:</label>
                                 <input type="text" name="grosor" id="grosor" class="form-control input" formControlName="grosor">
                                 
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="tipoAlmacenamiento" class="txtSubtituloInputs">Tipo de almacenamiento:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                                 
                             </div>
 
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="capacidad" class="txtSubtituloInputs">Capacidad:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                                 
