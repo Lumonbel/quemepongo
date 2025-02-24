@@ -281,14 +281,14 @@ export class NuevoArticuloComponent {
 
     console.log("Entro a crear articulo");
     let validacion = true;
-    
-    
+
+
     console.log(this.formulario.value);
     console.log(this.eleccionTipo);
     this.formulario.value.tipo = this.eleccionTipo;
     console.log(this.formulario.value);
-    
-    
+
+
     if(this.formulario.value.tipo==="" || this.formulario.value.color==="" || this.formulario.value.marca==="" ||
       this.formulario.value.material==="" || this.formulario.value.temporada ==="" ||
       this.formulario.value.estado==="" || this.formulario.value.descripcion===""
@@ -306,7 +306,7 @@ export class NuevoArticuloComponent {
 
     }else{
       console.log("Valido el form");
-      
+
       this.articulo = this.formulario.value;
 
       if (!this.eleccionGenero || this.eleccionGenero === "") {
@@ -321,7 +321,7 @@ export class NuevoArticuloComponent {
       }
 
       console.log(this.articulo);
-      
+
       if (validacion) {
         const nombreUsuario = localStorage.getItem("nombreUsuario");
         if (nombreUsuario) {
@@ -336,7 +336,9 @@ export class NuevoArticuloComponent {
                     'Nuevo articulo',
                     'Su articulo se ha guardado en su armario'
                   );
-                  this.router.navigate(["/verpreda"]);
+    this.router.navigate(['/verprenda'], {
+      state: { from: 'NuevoArticuloComponent' },
+    });
                 },
                 error: (err) => {
                   console.error('Error al actualizar:', err);
@@ -362,7 +364,7 @@ export class NuevoArticuloComponent {
       });
       return; // Salir de la función si el formulario es inválido
     } else {
-      
+
     }*/
   }
 

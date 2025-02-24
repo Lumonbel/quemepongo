@@ -86,7 +86,7 @@ export class VerprendaComponent {
     console.warn('nombre usuario  ------>   ' + this.nombreUsuario);
 
     // Filtramos artículos si venimos de "InicioClienteComponent"
-    if (this.fromComponent === 'InicioClienteComponent') {
+    if (this.fromComponent === 'InicioClienteComponent' || this.fromComponent === 'NuevoArticuloComponent') {
       this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
         let articulosFiltrados = articulos.filter(
           (articulo) => articulo.usuario?.nombreUsuario === this.nombreUsuario
