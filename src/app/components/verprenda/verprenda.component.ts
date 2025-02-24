@@ -62,7 +62,7 @@ export class VerprendaComponent {
     'Bolso',
     'Bufanda',
     'Cinturon',
-    'Corbatas',
+    'Corbata',
     'Gorra',
     'Guantes',
   ];
@@ -73,7 +73,7 @@ export class VerprendaComponent {
     private photoService: PhotoService,
     private articuloservice: ArticulosService,
     private router: Router
-  ) {}
+  ) { }
 
   // In verprenda.component.ts
   ngOnInit() {
@@ -87,7 +87,7 @@ export class VerprendaComponent {
       }));
 
       // Cargar solo los primeros 10 artículos
-      this.images = this.todosArticulos.slice(0, 10);
+      this.images = this.todosArticulos.slice(0, 12);
     });
 
     this.prendasSel = [
@@ -113,8 +113,8 @@ export class VerprendaComponent {
 
     // Si no hay chips seleccionados, mostramos todos los artículos
     if (this.chipsSeleccionados.length === 0) {
-      this.images = this.todosArticulos.slice(0, 10); // Mostrar solo los primeros 10
-      this.articulosFiltrados = this.todosArticulos.slice(10); // El resto para cargar después
+      this.images = this.todosArticulos.slice(0, 12); // Mostrar solo los primeros 10
+      this.articulosFiltrados = this.todosArticulos.slice(12); // El resto para cargar después
       return;
     }
 
@@ -124,7 +124,7 @@ export class VerprendaComponent {
     );
 
     // Mostrar los primeros 10 artículos filtrados
-    this.images = articulosFiltrados.slice(0, 10);
+    this.images = articulosFiltrados.slice(0, 12);
 
     // Guardar el resto de artículos filtrados para cargar después
     this.articulosFiltrados = articulosFiltrados.slice(10);
@@ -133,16 +133,21 @@ export class VerprendaComponent {
     return this.chipsSeleccionados.includes(chip);
   }
 
+
+  
   onPrendaChange(event: any) {
     const selectedOption = this.prendasSel.find(
       (prenda) => prenda.ropa === event.value.ropa
     );
-
+  
+    console.log(selectedOption);
+  
+    // Mapeo de los tipos de cada categoría (Complementos, Ropa, Zapatos)
     const ropaTipoMap: { [key: string]: string[] } = {
       Complementos: [
-        'AccesorioAlmacenamiento',
+        'Bolso',
         'Bufanda',
-        'Cinturones',
+        'Cinturon',  // Asegúrate de que esté escrito correctamente en el backend también.
         'Corbatas',
         'Gorra',
         'Guantes',
@@ -154,53 +159,74 @@ export class VerprendaComponent {
         'Pantalon',
         'Falda',
         'Vestido',
-        'Chaquetas',
-        'Sudaderas',
-        'Vestidos',
+        'Chaqueta',
+        'Sudadera',
       ],
       Zapatos: ['Zapatos'],
     };
-
+  
     // Reiniciar la carga de artículos
     this.images = [];
     this.articulosFiltrados = [];
-
+  
     if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
-      // Obtener los tipos de prendas para la categoría seleccionada
+      // Obtener todos los tipos de prendas para la categoría seleccionada
       const tipos = ropaTipoMap[selectedOption.ropa];
-
-      // Llamar al servicio para cada tipo de prenda
+  
+      // Array para almacenar los artículos de todas las subcategorías seleccionadas
+      let articulosTotales: ArticuloDTO[] = [];
+  
+      // Variable para contar las subcategorías procesadas
+      let tipoProcesadoCount = 0;
+  
+      // Llamar al servicio para obtener todos los artículos de cada tipo dentro de la categoría seleccionada
       tipos.forEach((tipo) => {
-        this.articuloservice
-          .findByTipo(tipo)
-          .subscribe((articulos: ArticuloDTO[]) => {
-            // Procesar imágenes antes de agregarlas
-            const articulosProcesados = articulos.map((articulo) => ({
-              ...articulo,
-              imagen: articulo.imagen
-                ? this.photoService.convertImageToBase64(articulo.imagen)
-                : '',
-            }));
-
-            // Agregar los artículos procesados a la lista de artículos filtrados
-            this.articulosFiltrados = [
-              ...this.articulosFiltrados,
-              ...articulosProcesados,
-            ];
-
-            // Mostrar los primeros 10 artículos filtrados
-            this.images = this.articulosFiltrados.slice(0, 10);
-
+        this.articuloservice.findByTipo(tipo).subscribe((articulos: ArticuloDTO[]) => {
+          console.log(`Artículos de tipo: ${tipo}`, articulos);  // Log para ver qué artículos devuelve el backend
+  
+          // Procesar imágenes antes de agregarlas
+          const articulosProcesados = articulos.map((articulo) => ({
+            ...articulo,
+            imagen: articulo.imagen
+              ? this.photoService.convertImageToBase64(articulo.imagen)
+              : '',
+          }));
+  
+          // Agregar los artículos procesados al array total
+          articulosTotales = [...articulosTotales, ...articulosProcesados];
+  
+          // Incrementar el contador de subcategorías procesadas
+          tipoProcesadoCount++;
+  
+          // Si ya se han recibido todos los artículos de las subcategorías, actualizar la lista de imágenes
+          if (tipoProcesadoCount === tipos.length) {
+            // Mezclar aleatoriamente los artículos (Fisher-Yates shuffle)
+            this.shuffleArray(articulosTotales);
+  
+            // Cargar los primeros 12 artículos (si hay más)
+            this.images = articulosTotales.slice(0, 12);
+  
             // Guardar el resto de artículos filtrados para cargar después
-            this.articulosFiltrados = this.articulosFiltrados.slice(10);
-          });
+            this.articulosFiltrados = articulosTotales.slice(12);
+          }
+        });
       });
-
+  
       this.mostrarDiv = selectedOption.ropa;
     } else {
       this.mostrarDiv = '';
     }
   }
+  
+  // Función para mezclar un array de forma aleatoria (Fisher-Yates Shuffle)
+  shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Intercambiar los elementos
+    }
+  }
+  
+
   imageClick(index: number) {
     this.activeIndex = index;
     this.displayCustom = true;
@@ -228,31 +254,18 @@ export class VerprendaComponent {
     observer.observe(this.endOfList.nativeElement);
   }
 
-  getGroupedImages(): any[][] {
-    const groupSize = 6;
-    const groupedImages = [];
-    for (let i = 0; i < this.images.length; i += groupSize) {
-      groupedImages.push(this.images.slice(i, i + groupSize));
-    }
-    return groupedImages;
-  }
-
   cargaMasArticulos() {
     // Verificar si hay más artículos filtrados para cargar
     if (this.articulosFiltrados.length > 0) {
       // Tomar los siguientes 10 artículos filtrados
-      const nextArticles = this.articulosFiltrados.slice(0, 10);
+      const nextArticles = this.articulosFiltrados.slice(0, 12);
 
       // Agregarlos a la lista de imágenes mostradas
       this.images = [...this.images, ...nextArticles];
 
       // Actualizar la lista de artículos filtrados restantes
-      this.articulosFiltrados = this.articulosFiltrados.slice(10);
+      this.articulosFiltrados = this.articulosFiltrados.slice(12);
     }
   }
 
-  editarArticulo(id?: number) {
-    this.articuloservice.setId(id!);
-    this.router.navigate(['/actualizarArticulo']);
-  }
 }
