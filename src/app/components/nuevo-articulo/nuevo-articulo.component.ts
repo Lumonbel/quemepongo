@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArticulosService } from '../../services/articulos.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { AlertService } from '../../services/alerts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-articulo',
@@ -247,7 +248,7 @@ export class NuevoArticuloComponent {
   constructor(
     private formBuilder: FormBuilder,
     private articuloService: ArticulosService,
-
+    private router: Router,
     private usuarioService: UsuarioService,
     private alerta: AlertService,
 
@@ -331,7 +332,11 @@ export class NuevoArticuloComponent {
               this.articuloService.createArticulo(this.articulo).subscribe({
                 next: (response) => {
                   console.log('Producto actualizado:', response);
-                  alert('Producto actualizado correctamente');
+                  this.alerta.success(
+                    'Nuevo articulo',
+                    'Su articulo se ha guardado en su armario'
+                  );
+                  this.router.navigate(["/verpreda"]);
                 },
                 error: (err) => {
                   console.error('Error al actualizar:', err);

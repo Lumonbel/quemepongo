@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BtAtrasComponent } from "../bt-atras/bt-atras.component";
 import { Router } from '@angular/router';
 import { ArticulosService } from '../../services/articulos.service';
 import { ArticuloDTO } from '../../models/articulo-dto';
 
 @Component({
   selector: 'app-inicio-cliente',
-  imports: [BtAtrasComponent, CommonModule],
+  imports: [ CommonModule],
   templateUrl: './inicio-cliente.component.html',
   styleUrl: './inicio-cliente.component.css'
 })
@@ -82,9 +81,17 @@ export class InicioClienteComponent implements OnInit{
             art.imagen='data:image/png;base64,' + art.imagen;
             articulosTranformados.push(art);
           })
-          this.articulos = articulosTranformados;
+          this.articulos = this.mezclarArray(articulosTranformados);
         }
       })
     }
+  }
+
+  mezclarArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; 
+    }
+    return array;
   }
 }
