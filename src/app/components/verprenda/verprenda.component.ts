@@ -77,25 +77,47 @@ export class VerprendaComponent {
 
   // In verprenda.component.ts
   ngOnInit() {
+    // Cargar todos los artículos al iniciar
     this.articuloservice.findAll().subscribe((articulos: ArticuloDTO[]) => {
-      // Procesar imágenes antes de asignarlas
+      // Procesar las imágenes antes de asignarlas
       this.todosArticulos = articulos.map((articulo) => ({
         ...articulo,
         imagen: articulo.imagen
           ? this.photoService.convertImageToBase64(articulo.imagen)
           : '',
       }));
-
-      // Cargar solo los primeros 10 artículos
+  
+      // Mezclar aleatoriamente los artículos usando Fisher-Yates
+      this.shuffleArray(this.todosArticulos);
+  
+      // Cargar los primeros 12 artículos
       this.images = this.todosArticulos.slice(0, 12);
+  
+      // Guardar el resto de artículos filtrados para cargar después
+      this.articulosFiltrados = this.todosArticulos.slice(12);
     });
-
+  
+    // Definir las categorías
     this.prendasSel = [
       { ropa: 'Complementos' },
       { ropa: 'Ropa' },
       { ropa: 'Zapatos' },
     ];
   }
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+  
+
   chipSeleccionadoFunc(chip: string) {
     if (this.chipsSeleccionados.includes(chip)) {
       // Si el chip ya está seleccionado, lo quitamos
