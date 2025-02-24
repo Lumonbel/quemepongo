@@ -62,7 +62,7 @@ export class VerprendaComponent {
     'Bolso',
     'Bufanda',
     'Cinturon',
-    'Corbatas',
+    'Corbata',
     'Gorra',
     'Guantes',
   ];
@@ -140,7 +140,7 @@ export class VerprendaComponent {
 
     const ropaTipoMap: { [key: string]: string[] } = {
       Complementos: [
-        'AccesorioAlmacenamiento',
+        'Bolso',
         'Bufanda',
         'Cinturones',
         'Corbatas',
@@ -154,9 +154,9 @@ export class VerprendaComponent {
         'Pantalon',
         'Falda',
         'Vestido',
-        'Chaquetas',
-        'Sudaderas',
-        'Vestidos',
+        'Chaqueta',
+        'Sudadera',
+        'Vestido',
       ],
       Zapatos: ['Zapatos'],
     };
