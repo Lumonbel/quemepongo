@@ -219,4 +219,6 @@ button
 
 .container-2{
   scroll-behavior: smooth;
+  height:fit-content;
 }
+
