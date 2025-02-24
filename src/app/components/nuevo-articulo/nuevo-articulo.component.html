@@ -120,7 +120,7 @@
                     <div class="pregsInputs vertical divContenido ">
                         <h3>¿Cómo es tu artículo?</h3>
                         <div class="horizontal botonesEleccion">
-                            <div class="atributos" *ngIf="eleccionRopa || eleccionZapatos">
+                            <div class="form-group" *ngIf="eleccionRopa || eleccionZapatos">
                                 <label for="talla" class="txtSubtituloInputs">Talla:</label>
                                 <input type="text" name="talla" id="talla" class="form-control input" formControlName="talla" >
                             </div>
@@ -159,7 +159,13 @@
                                     El estado es obligatorio.
                                 </div>
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
+                            <div class="form-group">
+                                <label for="estado" class="txtSubtituloInputs">Estampado</label>
+                                <input type="text" id="estado" formControlName="estampado" class="form-control input">
+                                
+                            </div>
+                            
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'camisa'
                                     || eleccionTipo.toLowerCase() === 'pantalon'
                                     || eleccionTipo.toLowerCase() === 'falda'
                                     || eleccionTipo.toLowerCase() === 'vestido'
@@ -168,18 +174,18 @@
                                 <input type="text" name="largo" id="largo" class="form-control input" formControlName="largo">
                                 
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'chaqueta'">
                                 <label for="grosor" class="txtSubtituloInputs">Grosor:</label>
                                 <input type="text" name="grosor" id="grosor" class="form-control input" formControlName="grosor">
                                 
                             </div>
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="tipoAlmacenamiento" class="txtSubtituloInputs">Tipo de almacenamiento:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                                 
                             </div>
 
-                            <div class="atributos" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
+                            <div class="form-group" *ngIf="eleccionTipo.toLowerCase() === 'bolso'">
                                 <label for="capacidad" class="txtSubtituloInputs">Capacidad:</label>
                                 <input type="text" name="capacidad" id="capacidad" class="form-control input" formControlName="capacidad">
                                 
