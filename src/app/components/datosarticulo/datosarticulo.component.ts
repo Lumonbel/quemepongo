@@ -25,6 +25,7 @@ export class DatosarticuloComponent implements OnInit {
   articulo: ArticuloDTO | null = null;
   esUsuario: boolean = false;
   usuario: UsuarioDTO | null = null;
+  nombreUsuario: string | null = null;
   private subscription: Subscription = new Subscription();
 
   constructor(
@@ -35,7 +36,8 @@ export class DatosarticuloComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usuario = this.sesionService.obtenerUsuario();
+    this.nombreUsuario = localStorage.getItem('nombreUsuario');
+
     console.log('Usuario logueado:', this.usuario); // Depuración
 
     this.subscription = this.articulosService.art$.subscribe(
