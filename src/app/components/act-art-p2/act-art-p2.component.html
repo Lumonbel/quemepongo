@@ -9,7 +9,7 @@
             <div class=" col-3 col-md-3"> <!--  Columna de la imagen-->
               <img *ngIf= "previewImage" [src]="previewImage" alt="Imagen del artículo" class="img-fluid rounded shadow">
               <input type="file" id="foto" class="form-control mt-2" (change)="previsualizarImagen($event)">
-    
+
             </div>
             <div class="contenedorInformacionDinamico"> <!-- Seccion de datos, mayoritariamente dinamicos-->
               <div class="atributos">
@@ -78,7 +78,7 @@
               <div class="atributos" *ngIf="subcategoriaSeleccionada.toLowerCase() === 'camisa'
                                     || subcategoriaSeleccionada.toLowerCase() === 'pantalon'
                                     || subcategoriaSeleccionada.toLowerCase() === 'falda'
-                                    || subcategoriaSeleccionada.toLowerCase() === 'vestido' 
+                                    || subcategoriaSeleccionada.toLowerCase() === 'vestido'
                                     || subcategoriaSeleccionada.toLowerCase() === 'cinturon'">
                 <h4 class="txtSubtituloInputs">Largo:</h4>
                 <input type="text" name="largo" id="largo" class="form-control input" [(ngModel)]="articulo.largo">

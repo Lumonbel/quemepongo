@@ -1,4 +1,3 @@
-import { IndexComponent } from './../index/index.component';
 import { ArticulosService } from './../../services/articulos.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Chip } from 'primeng/chip';
@@ -17,7 +16,14 @@ interface Prenda {
 
 @Component({
   selector: 'app-verprenda',
-  imports: [Chip, Select, FormsModule, CommonModule, GalleriaModule],
+  imports: [
+    Chip,
+    Select,
+    FormsModule,
+    CommonModule,
+    GalleriaModule,
+    BtAtrasComponent,
+  ],
   providers: [PhotoService],
   standalone: true,
   templateUrl: './verprenda.component.html',
@@ -30,6 +36,7 @@ export class VerprendaComponent {
   todosArticulos: ArticuloDTO[] = [];
   images: ArticuloDTO[] = [];
   @ViewChild('endOfList') endOfList!: ElementRef;
+  articulosFiltrados: ArticuloDTO[] = [];
 
   displayCustom: boolean = false;
   activeIndex: number = 0;
@@ -53,10 +60,10 @@ export class VerprendaComponent {
   chipsZapatos: string[] = [];
   chipsComplementos: string[] = [
     'Bolso',
-    'Bufandas',
+    'Bufanda',
     'Cinturon',
     'Corbatas',
-    'Gorras',
+    'Gorra',
     'Guantes',
   ];
 
@@ -89,30 +96,39 @@ export class VerprendaComponent {
       { ropa: 'Zapatos' },
     ];
   }
-
   chipSeleccionadoFunc(chip: string) {
-    const index = this.chipsSeleccionados.indexOf(chip);
-    if (index > -1) {
-      this.chipsSeleccionados.splice(index, 1);
+    if (this.chipsSeleccionados.includes(chip)) {
+      // Si el chip ya está seleccionado, lo quitamos
+      this.chipsSeleccionados = this.chipsSeleccionados.filter(
+        (c) => c !== chip
+      );
     } else {
+      // Si el chip no está seleccionado, lo agregamos
       this.chipsSeleccionados.push(chip);
     }
 
-    // Filtrar artículos por tipo seleccionado
-    this.articuloservice.findByTipo(chip).subscribe((response) => {
-      // Procesar los artículos para convertir las imágenes a base64
-      const articulosProcesados = response.map((articulo: { imagen: string; }) => ({
-        ...articulo,
-        imagen: articulo.imagen
-          ? this.photoService.convertImageToBase64(articulo.imagen)
-          : '',
-      }));
-      // Actualizar las imágenes con los artículos filtrados
-      this.images = articulosProcesados;
-      console.log(response);
-    });
-  }
+    // Reiniciar la carga de artículos
+    this.images = [];
+    this.articulosFiltrados = [];
 
+    // Si no hay chips seleccionados, mostramos todos los artículos
+    if (this.chipsSeleccionados.length === 0) {
+      this.images = this.todosArticulos.slice(0, 10); // Mostrar solo los primeros 10
+      this.articulosFiltrados = this.todosArticulos.slice(10); // El resto para cargar después
+      return;
+    }
+
+    // Filtrar artículos por los tipos seleccionados
+    const articulosFiltrados = this.todosArticulos.filter((articulo) =>
+      this.chipsSeleccionados.includes(articulo.tipo)
+    );
+
+    // Mostrar los primeros 10 artículos filtrados
+    this.images = articulosFiltrados.slice(0, 10);
+
+    // Guardar el resto de artículos filtrados para cargar después
+    this.articulosFiltrados = articulosFiltrados.slice(10);
+  }
   funcSeleccionado(chip: string): boolean {
     return this.chipsSeleccionados.includes(chip);
   }
@@ -145,27 +161,39 @@ export class VerprendaComponent {
       Zapatos: ['Zapatos'],
     };
 
+    // Reiniciar la carga de artículos
+    this.images = [];
+    this.articulosFiltrados = [];
+
     if (selectedOption?.ropa && ropaTipoMap[selectedOption.ropa]) {
       // Obtener los tipos de prendas para la categoría seleccionada
       const tipos = ropaTipoMap[selectedOption.ropa];
 
-      // Limpiar la lista de imágenes actual
-      this.images = [];
-
       // Llamar al servicio para cada tipo de prenda
       tipos.forEach((tipo) => {
-        this.articuloservice.findByTipo(tipo).subscribe((articulos: ArticuloDTO[]) => {
-          // Procesar imágenes antes de agregarlas
-          const articulosProcesados = articulos.map((articulo) => ({
-            ...articulo,
-            imagen: articulo.imagen
-              ? this.photoService.convertImageToBase64(articulo.imagen)
-              : '',
-          }));
+        this.articuloservice
+          .findByTipo(tipo)
+          .subscribe((articulos: ArticuloDTO[]) => {
+            // Procesar imágenes antes de agregarlas
+            const articulosProcesados = articulos.map((articulo) => ({
+              ...articulo,
+              imagen: articulo.imagen
+                ? this.photoService.convertImageToBase64(articulo.imagen)
+                : '',
+            }));
 
-          // Agregar los artículos procesados a la lista de imágenes
-          this.images = [...this.images, ...articulosProcesados];
-        });
+            // Agregar los artículos procesados a la lista de artículos filtrados
+            this.articulosFiltrados = [
+              ...this.articulosFiltrados,
+              ...articulosProcesados,
+            ];
+
+            // Mostrar los primeros 10 artículos filtrados
+            this.images = this.articulosFiltrados.slice(0, 10);
+
+            // Guardar el resto de artículos filtrados para cargar después
+            this.articulosFiltrados = this.articulosFiltrados.slice(10);
+          });
       });
 
       this.mostrarDiv = selectedOption.ropa;
@@ -173,7 +201,6 @@ export class VerprendaComponent {
       this.mostrarDiv = '';
     }
   }
-
   imageClick(index: number) {
     this.activeIndex = index;
     this.displayCustom = true;
@@ -211,11 +238,21 @@ export class VerprendaComponent {
   }
 
   cargaMasArticulos() {
-    const currentLength = this.images.length;
-    const nextArticles = this.todosArticulos.slice(
-      currentLength,
-      currentLength + 10
-    );
-    this.images = [...this.images, ...nextArticles];
+    // Verificar si hay más artículos filtrados para cargar
+    if (this.articulosFiltrados.length > 0) {
+      // Tomar los siguientes 10 artículos filtrados
+      const nextArticles = this.articulosFiltrados.slice(0, 10);
+
+      // Agregarlos a la lista de imágenes mostradas
+      this.images = [...this.images, ...nextArticles];
+
+      // Actualizar la lista de artículos filtrados restantes
+      this.articulosFiltrados = this.articulosFiltrados.slice(10);
+    }
+  }
+
+  editarArticulo(id?: number) {
+    this.articuloservice.setId(id!);
+    this.router.navigate(['/actualizarArticulo']);
   }
 }

@@ -43,6 +43,7 @@
   border: none;
   max-width: 270px;
   gap: 11em;
+  height: 100vh;
 }
 
 .bg-emphasis:hover {

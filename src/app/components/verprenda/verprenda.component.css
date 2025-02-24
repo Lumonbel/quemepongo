@@ -3,13 +3,16 @@
   padding: 1%;
   display: flex;
   align-items: center;
+  margin-left: 4%;
 }
 
 p-select {
   width: 216px;
-  height: 40px;
   border: var(--logo) 3px solid;
   border-radius: 5px;
+  text-align: left;
+  font-size: 16px;
+  font-family: 'vazir';
 }
 
 p-label {
@@ -52,6 +55,8 @@ p-chip.selected {
 .contenedor-complementos {
   display: flex;
   gap: 1em;
+  margin-right: 1em;
+
 }
 
 #escondido1 {
@@ -190,4 +195,28 @@ img:hover {
 
 .edit-btn:hover {
   background-color: #a55ddc;
+}
+
+h2{
+  margin-left: 2em;
+  font-size: 32px;
+  font-family:'vazir-b';
+}
+
+button
+{
+  background-color: var(--logo);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-left: 2em;
+}
+
+.container-2{
+  scroll-behavior: smooth;
 }

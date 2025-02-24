@@ -1,7 +1,7 @@
 <app-bt-atras></app-bt-atras>
 <h1>Registro</h1>
-<div class="card flex justify-center p-5 w-80">
-  <p-stepper [value]="1" class="basis-[50rem]">
+<div class="card flex justify-center p-5 w-100 ">
+  <p-stepper [value]="pasoActual" class="basis-[50rem]">
     <p-step-list>
       <p-step [value]="1">Datos App</p-step>
       <p-step [value]="2">Datos Personales</p-step>
@@ -12,40 +12,142 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
               <div class="container d-flex g-5">
-                <form class="container-fluid d-flex flex-column g-5 pasosForm" [formGroup]="formPaso1">
+                <form
+                  class="container-fluid d-flex flex-column g-5 pasosForm"
+                  [formGroup]="formPaso1"
+                >
                   <div class="row p-3">
                     <!-- Nombre usuario -->
                     <div class="col-md-6">
-                      <label for="username" class="form-label">Nombre usuario</label>
-                      <input type="text" class="form-control" id="username" placeholder="Nombre usuario" formControlName="nombreUsuario" />
+                      <label for="username" class="form-label"
+                        >Nombre usuario</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        placeholder="Nombre usuario"
+                        formControlName="nombreUsuario"
+                      />
+                      <div
+                        *ngIf="
+                          mostrarError(formPaso1, 'nombreUsuario', 'required')
+                        "
+                        class="text-danger"
+                      >
+                        El nombre de usuario es obligatorio.
+                      </div>
+                      <div
+                        *ngIf="
+                          mostrarError(formPaso1, 'nombreUsuario', 'pattern')
+                        "
+                        class="text-danger"
+                      >
+                        El nombre de usuario debe tener entre 2 y 20 caracteres y solo
+                        puede contener letras, números y espacios.
+                      </div>
                     </div>
 
                     <!-- Email -->
                     <div class="col-md-6">
                       <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" />
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Email"
+                        formControlName="email"
+                      />
+                      <div
+                        *ngIf="mostrarError(formPaso1, 'email', 'required')"
+                        class="text-danger"
+                      >
+                        El email es obligatorio.
+                      </div>
+                      <div
+                        *ngIf="mostrarError(formPaso1, 'email', 'email')"
+                        class="text-danger"
+                      >
+                        Ingresa un formato de email válido.
+                      </div>
                     </div>
                   </div>
                   <div class="row p-3">
                     <div class="col-md-6">
-                      <label for="password" class="form-label">Contraseña</label>
-                      <input type="password" class="form-control" id="password" placeholder="Contraseña" formControlName="contraseña" />
+                      <label for="password" class="form-label"
+                        >Contraseña</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Contraseña"
+                        formControlName="contraseña"
+                      />
+                      <div
+                        *ngIf="
+                          mostrarError(formPaso1, 'contraseña', 'required')
+                        "
+                        class="text-danger"
+                      >
+                        La contraseña es obligatoria.
+                      </div>
+                      <div
+                        *ngIf="mostrarError(formPaso1, 'contraseña', 'pattern')"
+                        class="text-danger"
+                      >
+                        La contraseña debe tener entre 5 y 10 caracteres,
+                        incluir al menos una letra y un número.
+                      </div>
                     </div>
 
                     <!-- Repetir contraseña -->
                     <div class="col-md-6">
-                      <label for="repeat-password" class="form-label">Repetir contraseña</label>
-                      <input type="password" class="form-control" id="repeat-password"
-                        placeholder="Repetir contraseña"  formControlName="repiteContraseña"/>
+                      <label for="repeat-password" class="form-label"
+                        >Repetir contraseña</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="repeat-password"
+                        placeholder="Repetir contraseña"
+                        formControlName="repiteContraseña"
+                      />
+                      <div
+                        *ngIf="
+                          mostrarError(
+                            formPaso1,
+                            'repiteContraseña',
+                            'required'
+                          )
+                        "
+                        class="text-danger"
+                      >
+                        Repite la contraseña.
+                      </div>
+                           <div
+                        *ngIf="mostrarError(formPaso1, 'repiteContraseña', 'pattern')"
+                        class="text-danger"
+                      >
+                        La contraseña debe tener entre 5 y 10 caracteres,
+                        incluir al menos una letra y un número.
+                      </div>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
             <div class="flex pt-6 justify-end">
-              <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+              <p-button
+                label="Siguiente"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+  (click)="avanzarPaso(formPaso1, 2)"
+               [disabled]="!formPaso1.valid"
+ />
             </div>
           </div>
         </ng-template>
@@ -55,32 +157,109 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
               <div class="container d-flex g-5">
-                <form class="container-fluid d-flex flex-column g-5 pasosForm" [formGroup]="formPaso2">
+                <form
+                  class="container-fluid d-flex flex-column g-5 pasosForm"
+                  [formGroup]="formPaso2"
+                >
                   <div class="row p-3">
                     <!-- Nombre usuario -->
                     <div class="col-md-6">
                       <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" placeholder="Nombre usuario" formControlName="nombre" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        placeholder="Nombre "
+                        formControlName="nombre"
+                      />
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'nombre', 'required')"
+                        class="text-danger"
+                      >
+                        El nombre es obligatorio.
+                      </div>
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'nombre', 'pattern')"
+                        class="text-danger"
+                      >
+                        El nombre debe tener entre 2 y 20 caracteres y solo
+                        puede contener letras, números y espacios.
+                      </div>
                     </div>
 
-                    <!-- Email -->
                     <div class="col-md-6">
-                      <label for="apellidos" class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" formControlName="apellidos" />
+                      <label for="apellidos" class="form-label"
+                        >Apellidos</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apellidos"
+                        placeholder="Apellidos"
+                        formControlName="apellidos"
+                      />
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'apellidos', 'required')"
+                        class="text-danger"
+                      >
+                        Los apellidos son obligatorios.
+                      </div>
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'apellidos', 'pattern')"
+                        class="text-danger"
+                      >
+                        Los apellidos deben tener entre 2 y 30 caracteres y solo
+                        pueden contener letras, números y espacios.
+                      </div>
                     </div>
                   </div>
                   <div class="row p-3">
                     <div class="col-md-6">
-                      <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
-                      <input type="date" class="form-control" id="fechaNacimiento" placeholder="Fecha Nacimiento" formControlName="fechaNacimiento"/>
+                      <label for="fechaNacimiento" class="form-label"
+                        >Fecha Nacimiento</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="fechaNacimiento"
+                        placeholder="Fecha Nacimiento"
+                        formControlName="fechaNacimiento"
+                      />
+                      <div
+                        *ngIf="
+                          mostrarError(formPaso2, 'fechaNacimiento', 'required')
+                        "
+                        class="text-danger"
+                      >
+                        La fecha de nacimiento es obligatoria.
+                      </div>
+
                     </div>
 
-                    <!-- Repetir contraseña -->
                     <div class="col-md-6">
                       <label for="telefono" class="form-label">Teléfono</label>
-                      <input type="text" class="form-control" id="telefono" placeholder="telefono" formControlName="telefono"/>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="telefono"
+                        placeholder="telefono"
+                        formControlName="telefono"
+                      />
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'telefono', 'required')"
+                        class="text-danger"
+                      >
+                        El teléfono es obligatorio.
+                      </div>
+                      <div
+                        *ngIf="mostrarError(formPaso2, 'telefono', 'pattern')"
+                        class="text-danger"
+                      >
+                        El teléfono debe tener 9 dígitos.
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -88,7 +267,14 @@
             </div>
           </div>
           <div class="flex pt-6 justify-between">
-            <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
+            <p-button
+              label="Siguiente"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+  (click)="avanzarPaso(formPaso2, 3)"
+    [disabled]="!formPaso2.valid"
+
+            />
           </div>
         </ng-template>
       </p-step-panel>
@@ -97,103 +283,165 @@
         <ng-template #content let-activateCallback="activateCallback">
           <div class="flex flex-col h-48">
             <div
-              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+            >
               <section id="pricing" class="pricing section">
-                <form [formGroup]="formPaso3" >
-                <div class="container" data-aos="fade-up" data-aos-delay="100">
-                  <div class="row justify-content-center">
-                    <!-- Basic Plan -->
-                    <div class="col-lg-4 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-                      <div class="pricing-card d-flex flex-column align-items-center justify-content-between">
-                        <h3>Plan Free</h3>
-                        <div class="price">
-                          <span class="currency">€</span>
-                          <span class="amount">0</span>
-                          <span class="period">/ mes</span>
+                <form [formGroup]="formPaso3">
+                  <div
+                    class="container"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                  >
+                    <div class="row justify-content-center">
+                      <!-- Basic Plan -->
+                      <div
+                        class="col-lg-4 d-flex justify-content-center "
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                      >
+                        <div
+                          class="pricing-card d-flex flex-column align-items-center justify-content-between"
+                          [ngClass]="{'seleccionadoClaro': planSeleccionado === 'free'}"
+                        >
+                          <h3>Plan Free</h3>
+                          <div class="price">
+                            <span class="currency">€</span>
+                            <span class="amount">0</span>
+                            <span class="period">/ mes</span>
+                          </div>
+                          <p class="description">
+                            Conoce nuestra aplicación con este plan.
+                          </p>
+
+                          <h4>Incluye:</h4>
+                          <ul class="features-list">
+                            <li>
+                              <i class="bi bi-check-circle-fill"></i>
+                              Gestión hasta 30 prendas
+                            </li>
+                            <li>
+                              <i class="bi bi-check-circle-fill"></i>
+                              Compraventa de prendas
+                            </li>
+                          </ul>
+
+                          <a
+                            (click)="seleccionarPlan('free')"
+                            class="btnplan btn btn-light"
+                          >
+                            Quiero este plan
+                          </a>
                         </div>
-                        <p class="description">
-                          Conoce nuestra aplicación con este plan.
-                        </p>
-
-                        <h4>Incluye:</h4>
-                        <ul class="features-list">
-                          <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Gestión hasta 30 prendas
-                          </li>
-                          <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Compraventa de prendas
-                          </li>
-                        </ul>
-
-                        <a (click)="seleccionarPlan('free')"  class="btnplan btn btn-light">
-                          Quiero este plan
-                        </a>
                       </div>
-                    </div>
 
-                    <!-- Standard Plan -->
-                    <div class="col-lg-4 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                      <div class="pricing-card popular d-flex flex-column align-items-center justify-content-between">
-                        <h3>Plan Premiun Mensual</h3>
-                        <div class="price">
-                          <span class="currency">€</span>
-                          <span class="amount">5</span>
-                          <span class="period">/ mes</span>
+                      <div
+                        class="col-lg-4 d-flex justify-content-center"
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                      >
+                        <div
+                          class="pricing-card popular d-flex flex-column align-items-center justify-content-between "
+                                                    [ngClass]="{'seleccionadoOscuro': planSeleccionado === 'premium'}"
+
+                        >
+                          <h3>Plan Premiun Mensual</h3>
+                          <div class="price">
+                            <span class="currency">€</span>
+                            <span class="amount">5</span>
+                            <span class="period">/ mes</span>
+                          </div>
+                          <p class="description">
+                            Saca ventaja a nuestra aplicación cada mes con este
+                            plan.
+                          </p>
+
+                          <h4>Incluye:</h4>
+                          <ul class="features-list">
+                            <li>
+                              <i class="bi bi-check-circle-fill"></i>
+                              Gestión ilimitada
+                            </li>
+                            <li>
+                              <i class="bi bi-check-circle-fill"></i>
+                              Compraventa de prendras
+                            </li>
+                            <li>
+                              <i class="bi bi-check-circle-fill"></i>
+                              Prioridad de compra
+                            </li>
+                          </ul>
+
+                          <a
+                            (click)="seleccionarPlan('premium')"
+                            class="btnplanP btn btn-light"
+                          >
+                            Quiero este plan
+                          </a>
                         </div>
-                        <p class="description">
-                          Saca ventaja a nuestra aplicación cada mes con este
-                          plan.
-                        </p>
-
-                        <h4>Incluye:</h4>
-                        <ul class="features-list">
-                          <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Gestión ilimitada
-                          </li>
-                          <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Compraventa de prendras
-                          </li>
-                          <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Prioridad de compra
-                          </li>
-                        </ul>
-
-                        <a (click)="seleccionarPlan('premium')"  class="btnplanP btn btn-light">
-                          Quiero este plan
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="form-check ">
-                      <div class="group-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="terminos" />
-                        <label class="form-check-label text-black fw-medium" for="flexCheckDefault">
-                          He leido y acepto la política de privacidad de la
-                          empresa
-                        </label>
-                      </div>
-                      <div class="group-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="comunicaciones"  />
-                        <label class="form-check-label text-black fw-medium" for="flexCheckDefault">
-                          He leido y acepto la política de privacidad de la
-                          empresa
-                        </label>
                       </div>
 
+                      <div class="form-check">
+                        <div class="group-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckDefault"
+                            formControlName="terminos"
+                          />
+                          <label
+                            class="form-check-label text-black fw-medium"
+                            for="flexCheckDefault"
+                          >
+                            He leído y acepto la política de privacidad de la
+                            empresa
+                          </label>
+                          <div
+                            *ngIf="
+                              mostrarError(
+                                formPaso3,
+                                'terminos',
+                                'requiredTrue'
+                              )
+                            "
+                            class="text-danger"
+                          >
+                            Debes aceptar las políticas y condiciones de uso para continuar.
+                          </div>
+                        </div>
+                        <div class="group-check com">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckDefault"
+                            formControlName="comunicaciones"
+                          />
+                          <label
+                            class="form-check-label text-black fw-medium"
+                            for="flexCheckDefault"
+                          >
+                            Quiero recibir comunicaciones  a
+                            través del email
+                          </label>
+                        </div>
+
+                      </div>
                     </div>
                   </div>
-                </div>
-              </form>
+                </form>
               </section>
             </div>
           </div>
           <div class="flex pt-6 justify-center">
-            <p-button label="Finalizar" icon="pi pi-arrow-left" iconPos="right" (onClick)="verDatos()" />
+            <p-button
+              label="Finalizar"
+              icon="pi pi-arrow-left"
+              iconPos="right"
+              (click)="verDatos()"
+                [disabled]="!formPaso3.valid"
+
+            />
           </div>
         </ng-template>
       </p-step-panel>
